@@ -147,8 +147,8 @@ public class NewsController {
     }
 
     @RequestMapping("showNewsDetail")
-    public String showNewsDetail(){
-        return "wx/news/news_detail";
+    public String showNewsDetail(@RequestParam("id") String id){
+        return "news_content";
     }
 
     /**查询新闻条数*/
@@ -190,11 +190,6 @@ public class NewsController {
     public JsonResult getNewsDetail(@RequestParam("id") Integer id) {
         News news = newsService.selectNewsById(id);
         return new JsonResult(1,"查询成功",news);
-    }
-
-    @RequestMapping(value = "doDetail")
-    public String doDetail(@RequestParam("id") Integer id) {
-        return "news_detail";
     }
 
 }

@@ -98,8 +98,8 @@ public class AdvertisementController {
 	}
 
 	@RequestMapping("adsDetail")
-	public String adsDetail(@RequestParam("adsid") Integer adsid){
-		return "wx/information/adsDetail";
+	public String adsDetail(@RequestParam("id") Integer adsid){
+		return "ads_content";
 	}
 
 }
