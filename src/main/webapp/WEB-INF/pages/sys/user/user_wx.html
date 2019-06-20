@@ -1,0 +1,192 @@
+<meta charset="utf-8">
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">客户列表</h3>
+
+                <div class="box-tools">
+                    <div class="input-group input-group-sm" style="width: 350px;">
+                        <input type="text" name="table_search" id="serchNameId"
+                               class="form-control pull-right" placeholder="客户名称查询">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default btn-search">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+<!--                        <th>选择</th>-->
+                        <th>客户名称</th>
+                        <th>积分</th>
+                        <th>推荐人</th>
+<!--                        <th>创建人</th>-->
+                        <th>创建时间</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    </tbody>
+                </table>
+            </div>
+            <div id="pageId" class="box-footer clearfix">
+                <ul class="pagination pagination-sm no-margin pull-left">
+                    <li><a class="first">首页</a></li>
+                    <li><a class="pre">上一个</a></li>
+                    <li><a class="next">下一个</a></li>
+                    <li><a class="last">尾页</a></li>
+                    <li><a class="rowCount">总记录数</a></li>
+                    <li><a class="pageCount">总页数</a></li>
+                    <li><a class="pageCurrent">当前页数</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(function() {
+        doFindObjects();
+        $(".input-group-btn").on("click", ".btn-delete", doDeleteObject);
+        $(".input-group-btn").on("click", ".btn-search", doQueryObject);
+        $(".clearfix").on("click", ".first,.pre,.next,.last", doJumpToPage);
+    });
+
+    function setPagination(pageObject) {
+        $(".rowCount").html("总记录数(" + pageObject.rowCount + ")");
+        $(".pageCount").html("总页数(" + pageObject.pageCount + ")");
+        $(".pageCurrent").html("总页数(" + pageObject.pageCurrent + ")");
+
+        $("#pageId").data("pageCurrent", pageObject.pageCurrent);
+        $("#pageId").data("pageCount", pageObject.pageCount);
+    }
+
+    /**分页页面跳转*/
+    function doJumpToPage() {
+        var pageCurrent = $("#pageId").data("pageCurrent");
+        var pageCount = $("#pageId").data("pageCount");
+        var cls = $(this).prop("class");
+
+        if (cls === "first") {
+            pageCurrent = 1;
+        }
+        if (cls === "pre" && pageCurrent > 1) {
+            pageCurrent--;
+        }
+        if (cls === "next" && pageCurrent < pageCount) {
+            pageCurrent++;
+        }
+        if (cls === "last") {
+            pageCurrent = pageCount;
+        }
+        $("#pageId").data("pageCurrent",pageCurrent);
+        doFindObjects();
+    }
+
+    /**根据用户名查找信息*/
+    function doQueryObject() {
+        $("#pageId").data("pageCurrent",1);
+        doFindObjects();
+    }
+    
+
+    
+
+    /**角色的删除操作*/
+    function doDeleteObject() {
+        var checkedIds = getCheckedIds();
+        if (checkedIds.length === 0) {
+            alert("请选择需要删除的内容，谢谢！");
+            return;
+        }
+        var url = "updateStatusByOpenid.do";
+        console.log("ids",checkedIds);
+        var params = {
+            "ids" : checkedIds,
+        };
+        console.log(params);
+        $.post(url, params, function(result) {
+            if(result.state === 1){
+                alert(result.message);
+                doFindObjects();
+            }else{
+                alert(result.message);
+            }
+        });
+    }
+    /**获取选中角色列表中的记录*/
+    function getCheckedIds() {
+        // console.log("getCheckedIds(),start!")
+        var checkedIds = [];
+        $("tbody input[name='checkedId']").each(function() {
+            if ($(this).prop("checked")) {
+                checkedIds.push($(this).val());
+            }
+        });
+
+        return checkedIds;
+    }
+    //
+    // function getCheckedRow() {
+    //     var rows = [];
+    //     $("tr>td input[type='checkbox']:checked").each(function () {
+    //         var td_tag = $(this).parent().siblings();
+    //         for (var i = 0; i < td_tag.length; i++) {
+    //             rows[i] = $(this).parent().siblings("td:eq(" + i + ")").text();
+    //         }
+    //     });
+    //     return rows;
+    // }
+
+    /**从服务器端获取对象*/
+    function doFindObjects() {
+        var pageCurrent = $("#pageId").data("pageCurrent");
+        if(!pageCurrent) pageCurrent = 1;
+        var params = {
+            "pageCurrent" :pageCurrent
+        };
+        params.nickName = $("#serchNameId").val();
+        var url = "showWxUser.do";
+        // params.name = $("#serchNameId").val();
+        console.log(params);
+        $.getJSON(url, params, function(result) {
+            if(result.state === 1){
+                //显示数据
+                doSetTableBody(result.data.records);
+                //设置分页
+                setPagination(result.data);
+            }else{
+                alert(result.message);
+            }
+        });
+    }
+
+    /**将数据添加到动态表格里*/
+    function doSetTableBody(data) {
+        var tbody = $("#tbody");
+        tbody.empty();
+        for ( var i in data) {
+            var tr = $("<tr></tr>");
+            // tr.append("<td><input type='checkbox' name='checkedId' value='"+data[i].openid+"'></td>");
+            tr.append("<td>" + data[i].nickName + "</td>");
+            tr.append("<td>" + data[i].integral + "</td>");
+            console.log(data[i].referrer);
+            if(data[i].referrer === "null" || data[i].referrer === null || data[i].referrer === ""){
+                tr.append("<td>暂无</td>");
+            }else {
+                tr.append("<td>" + data[i].referrer + "</td>");
+
+            }
+            // tr.append("<td>" + data[i].createdUser + "</td>");
+            tr.append("<td>" + data[i].createdTime + "</td>");
+            tbody.append(tr);
+        }
+    }
+</script>

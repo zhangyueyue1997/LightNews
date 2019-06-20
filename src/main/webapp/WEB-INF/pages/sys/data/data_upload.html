@@ -1,0 +1,136 @@
+      <meta charset="UTF-8">
+      <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">添加文件</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form class="form-horizontal" id="ff">
+              <div class="box-body">
+
+                <div class="form-group">
+                  <label for="uploadedFiles" class="col-sm-2 control-label">上传文件</label>
+                  <div class="col-sm-10">
+                      <input  type="file" class="form-control"  id="uploadedFiles" />
+
+                      <p class="help-block">仅支持pdf格式文件上传</p>
+
+                      <div class="progress">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                          </div>
+
+                      </div>
+
+                  </div>
+                    <label for="address" class="col-sm-2 control-label">百度云地址</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="address" placeholder="百度云地址" class="form-control"/>
+                    </div>
+
+                </div>
+
+
+              </div>
+
+              <!-- /.box-body -->
+              <div class="box-footer">
+               <button type="button" class="btn btn-info">保存</button>
+               <button type="button" class="btn btn-default">取消</button>
+              </div>
+
+              <!-- /.box-footer -->
+
+            </form>
+          </div>
+
+<script  type="text/javascript">
+       $(function(){
+    	      $(".box-footer").on("click",".btn-info",doSaveObject);
+    	      $(".box-footer").on("click",".btn-default",doCancel);
+    	      var id = $("#Mycontent").data("id");   	     
+    	      if(id){
+    	    	  id = id.join(",");
+        	      console.log(id);
+    	    	  doFindObjectById(id);
+    	      }
+       });   
+       function doFindObjectById(id){ 
+
+           var url="data/findObjectById.do";
+    	   var params = {"id":id};
+    	   //console.log("params: " + params);
+    	   $.getJSON(url,params,function(result){
+    		   if(result.state === 1){
+    			   doInitEditForm(result.data);
+    		   }   		   
+    	   });      
+       }
+           
+      function doSaveObject(){
+
+          var reg=/(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
+
+           if ($("#uploadedFiles").get(0).files[0] != null) {
+               // console.log($("#address").val());
+               if ($("#address").val() != null || $("#address").val() != ''  ) {
+                   if(reg.test($("#address").val())) {
+
+                       var url = "data/doSave.do";
+                       var formData = new FormData();
+                       let file = $('#uploadedFiles')[0].files[0];
+                       console.log("file", file);
+                       formData.append("uploadedFiles", file);
+                       formData.append("baiduyun", $("#address").val());
+                       $.ajax({
+                           url: url,
+                           type: 'POST',
+                           data: formData,
+                           processData: false,
+                           contentType: false,
+                           cache: false,
+                           xhr: function () {
+                               let myXhr = $.ajaxSettings.xhr();
+                               if (myXhr.upload) { // check if upload property exists
+                                   myXhr.upload.addEventListener('progress', function (e) {
+                                       var loaded = e.loaded;//已经上传大小情况
+                                       var tot = e.total;//附件总大小
+                                       var per = Math.floor(100 * loaded / tot);  //已经上传的百分比
+                                       $(".progress-bar").html(per + "%");
+                                       $(".progress-bar").css("width", per + "%");
+                                       console.log('附件总大小 = ' + loaded);
+                                       console.log('已经上传大小 = ' + tot);
+                                   }, false); // for handling the progress of the upload
+                               }
+                               return myXhr;
+                           }
+                       }).done(function (res) { //回调函数
+                           alert(res.message);
+                           if (res.state === 1) {
+                               dolistUI();
+                           }
+                       }).fail(function (res) {
+                           alert(res.message);
+                       });
+                   }else {
+                       alert("请填写正确的百度云地址!")
+                   }
+               } else {
+                   alert("请填写百度云地址")
+
+               }
+           }else {
+               alert("上传文件不能为空")
+
+           }
+     }      
+
+     function dolistUI(){
+    	  $("#Mycontent").load("data/listUI.do");
+      }
+
+      function doCancel(){
+    	  $("#Mycontent").load("data/listUI.do");
+    	  $("#Mycontent").removeData("id");
+    	  
+      }
+</script>

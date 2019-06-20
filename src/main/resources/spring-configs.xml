@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="true"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/jdbc
+    http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+    http://www.springframework.org/schema/cache
+    http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+	       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task-3.0.xsd
+">
+
+	<!-- 配置bean扫描 -->
+	<context:component-scan base-package="com.pb" />
+	<!-- 启用mvc注解功能 -->
+	<mvc:annotation-driven />
+	<!-- 配置视图解析器(解析modelAndView对象中封装的view信息) -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="suffix" value=".html" />
+	</bean>
+	<!-- 配置DRUID连接池 -->
+	<util:properties id="cfg" location="classpath:config.properties" />
+	<bean id="mydataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="#{cfg.driver}" />
+		<property name="url" value="#{cfg.url}" />
+		<property name="username" value="#{cfg.username}" />
+		<property name="password" value="#{cfg.password}" />
+	</bean>
+	<!-- 配置mybatis依赖 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="mydataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.pb.dao" />
+	</bean>
+	<!-- 配置MultiPartResolver解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8"/>
+		<property name="maxInMemorySize" value="10240000"/>
+	</bean>
+
+	<!-- 微信基础配置 -->
+	<bean name="wxConfig" class="me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage">
+		<property name="appId" value="${WX_APPID}" />
+		<property name="secret" value="${WX_APPSECRET}" />
+	</bean>
+	<!-- 微信核心service注入 -->
+	<bean id="wxMpService" class="me.chanjar.weixin.mp.api.impl.WxMpServiceImpl">
+		<property name="wxMpConfigStorage" ref="wxConfig" />
+	</bean>
+
+	<!-- 微信支付配置 -->
+	<bean name="wxPayConfig" class="com.github.binarywang.wxpay.config.WxPayConfig">
+		<property name="appId" value="${WX_APPID}" />
+		<property name="mchId" value="${WX_mchId}" />
+		<property name="mchKey" value="${WX_mchKey}" />
+		<property name="subAppId" value="${WX_subAppId}" />
+		<property name="subMchId" value="${WX_subMchId}" />
+		<property name="keyPath" value="${WX_keyPath}" />
+	</bean>
+	<!-- 微信支付service注入 -->
+	<bean id="wxPayService" class="com.github.binarywang.wxpay.service.impl.WxPayServiceImpl">
+		<property name="config" ref="wxPayConfig" />
+	</bean>
+
+</beans>
+
+

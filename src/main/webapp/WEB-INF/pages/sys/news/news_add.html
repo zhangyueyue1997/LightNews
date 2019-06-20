@@ -1,0 +1,297 @@
+<meta charset="UTF-8">
+<style type="text/css">
+    .toolbar {
+        border: 1px solid #ccc;
+    }
+    .text {
+        border: 1px solid #ccc;
+        height: 400px;
+    }
+    #thumbNailBox{
+        width: 100px;
+        height: 100px;
+        padding-left: 0px;
+        padding-bottom: 0px;
+        padding-right: 0px;
+        padding-top: 0;
+        border-left-width: 0px;
+        border-top-width: 0px;
+        border-right-width: 0px;
+        border-bottom-width: 0px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title"></h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form class="form-horizontal" id="ff">
+        <div class="box-body">
+
+            <div class="form-group">
+                <label for="newsTitle" class="col-sm-2 control-label">新闻标题</label>
+                <div class="col-sm-10">
+                    <input  type="text" class="form-control" name="title"  id="newsTitle" placeholder="新闻标题"/>
+
+<!--                    <p class="help-block">仅支持pdf格式文件上传</p>-->
+
+<!--                    <div class="progress">-->
+<!--                        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+
+                </div>
+                <label for="inputGroupSelect01" class="col-sm-2 control-label">新闻类型</label>
+                <div class="col-sm-10">
+                        <select class="custom-select form-control" id="inputGroupSelect01" name="type"  style="margin-top: 10px;">
+                            <option selected>请选择...</option>
+                            <option value="1">娱乐</option>
+                            <option value="2">体育</option>
+                            <option value="3">新闻</option>
+                        </select>
+                </div>
+                <label for="thumbnailInput" class="col-sm-2 control-label">缩略图</label>
+                <div class="col-sm-10">
+                    <input type="file" id="thumbnailInput" name="file" style="margin-top: 10px;" onchange="showThumbNail()" class="form-control">
+                </div>
+
+                <label for="thumbNailBox" class="col-sm-2 control-label">预览</label>
+                <div class="col-sm-10">
+                    <img id="thumbNailBox" class="form-control" style="width: 100px; height: 100px;"/>
+                </div>
+
+                <label for="toolbar" class="col-sm-2 control-label">新闻内容</label>
+                <div class="col-sm-10">
+                    <div id="toolbar" class="toolbar">
+                    </div>
+                    <div id="editor" class="text" style="min-height: 600px;"> <!--可使用 min-height 实现编辑区域自动增加高度-->
+                        <p></p>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="button" class="btn btn-info">保存</button>
+            <button type="button" class="btn btn-default">取消</button>
+        </div>
+
+        <!-- /.box-footer -->
+
+    </form>
+</div>
+<script type="text/javascript" src="/wxassert/js/wangEditor.min.js"></script>
+
+<script  type="text/javascript">
+    var times = 2;
+    function showErr() {
+        alert("图片过大");
+    }
+    function showServerErr() {
+        alert("文件扩展名非法,请确保文件格式为jpg,jpeg,png");
+    }
+    function showTimeout() {
+        alert("上传图片超时");
+    }
+    function getLink() {
+        var link = prompt("请输入图片的链接","http://");
+        return link != "" ? link : "#";
+    }
+    var E = window.wangEditor;
+    var editor = new E('#toolbar','#editor');
+    editor.customConfig.menus = [
+        'head',  // 标题
+        'bold',  // 粗体
+        'fontSize',  // 字号
+        'fontName',  // 字体
+        'italic',  // 斜体
+        'underline',  // 下划线
+        'strikeThrough',  // 删除线
+        'foreColor',  // 文字颜色
+        'backColor',  // 背景颜色
+        'link',  // 插入链接
+        'list',  // 列表
+        'justify',  // 对齐方式
+        'quote',  // 引用
+        'emoticon',  // 表情
+        'image',  // 插入图片
+        'table',  // 表格
+        'code',  // 插入代码
+        'undo',  // 撤销
+        'redo'  // 重复
+    ];
+    editor.customConfig.uploadImgServer = '/News/doUploadImg.do';  // 上传图片到服务器
+    editor.customConfig.debug = true; //开启DevTools Debug模式
+    editor.customConfig.uploadFileName = 'uploadedFiles'; //上传到服务器 参数名
+    editor.customConfig.showLinkImg = false; //不显示上传网络图片按钮
+    editor.customConfig.zIndex = 1; //设置z-index 放置图片和其他控件不在同一平面
+    editor.customConfig.uploadImgHooks = {
+        success: function (xhr, editor, result) {
+            console.log("times",times);
+            // 图片上传并返回结果，图片插入成功之后触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+            if (result.errno === 0) {
+                alert("插入成功");
+            }
+            console.log($("img").eq(times));
+            //wrap the img tag into a tag
+            $("img").eq(times).wrap("<a href=" + "\'" + getLink() + "\'" + "></a>");
+            //maybe has others images
+            times++;
+        },
+        fail: function (xhr, editor, result) {
+            // 图片上传并返回结果，但图片插入错误时触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+            if (result !== 0) {
+                showErr();
+            }
+
+        },
+        error: function (xhr, editor) {
+            // 图片上传出错时触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+            showServerErr();
+        },
+        timeout: function (xhr, editor) {
+            // 图片上传超时时触发
+            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+            showTimeout();
+        },
+
+    };
+
+    editor.create();
+    $(function(){
+        $(".box-footer").on("click",".btn-info",doSaveObject);
+        $(".box-footer").on("click",".btn-default",doCancel);
+        // var id = $("#Mycontent").data("id");
+        // if(id){
+        //     id = id.join(",");
+        //     console.log(id);
+        //     doFindObjectById(id);
+        // }
+    });
+    // function doFindObjectById(id){
+    //
+    //     var url="data/findObjectById.do";
+    //     var params = {"id":id};
+    //     //console.log("params: " + params);
+    //     $.getJSON(url,params,function(result){
+    //         if(result.state === 1){
+    //             doInitEditForm(result.data);
+    //         }
+    //     });
+    // }
+
+    function showThumbNail() {
+        let input_File = $("#thumbnailInput");
+        var file = input_File.get(0).files[0];
+        if (file == null) {
+            alert("图片错误,请重新上传图片");
+            input_File.val("");
+        }
+        var src = window.URL.createObjectURL(file);
+        console.log("src",src);
+        $("img#thumbNailBox").attr({
+            src: src,
+            width: 100 + '%',
+            height: 100 + '%',
+        });
+    }
+
+    function doSaveObject(){
+
+                    var url = "News/insertNews.do";
+                    var formData = new FormData();
+                    // let file = $('#uploadedFiles')[0].files[0];
+                    // console.log("file", file);
+                    // formData.append("uploadedFiles", file);
+                    formData.append("type",$("#inputGroupSelect01").val());
+                    formData.append("title", $("#newsTitle").val());
+                    formData.append("content",editor.txt.html());
+                    var file = $("#thumbnailInput").get(0).files;
+                    console.log(file.length);
+                    if(file.length == 0){
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            cache: false,
+                            success:function (result) {
+                                if (result.state == 1){
+                                    alert(result.message)
+                                    dolistUI();
+                                }else {
+                                    alert(result.message)
+                                }
+                            }
+                        });
+                    }else {
+                        file = file[0];
+                        formData.append("thumbNail",file);
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            cache: false,
+                            success:function (result) {
+                                if (result.state == 1){
+                                    alert(result.message)
+                                    dolistUI();
+                                }else {
+                                    alert(result.message)
+                                }
+                            }
+                        });
+                    }
+
+                    //     xhr: function () {
+                    //         let myXhr = $.ajaxSettings.xhr();
+                    //         if (myXhr.upload) { // check if upload property exists
+                    //             myXhr.upload.addEventListener('progress', function (e) {
+                    //                 var loaded = e.loaded;//已经上传大小情况
+                    //                 var tot = e.total;//附件总大小
+                    //                 var per = Math.floor(100 * loaded / tot);  //已经上传的百分比
+                    //                 $(".progress-bar").html(per + "%");
+                    //                 $(".progress-bar").css("width", per + "%");
+                    //                 console.log('附件总大小 = ' + loaded);
+                    //                 console.log('已经上传大小 = ' + tot);
+                    //             }, false); // for handling the progress of the upload
+                    //         }
+                    //         return myXhr;
+                    //     }
+                    // }).done(function (res) { //回调函数
+                    //     alert(res.message);
+                    //     if (res.state === 1) {
+                    //         dolistUI();
+                    //     }
+                    // }).fail(function (res) {
+                    //     alert(res.message);
+                    // });
+
+
+
+    }
+
+    function dolistUI(){
+        $("#Mycontent").load("News/showNews.do");
+    }
+
+    function doCancel(){
+        $("#Mycontent").load("News/showNews.do");
+        $("#Mycontent").removeData("id");
+
+    }
+</script>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pb.dao.UserDao">
+
+	<select id="findPageObjects" resultType="users">
+		select
+		id, username, password, role, createdTime, createdUser, modifiedTime, modifiedUser, status,role
+		from users
+		<where>
+			<if test="username != null and username != ''">
+				username like concat('%',#{username},'%')
+			</if>
+			and status = 1
+		</where>
+		order by createdTime desc
+		limit #{startIndex},#{pageSize}
+</select>
+
+	<select id="getRowCount" parameterType="users" resultType="int">
+		select count(*) from users where status = 1
+	</select>
+	
+	<delete id="deleteObjects" parameterType="string">
+		delete from users where id in
+		<foreach collection="ids" open="(" close=")" separator=","
+			item="item">
+			${item}
+		</foreach>
+	</delete>
+	<update id="updateByNameOrID">
+		update users set status = 0
+		where
+			<if test="id != null and id != ''">
+				id = #{id}
+			</if>
+			<if test="username != null and username != ''">
+				and username = #{username}
+			</if>
+	</update>
+	<insert id="saveObjects" parameterType="Users">
+	  	insert into users
+	  	(id,username, password, createdtime, createduser,role)
+	  	values (#{id},#{username},#{password},now(),#{createdUser},#{role})
+	</insert>
+	
+	<update id="updateObjects" parameterType="users">
+	  update users set
+	  <trim suffixOverrides=",">
+	    <if test="username != null and username != ''">username = #{username},</if>
+		<if test="password != null and password != ''">password = #{password},</if>
+		<if test="modifiedUser != null and modifiedUser != ''">modifiedUser = #{modifiedUser},</if>
+		modifiedTime = now()
+	  	where
+	    <if test="id != null and id != ''">id = #{id}</if>
+	  </trim>
+	</update>
+	
+	<select id="findObjectById" parameterType="integer" resultType="users">
+	select
+		id, username, password, createdTime, createdUser, modifiedUser, modifiedTime, status,role
+		from users
+		<where>
+			<if test="id != null and id != ''">id = #{id}</if>
+		</where>
+	</select>
+
+	<select id="selectUserNameAndPassword" resultType="users" parameterType="users">
+		select username, password from users where username = #{username} and password = #{password} and status = 1
+	</select>
+
+	<update id="updatePasswordByUserName" parameterType="users">
+		update users set
+		password = #{password}
+		where username = #{username}
+	</update>
+
+
+
+</mapper>

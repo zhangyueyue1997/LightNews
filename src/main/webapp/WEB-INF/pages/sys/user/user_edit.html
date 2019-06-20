@@ -1,0 +1,98 @@
+      <meta charset="UTF-8">
+      <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title" id="title" ></h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form class="form-horizontal" method="post" enctype="multipart/form-data">
+              <div class="box-body">          
+                <div class="form-group">
+                  <label for="nameId" class="col-sm-2 control-label">用户名</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nameId"  placeholder="用户名">
+                  </div>
+                </div>               
+                <div class="form-group">
+                  <label for="passwordId" class="col-sm-2 control-label">密码</label>
+                  <div class="col-sm-10">
+                    <input type="password" class="form-control" id="passwordId" placeholder="密码">
+                  </div>
+                </div>           
+
+          
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+               <button type="button" class="btn btn-info">保存</button>
+               <button type="button" class="btn btn-default">取消</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+          </div>
+<script  type="text/javascript">
+       var data = null;
+       $(function(){
+
+    	      $(".box-footer").on("click",".btn-info",doSaveObject);
+    	      $(".box-footer").on("click",".btn-default",doCancel);
+    	       data = $("#Mycontent").data("data");
+    	      if(data){
+    	    	  doFindObject(data);
+
+    	      }
+       });   
+       function doFindObject(data){
+            doInitEditForm(data);
+       }
+       
+       function doInitEditForm(result){
+           $("#nameId").val(result.username);
+       }
+           
+      function doSaveObject(){
+
+           //获取表单内数值
+          var username = $("#nameId").val();
+          var password = $("#passwordId").val();
+
+          var userName = /^[A-Za-z]{1,10}$/;
+        if (userName.test(username) && password.length < 10) {
+            var url = null;
+            console.log($("#title").text())
+            if($("#title").html() === "修改角色"){
+                 url = "updatePasswordById.do";
+            } else {
+                 url = "doSaveObject.do";
+            }
+
+            var params = {
+               // id:data.id[0],
+                username: username,
+                password: password,
+            };
+
+            $.post(url, params, function (result) {
+                if (result.state === 1) {
+                    alert(result.message);
+                    dolistUI();
+                } else {
+                    alert("用户名已重复");
+                }
+            });
+        } else {
+            alert("用户名或密码输入不正确")
+        }
+
+
+
+      }
+      function dolistUI(){
+    	  $("#Mycontent").load("listUI.do");
+      }
+      function doCancel(){
+    	  $("#Mycontent").load("listUI.do");
+    	  $("#Mycontent").removeData("id");
+    	  
+      }
+</script>

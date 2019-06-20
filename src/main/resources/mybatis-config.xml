@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- 这是MyBatis的核心配置文件 -->
+<configuration>
+
+	<settings>
+		<!-- mybatis控制台输出 -->
+		<setting name="logImpl" value="LOG4J" />
+	</settings>
+	<typeAliases>
+	  <package name="com.pb.pojo"/>
+	  <package name="com.pb.common.vo"/>
+	</typeAliases>	
+	<mappers>
+	 	<mapper resource="mapper/UserMapper.xml"/>
+		<mapper resource="mapper/CompanyMapper.xml"/>
+		<mapper resource="mapper/DataMapper.xml"/>
+		<mapper resource="mapper/PublishMapper.xml"/>
+		<mapper resource="mapper/WxUserMapper.xml"/>
+		<mapper resource="mapper/AdsMapper.xml"/>
+		<mapper resource="mapper/DataListInformMapper.xml"/>
+		<mapper resource="mapper/LeagueMapper.xml"/>
+		<mapper resource="mapper/MessageMapper.xml"/>
+		<mapper resource="mapper/IntegralSettingMapper.xml"/>
+		<mapper resource="mapper/NewsMapper.xml"/>
+	</mappers>
+</configuration>
+

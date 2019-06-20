@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pb.dao.DataListInformDao">
+   
+   <select id="findDataListInfo" resultType="dataListInform" >
+     select id, content, type, createdUser,address,baiduyun
+     from data
+      where status = 1
+     limit  #{startIndex}, #{pageSize}
+
+   </select>
+   
+   <select id="findObjectById" resultType="dataListInform">
+     select id,content
+     from data where id = #{id}
+   </select>
+
+    <select id="findBaiDuYunByAddress" resultType="dataListInform">
+        select baiduyun from data where address = #{address}
+    </select>
+    
+    <insert id="insertPreview" parameterType="String">
+        insert into preview(openid,filename)
+        <trim suffixOverrides="," prefix="values (" suffix=")">
+            <if test="openid != null and openid != ''">#{openid},</if>
+            <if test="filename != null and filename">#{filename},</if>
+        </trim>
+    </insert>
+
+    <insert id="insertDownload" parameterType="String">
+        insert into download(openid,filename)
+        <trim suffixOverrides="," prefix="values (" suffix=")">
+            <if test="openid != null and openid != ''">#{openid},</if>
+            <if test="filename != null and filename">#{filename},</if>
+        </trim>
+    </insert>
+
+    <insert id="insertListData" parameterType="WxUser" >
+        insert into preview(id,openid)
+        <trim suffixOverrides="," prefix="values (" suffix=")">
+        <if test="id != null and id != ''">#{id},</if>
+            <if test="openid != null and openid != ''">#{openid},</if>
+
+        </trim>
+    </insert>
+
+    <select id="selectFilename" parameterType="String" resultType="int">
+        select count(*) from preview where filename = #{filename} and openid = #{openid}
+    </select>
+    
+    <select id="selectDownload" parameterType="String" resultType="int">
+                select count(*) from download where filename = #{filename} and openid = #{openid}
+    </select>
+
+    <select id="selectCount" resultType="int">
+        select count(*) from data where status = 1
+    </select>
+
+    <select id="selectListId" parameterType="WxUser" resultType="int">
+        select count(*) from preview where id = #{id} and openid = #{openid}
+    </select>
+
+    <select id="selectOneself" resultType="int" parameterType="WxUser">
+        select count(*) from preview where openid = #{openid}
+    </select>
+
+
+</mapper>

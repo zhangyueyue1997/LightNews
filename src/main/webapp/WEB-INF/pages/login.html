@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>天津商会云 | 登录</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="../../plugins/iCheck/square/blue.css">
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <!--<script src="../../dist/js/register.js"></script>-->
+
+</head>
+
+<body class="hold-transition register-page" style="background-image: url(../../dist/img/backgroud1.jpg);">
+<div class="register-box">
+    <div class="register-logo">
+        <a href="#" style="color: white;"><b>天津商会云</b></a>
+    </div>
+
+    <div class="register-box-body" style="border-radius: 10px;">
+        <p class="login-box-msg">登陆</p>
+
+        <div >
+
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="用户名" id="name_txb" name="username">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" placeholder="密码" id="pw_txb" name="password">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="checkbox icheck">
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <button  class="btn btn-block btn-danger" id="login_btn">登录</button>
+                </div>
+            </div>
+            </div>
+        <div class="hello"></div>
+        <div class="hello"></div>
+        <div class="hello"></div>
+        <div id="happy"></div>
+    </div>
+</div>
+
+    <!-- jQuery 3 -->
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="../../plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(function () {
+            $("#login_btn").on("click", selectPasswordAndPassword);
+        });
+
+        /**验证登录*/
+        function selectPasswordAndPassword(){
+            var params = {
+                "username" : $("#name_txb").val(),
+                "password" : $("#pw_txb").val()
+            };
+
+            $.post("verify.do", params, function(result) {
+                if(result.state === 1){
+                    alert("登录成功");
+                    window.location.href = "indexUI.do";
+
+                    sessionStorage.setItem("username",$("#name_txb").val());
+
+                }else{
+                    alert("用户名或密码错误");
+                    window.location.href = "login.do";
+                }
+            });
+
+
+        }
+    </script>
+
+    </body>
+
+</html>

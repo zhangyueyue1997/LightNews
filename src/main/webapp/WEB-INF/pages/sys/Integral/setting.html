@@ -1,0 +1,198 @@
+<meta charset="UTF-8">
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">数据字典</h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <div class="form-horizontal">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="default" class="col-sm-2 control-label">用户初始积分</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="default" placeholder="请输入需要设置的初始积分">
+
+                </div>
+                <button type="button" class="btn btn-primary" id="btn_default">设置</button>
+
+            </div>
+            <div class="form-group">
+                <label for="preview" class="col-sm-2 control-label">预览所需积分</label>
+                <div class="col-sm-4">
+                        <input type="text" class="form-control" id="preview" placeholder="请输入需要设置的预览积分">
+
+                </div>
+                <button type="button" class="btn btn-primary" id="btn_prev">设置</button>
+
+            </div>
+            <div class="form-group">
+                <label for="download" class="col-sm-2 control-label">下载所需积分</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="download" placeholder="请输入需要设置的下载积分">
+
+                </div>
+                <button type="button" class="btn btn-primary" id="btn_download">设置</button>
+
+            </div>
+            <div class="form-group">
+                <label for="publish" class="col-sm-2 control-label">发布所得积分</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="publish" placeholder="请输入需要设置的发布积分">
+
+                </div>
+                <button type="button" class="btn btn-primary" id="btn_publish">设置</button>
+
+            </div>
+            <div class="form-group">
+                <label for="refer" class="col-sm-2 control-label">推荐所得积分</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="refer" placeholder="请输入需要设置的推荐积分">
+
+                </div>
+                <button type="button" class="btn btn-primary" id="btn_refer">设置</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $.ajax({
+            url: "/integralSetting/selDefaultIntegral.do",
+            dataType: "json",
+            type: "get",
+            success: function (res) {
+                if (res.state === 1) {
+                    $("#default").val(res.data);
+                } else {
+                    alert("查询失败");
+                }
+            }
+        });
+        $.ajax({
+            url: "/integralSetting/selPublishIntegral.do",
+            dataType: "json",
+            type: "get",
+            success: function (res) {
+                if (res.state === 1) {
+                    $("#publish").val(res.data);
+                } else {
+                    alert("查询失败");
+                }
+            }
+        });
+        $.ajax({
+            url: "/integralSetting/selDownloadIntegral.do",
+            dataType: "json",
+            type: "get",
+            success: function (res) {
+                if (res.state === 1) {
+                    $("#download").val(res.data);
+                } else {
+                    alert("查询失败");
+                }
+            }
+        });
+        $.ajax({
+            url: "/integralSetting/selPrewIntegral.do",
+            dataType: "json",
+            type: "get",
+            success: function (res) {
+                if (res.state === 1) {
+                    $("#preview").val(res.data);
+                } else {
+                    alert("查询失败");
+                }
+            }
+        });
+        $.ajax({
+            url: "/integralSetting/selReferIntegral.do",
+            dataType: "json",
+            type: "get",
+            success: function (res) {
+                if (res.state === 1) {
+                    $("#refer").val(res.data);
+                } else {
+                    alert("查询失败");
+                }
+            }
+        });
+    });
+
+
+    $("#btn_default").on("click",function () {
+        $.ajax({
+            url: "/integralSetting/updateDefaultIntegral.do",
+            dataType: "json",
+            data: {
+                integral: $("#default").val(),
+            },
+            type: "get",
+            success : function (res) {
+                if (res.state === 1) {
+                    alert("更新成功");
+                }
+            }
+        })
+    });
+    $("#btn_prev").on("click",function () {
+        $.ajax({
+            url: "/integralSetting/updatePrevIntegral.do",
+            dataType: "json",
+            data: {
+                integral: $("#preview").val(),
+            },
+            type: "get",
+            success : function (res) {
+                if (res.state === 1) {
+                    alert("更新成功");
+                }
+            }
+        })
+    });
+    $("#btn_download").on("click",function () {
+        $.ajax({
+            url: "/integralSetting/updateDownloadIntegral.do",
+            dataType: "json",
+            data: {
+                integral: $("#download").val(),
+            },
+            type: "get",
+            success : function (res) {
+                if (res.state === 1) {
+                    alert("更新成功");
+                }
+            }
+        })
+    });
+    $("#btn_publish").on("click",function () {
+        $.ajax({
+            url: "/integralSetting/updatePublishIntegral.do",
+            dataType: "json",
+            data: {
+                integral: $("#publish").val(),
+            },
+            type: "get",
+            success : function (res) {
+                if (res.state === 1) {
+                    alert("更新成功");
+                }
+            }
+        })
+    });
+    $("#btn_refer").on("click",function () {
+        $.ajax({
+            url: "/integralSetting/updateReferIntegral.do",
+            dataType: "json",
+            data: {
+                integral: $("#refer").val(),
+            },
+            type: "get",
+            success : function (res) {
+                if (res.state === 1) {
+                    alert("更新成功");
+                }
+            }
+        })
+    })
+</script>

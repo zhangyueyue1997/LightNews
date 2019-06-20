@@ -1,0 +1,150 @@
+      <meta charset="UTF-8">
+      <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">资料管理详情</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form class="form-horizontal">
+              <div class="box-body">
+                  <div class="page-header">
+                    <h1 id="contentid"></h1>
+                    <br>
+                  </div>
+                <div class="form-group">
+                  <label for="createdUserid" class="col-sm-2 control-label">创建人</label>
+                  <div class="col-sm-10"><span class="label label-danger" id="createdUserid"></span></div>
+                </div>
+                <div class="form-group">
+                  <label for="typeid" class="col-sm-2 control-label">类型</label>
+                  <div class="col-sm-10">
+                    <span class="label label-primary" id="typeid"></span>
+                  </div>
+                </div>  
+                <div class="form-group">
+                  <label for="createdTimeid" class="col-sm-2 control-label">提交时间</label>
+                  <div class="col-sm-10">
+                    <!--<input type="text" class="form-control" id="createdTimeid" placeholder="提交时间" readonly="readonly">-->
+                    <span class="label label-warning" id="createdTimeid"></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="htmlid" class="col-sm-2 control-label">内容</label>
+                  <div class="col-sm-10" id="htmlid">
+
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                  <button type="button" class="btn btn-success" onclick="doExamine()" id="ratify">批准</button>
+               <button type="button" class="btn btn-default">返回</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+          </div>
+<script  type="text/javascript">
+
+       $(function(){
+
+    	      $(".box-footer").on("click",".btn-delete",dodeleteObject);
+    	      $(".box-footer").on("click",".btn-default",doCancel);
+
+
+
+    	      // var id = $("#Mycontent").data("id");
+    	      // if(id){
+        	  //     console.log(id);
+    	    	//   doFindObjectById(id);
+    	      // }
+              var data = $("#Mycontent").data("data");
+              if (data) {
+                // console.log(data);
+                doInitEditForm(data);
+              }
+       });
+
+
+       $(function () {
+           var id = $("#Mycontent").data("data");
+
+           $.ajax({
+               url:"publish/selectStatusById.do",
+               data:{
+                   publishId:id.id
+               },
+               dataTyp:"json",
+               method:"post",
+               success:function(result){
+                   if(result.data == 1){
+                        $("#ratify").text('已审批').removeClass("btn btn-success").addClass("btn btn-secondary disabled");
+                        // $("#ratify").addClass("disabled");
+
+                   }
+               }
+           })
+
+       })
+       // function doFindObjectById(id){
+    	//    var url="publish/dofindObjectById.do";
+    	//    var params = {"id":id};
+    	//    //console.log("params: " + params);
+    	//    $.getJSON(url,params,function(result){
+    	// 	   doInitEditForm(result.data);
+    	//    });
+       // }
+       
+       function doInitEditForm(data){
+    	   $("#contentid").html(data.content);
+    	   $("#htmlid").append(data.html);
+            $("#typeid").html(data.type);
+    	    $("#createdTimeid").html(data.createdTime);
+    	    $("#createdUserid").html(data.createdUser);
+       }
+           
+     function  dodeleteObject(){
+    	 var id = $("#Mycontent").data("id");  
+    	 var url = "publish/doDeleteObject.do";
+ 		var param = {"ids":id};
+ 		// console.log(param);
+ 		$.post(url,param,function(result){
+ 			if(result.state === 1){
+ 				alert(result.message);
+ 			}
+ 			$("#Mycontent").load("publish/listUI.do");
+ 		});
+
+
+     }    
+     
+      function doCancel(){
+    	  $("#Mycontent").load("publish/listUI.do");
+    	  $("#Mycontent").removeData("id");
+    	  
+      }
+      
+      function doExamine() {
+          var ratifyBtn = $("#ratify").text();
+          if (ratifyBtn == "已审批") {
+              return;
+          }
+          var data = $("#Mycontent").data("data");
+          // console.log(data.id);
+          $.ajax({
+              url:"publish/updateStatus.do",
+              data:{
+                 id:data.id
+              },
+              method:"post",
+              success:function (result) {
+                  if(result.state == 1){
+                      alert("审批成功")
+                  }else {
+                      alert("审批失败")
+                  }
+              }
+          })
+      }
+
+
+</script>

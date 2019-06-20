@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pb.dao.IntegralSettingDao">
+    <update id="updateDefaultIntegral" parameterType="int">
+        update IntegralSetting set DefaultIntegral = #{integral}
+    </update>
+    <select id="selDefaultIntegral" resultType="int">
+        select DefaultIntegral
+        from IntegralSetting;
+    </select>
+
+    <update id="updatePrewIntegral" parameterType="int">
+        update IntegralSetting set PreviewIntegral = #{integral}
+    </update>
+    <select id="selPrewIntegral" resultType="int">
+        select PreviewIntegral
+        from IntegralSetting;
+    </select>
+
+
+    <update id="updateDownloadIntegral" parameterType="int">
+        update IntegralSetting set DownloadIntegral = #{integral}
+    </update>
+    <select id="selDownloadIntegral" resultType="int">
+        select DownloadIntegral
+        from IntegralSetting;
+    </select>
+
+    <update id="updatePublishIntegral" parameterType="int">
+        update IntegralSetting set PublishIntegral = #{integral}
+    </update>
+    <select id="selPublishIntegral" resultType="int">
+        select PublishIntegral
+        from IntegralSetting;
+    </select>
+
+    <update id="updateReferIntegral" parameterType="int">
+        update IntegralSetting set ReferIntegral = #{integral}
+    </update>
+    <select id="selReferIntegral" resultType="int">
+        select ReferIntegral
+        from IntegralSetting;
+    </select>
+
+</mapper>

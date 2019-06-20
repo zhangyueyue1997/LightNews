@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pb.dao.AdsDao">
+	<select id="findPageObjects" resultType="advertisement">
+		select
+		id,name,content,createdTime,createdUser,modifiedTime,modifiedUser,link
+		from advertisement
+		<!--<include refid="pageWhereSqlId"/> -->
+		order by modifiedTime desc
+		limit #{startIndex},#{pageSize}
+	</select>
+
+	<select id="findObjectById" resultType="advertisement">
+		select
+		id,name,content,createdTime,createdUser,modifiedTime,modifiedUser,link
+		from advertisement where
+		<trim>
+			<if test="id != null and id != ''">id = #{id}</if>
+		</trim>
+	</select>
+
+	<select id="getRowCount" parameterType="advertisement"
+		resultType="int">
+		select count(*) from advertisement
+		<!--<include refid="pageWhereSqlId"/> -->
+	</select>
+
+	<delete id="deleteObjects" parameterType="string">
+		delete from advertisement where id in
+		<foreach collection="ids" open="(" close=")" separator=","
+			item="item">
+			${item}
+		</foreach>
+	</delete>
+
+	<insert id="saveObjects" parameterType="advertisement">
+		insert into advertisement
+		(id, name, content, createdTime, createdUser,link)
+		<trim suffixOverrides="," prefix="values ( null," suffix=")">
+			<if test="name != null and name != ''">#{name},</if>
+			<if test="content != null and content != ''">#{content},</if>
+			now(),
+			<if test="createdUser != null and createdUser != ''">#{createdUser},</if>
+			<if test="link != null and link != ''">#{link},</if>
+		</trim>
+	</insert>
+
+	<update id="updateObjects" parameterType="advertisement">
+		update advertisement set
+		<trim suffixOverrides=",">
+			<if test="content != null and content != ''">content = #{content},</if>
+			<if test="name != null and name != ''">name = #{name},</if>
+			<if test="createdUser != null and createdUser != ''">createdUser = #{createdUser},</if>
+			modifiedTime = now(),
+			<if test="modifiedUser != null and modifiedUser != ''">modifiedUser = #{modifiedUser},</if>
+			<if test="link != null and link != ''">link = #{link},</if>
+			where
+			<if test="id != null and id != ''">id = #{id},</if>
+		</trim>
+	</update>
+	
+	<delete id="deleteAdsById" parameterType="advertisement">
+		delete  from advertisement where id = #{id}
+	</delete>
+	
+
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pb.dao.PublishDao">
+    <select id="findPageObjects" resultType="Publish">
+        select
+        id, content, html, type, createdTime, createdUser, modifiedUser, modifiedTime,subTitle,status,thumbNail
+        from publish
+        <where>
+            <if test="type != null">type = #{type}</if>
+        </where>
+        order by status,createdTime desc
+        limit #{startIndex},#{pageSize}
+    </select>
+
+
+    <select id="selectPageObjectsByStatus" resultType="Publish">
+        select
+        id, content, html, type, createdTime, createdUser, modifiedUser, modifiedTime,subTitle,thumbNail
+        from publish
+        <where>
+            <if test="type != null">type = #{type}</if>
+            and status = 1
+        </where>
+        order by createdTime desc
+        limit #{startIndex},#{pageSize}
+    </select>
+
+
+    <select id="getRowCount" parameterType="Publish" resultType="int">
+        select count(*) from publish
+        <!--<include refid="pageWhereSqlId"/>-->
+    </select>
+
+    <delete id="deleteObjects" parameterType="string">
+        delete from publish where id in
+        <foreach collection="ids" open="(" close=")" separator=","
+                 item="item">
+            ${item}
+        </foreach>
+    </delete>
+
+    <insert id="saveObjects" parameterType="Publish">
+        insert into publish
+        ( content, html, type, createdTime, createdUser,thumbNail)
+        <trim suffixOverrides="," prefix="values (" suffix=")">
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="html != null and html != ''">#{html},</if>
+            <if test="type != null">#{type},</if>
+            now(),
+            <if test="createdUser != null and createdUser != ''">#{createdUser},</if>
+<!--            <if test="subTitle != null and subTitle != ''">#{subTitle},</if>-->
+            #{thumbNail},
+        </trim>
+    </insert>
+
+    <update id="updateObjects" parameterType="Publish">
+        update publish set
+        <trim suffixOverrides=",">
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="html != null and html != ''">html = #{html},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="modifiedUser != null and modifiedUser != ''">modifiedUser = #{modifiedUser},</if>
+            modifiedTime = now()
+            where
+            <if test="id != null and id != ''">id = #{id},</if>
+        </trim>
+    </update>
+
+    <select id="findObjectById" parameterType="integer" resultType="Publish">
+        select
+        id, content, html, type, createdTime, createdUser, modifiedUser, modifiedTime,subTitle,thumbNail
+        from publish where
+        <trim>
+            <if test="id != null and id != ''">id = #{id}</if>
+        </trim>
+    </select>
+
+    <select id="selectCountByType" parameterType="Publish" resultType="int">
+        select count(*) from publish where type = #{type} and status = 1
+
+    </select>
+    
+    <update id="updateStatus" parameterType="Publish">
+            update publish set status = 1 where id = #{id}
+    </update>
+
+    <select id="selectStatusById" parameterType="int" resultType="int">
+        select status from publish where id = #{id}
+    </select>
+
+</mapper>

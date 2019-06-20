@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pb.dao.CompanyDao">
+    <!--<sql id="pageWhereSqlId">-->
+        <!--<where>-->
+            <!--<if test="name != null and name != '' ">-->
+                <!--name like concat('%',#{name},'%')-->
+            <!--</if>-->
+        <!--</where>-->
+    <!--</sql>-->
+    <select id="findPageObjects" resultType="Company">
+        select
+        id,openid,name,introduce,createdTime,createdUser,modifiedUser,modifiedTime
+        from company
+        <!--<include refid="pageWhereSqlId"/>-->
+        order by modifiedTime desc
+        limit #{startIndex},#{pageSize}
+    </select>
+
+    <select id="getRowCount" parameterType="Company" resultType="int">
+        select count(*) from company
+        <!--<include refid="pageWhereSqlId"/>-->
+    </select>
+
+    <delete id="deleteObjects" parameterType="string">
+        delete from company where id in
+        <foreach collection="ids" open="(" close=")" separator=","
+                 item="item">
+            ${item}
+        </foreach>
+    </delete>
+
+    <insert id="saveObjects" parameterType="Company">
+        insert into company
+        (id, openid, name, introduce, createdTime, createdUser)
+        <trim suffixOverrides="," prefix="values ( null," suffix=")">
+            <if test="openid != null and openid != ''">#{openid},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="introduce != null and introduce != ''">#{introduce},</if>
+            now(),
+            <if test="createdUser != null and createdUser != ''">#{createdUser},</if>
+        </trim>
+    </insert>
+
+    <update id="updateObjects" parameterType="Company">
+        update company set
+        <trim suffixOverrides=",">
+            <if test="openid != null and openid != ''">openid = #{openid},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="introduce != null and introduce != ''">introduce = #{introduce},</if>
+            <if test="modifiedUser != null and modifiedUser != ''">modifiedUser = #{modifiedUser},</if>
+            modifiedTime = now()
+        where
+            <if test="id != null and id != ''">id = #{id},</if>
+        </trim>
+    </update>
+
+    <select id="findObjectById" parameterType="integer" resultType="Company">
+        select
+        id,openid,name,introduce,createdTime,createdUser,modifiedUser,modifiedTime
+        from company where
+        <trim>
+            <if test="id != null and id != ''">id = #{id}</if>
+        </trim>
+    </select>
+
+    <update id="updateCompanyByOpenid" parameterType="Company">
+        update company set
+        <trim suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="introduce != null and introduce != ''">introduce = #{introduce},</if>
+        </trim>
+        where openid = #{openid}
+    </update>
+
+    <select id="selectNameAndIntroduce" parameterType="String" resultType="Company" >
+        select name,introduce from company
+        <where>
+            <if test="openid != null and openid != ''">openid = #{openid}</if>
+        </where>
+    </select>
+
+    <select id="findObjectByOpenid" parameterType="String" resultType="Company">
+        select *
+        from company
+        where openid = #{openid};
+    </select>
+</mapper>

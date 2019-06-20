@@ -1,0 +1,114 @@
+      <meta charset="UTF-8">
+      <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">更新文件</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form class="form-horizontal" id="ff">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="content_col" class="col-sm-2 control-label">资源名称</label>
+                  <div class="col-sm-10">
+                      <input  type="text" class="form-control"  id="content_col" />
+                  </div>
+                </div>
+                  <div class="form-group">
+                      <label for="type_col" class="col-sm-2 control-label">类型</label>
+                      <div class="col-sm-10">
+                          <input  type="text" class="form-control"  id="type_col" readonly="readonly" />
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="address_col" class="col-sm-2 control-label">服务器资源地址</label>
+                      <div class="col-sm-10">
+                          <input  type="text" class="form-control"  id="address_col" />
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="baiduyun_col" class="col-sm-2 control-label">百度云地址</label>
+                      <div class="col-sm-10">
+                          <input  type="text" class="form-control"  id="baiduyun_col" />
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="status_col" class="col-sm-2 control-label">状态</label>
+                      <div class="col-sm-10">
+                          <input  type="text" class="form-control"  id="status_col" readonly="readonly" />
+                      </div>
+                  </div>
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+               <button type="button" class="btn btn-info">保存</button>
+               <button type="button" class="btn btn-default">取消</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+          </div>
+<script  type="text/javascript">
+    var data;
+    $(function(){
+        $(".box-footer").on("click",".btn-info",doSaveObject);
+        $(".box-footer").on("click",".btn-default",doCancel);
+        data = $("#Mycontent").data("data");
+        console.log("edit_data",data);
+        if(data){
+            doFindData(data);
+        }
+    });
+    function doFindData(data){
+        doInitEditForm(data);
+    }
+
+
+    function doInitEditForm(result){
+        $("#content_col").val(result.content);
+        $("#type_col").val(result.type);
+        $("#address_col").val(result.address);
+        $("#baiduyun_col").val(result.baiduyun);
+        $("#status_col").val("正常");
+    }
+
+
+    function doSaveObject(){
+
+        var resourceName = /^[\u4e00-\u9fa5]{1,50}$/;
+
+
+        if (resourceName.test($("#content_col").val())) {
+
+            var url = "data/doUpdate.do";
+            var formData = new FormData();
+
+            formData.append("id", data.id);
+            formData.append("content", $("#content_col").val());
+            formData.append("address", $("#address_col").val());
+            formData.append("baiduyun", $("#baiduyun_col").val());
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                cache: false
+            }).done(function (res) { //回调函数
+                alert(res.message);
+                dolistUI();
+            }).fail(function (res) {
+                alert(res.message)
+            });
+        }else {
+            alert("您输入的名字不正确")
+        }
+    }
+    function dolistUI(){
+    	  $("#Mycontent").load("data/listUI.do");
+      }
+      function doCancel(){
+    	  $("#Mycontent").load("data/listUI.do");
+    	  $("#Mycontent").removeData("id");
+    	  
+      }
+</script>

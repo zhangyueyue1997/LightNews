@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pb.dao.WxUserDao">
+    <select id="findPageObjects" resultType="WxUser">
+        select
+        oppen_id as openid, add_time as createdTime,integral,referrer,createdUser,realname,head_img,realname as nickName
+        from tb_user
+        <where>
+            <if test="nickName != null and nickName != ''">
+                realname like concat('%',#{nickName },'%')
+            </if>
+            and status = 1
+        </where>
+        order by add_time desc
+        limit #{startIndex},#{pageSize}
+    </select>
+    <select id="findPageObjectsByRefer" resultType="WxUser">
+        select
+        oppen_id as openid, add_time as createdTime,integral,referrer,createdUser,realname as nickName,head_img as headImg
+        from tb_user
+        where referrer = #{referrer}
+        and status = 1
+        ORDER BY add_time desc
+        limit #{startIndex},#{pageSize};
+    </select>
+    <select id="getRowCount" parameterType="WxUser" resultType="int">
+        select count(*) from tb_user
+    </select>
+    <select id="getRowCountByOpenid" parameterType="WxUser" resultType="int">
+        select count(*) from tb_user
+        where oppen_id = #{openid}
+    </select>
+
+    <delete id="deleteObjects" parameterType="string">
+        delete from tb_user where oppen_id in
+        <foreach collection="ids" open="(" close=")" separator=","
+                 item="item">
+            ${item}
+        </foreach>
+    </delete>
+
+    <insert id="saveObjects" parameterType="WxUser">
+        insert into tb_user
+        (oppen_id,realname,head_img, add_time,integral,referrer,QRCode,country,province,cityName)
+        <trim suffixOverrides="," prefix="values (" suffix=")">
+            <if test="openid != null and openid != ''">#{openid},</if>
+            <if test="nickName != null and nickName != ''">#{nickName},</if>
+            <if test="headImg != null and headImg != ''">#{headImg},</if>
+            now(),
+            <if test="integral != null">#{integral},</if>
+            <if test="referrer != null and referrer != ''">#{referrer},</if>
+            <if test="QRCode != null and QRCode != ''">#{QRCode},</if>
+            <if test="country != null">#{country},</if>
+            <if test="provinceName != null">#{provinceName},</if>
+            <if test="cityName != null">#{cityName},</if>
+        </trim>
+    </insert>
+
+    <update id="updateObjects" parameterType="WxUser">
+        update tb_user set
+        <trim suffixOverrides=",">
+            <if test="modifiedUser != null and modifiedUser != ''">modifiedUser = #{modifiedUser},</if>
+            modifiedTime = now(),
+            <if test="integral != null and integral != ''">integral = #{integral}</if>
+            where <if test="openid != null and openid != ''">oppen_id = #{openid}</if>
+        </trim>
+    </update>
+
+    <select id="findObjectById" parameterType="String" resultType="WxUser">
+        select
+        oppen_id as openid, username, realname as nickName,password,head_img as headImg,add_time as createdTime, status,integral,referrer,province as provinceName,cityName,country
+        from tb_user where
+        <trim>
+            <if test="openid != null and openid != ''">oppen_id = #{openid}</if>
+        </trim>
+    </select>
+
+    <select id="findQRCodeByOpenId" parameterType="WxUser" resultType="String">
+        select QRCode
+        from tb_user
+        where oppen_id = #{openId}
+    </select>
+
+    <update id="updateStatusByOpenid" parameterType="WxUser">
+        update tb_user set status = 0
+        where oppen_id = #{openid}
+    </update>
+    
+
+    <update id="updateIntegral" parameterType="WxUser">
+        update tb_user set integral = integral - #{integral} where oppen_id = #{openid}
+    </update>
+
+
+    <update id="addIntegralToReferrer" parameterType="WxUser">
+        update tb_user set integral = integral + #{integral} where oppen_id = #{openid}
+    </update>
+
+    <select id="selectUserIntegral" parameterType="String" resultType="WxUser">
+        select integral from tb_user where oppen_id = #{oppen_id}
+    </select>
+</mapper>

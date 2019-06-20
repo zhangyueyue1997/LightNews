@@ -1,0 +1,146 @@
+      <meta charset="UTF-8">
+      <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">广告详情</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form class="form-horizontal">
+              <div class="box-body">          
+                <div class="form-group">
+                  <label for="nameid" class="col-sm-2 control-label">文件名</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nameid" placeholder="文件名" readonly="readonly">
+                  </div>
+                </div>               
+                <div class="form-group">
+                  <label for="contentid" class="col-sm-2 control-label">服务器资源路径</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="contentid" placeholder="内容" readonly="readonly">
+                  </div>
+                </div>
+<!--                  <div class="form-group">-->
+<!--                      <label  class="col-sm-2 control-label">广告详情</label>-->
+<!--                      <div class="col-sm-10">-->
+<!--                          <div class="imitate-input" contenteditable="true"id="linkid" >-->
+<!--                              adasdadsa&lt;!&ndash;                          <input type="text" class="form-control" id="linkid" placeholder="内容" readonly="readonly">&ndash;&gt;-->
+<!--                          </div>-->
+<!--                      </div>-->
+
+<!--                  </div>-->
+                  <div class="form-group">
+                  <label for="createdTimeid" class="col-sm-2 control-label">提交时间</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="createdTimeid" placeholder="提交时间" readonly="readonly">
+                  </div>
+                </div>  
+                <div class="form-group">
+                  <label for="createdUserid" class="col-sm-2 control-label">提交人</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="createdUserid" placeholder="提交人" readonly="readonly">
+                  </div>
+                </div>  
+                  <div class="form-group"  id="preview_img">
+                      <label for="createdUserid" class="col-sm-2 control-label">预览</label>
+
+<!--                      <div class="col-sm-10"  id="link">-->
+
+<!--                      </div>-->
+                  </div>
+
+
+                  <div class="form-group" id="link">
+                      <label class="col-sm-2 control-label">内容</label>
+
+
+                  </div>
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+<!--               <button type="button" class="btn btn-danger">删除</button>-->
+               <button type="button" class="btn btn-primary">返回</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+          </div>
+<script  type="text/javascript">
+       // $(function(){
+    	//       $(".box-footer").on("click",".btn-delete",dodeleteObject);
+    	//       $(".box-footer").on("click",".btn-default",doCancel);
+    	//       var id = $("#Mycontent").data("id");
+    	//       if(id){
+       //  	      console.log(id);
+    	//     	  doFindObjectById(id);
+    	//       }
+       // });
+       $(function(){
+           // $(".box-footer").on("click",".btn-delete",dodeleteObject);
+           $(".box-footer").on("click",".btn-primary",doCancel);
+           var data = $("#Mycontent").data("data");
+           if(data){
+               // console.log(data);
+               doFindData(data);
+           }
+       });
+       // function doFindObjectById(id){
+    	//    var url="advertisement/dofindObjectById.do";
+    	//    var params = {"id":id};
+    	//    //console.log("params: " + params);
+    	//    $.getJSON(url,params,function(result){
+       //         if (result.state === 1) {
+       //             doInitEditForm(result.data);
+       //         }
+    	//    });
+    	//
+       // }
+       function doFindData(data){
+            doInitEditForm(data);
+
+       }
+
+       function doInitEditForm(data){
+    	   $("#nameid").val(data.name);
+    	   $("#contentid").val(data.content);
+    	   // var adslink = data.link.text();
+           // $('#linkid').html(data.link);
+    	   $("#createdTimeid").val(data.createdTime);
+    	   $("#createdUserid").val(data.createdUser);
+    	   var img = $("<img />");
+    	   img.attr("src",data.content);
+    	   img.attr("class","col-sm-10");
+           var div = $("<div></div>");
+           var p = $("<div></div>");
+           p.html(data.link)
+           p.attr("class","col-sm-10");
+           p.attr("id","link");
+           div.append(img);
+           // div.append(p)
+
+    	   $("#preview_img").append(div);
+            $("#link").append(p)
+    	   // var prevImgDiv = $("<div></div>");
+    	   // prevImgDiv.attr("class","col-sm-10");
+    	   // prevImgDiv.html(data.link);
+           // document.getElementById("preview_img").innerHTML += data.link
+       }
+           
+     // function  dodeleteObject(){
+    	//  var id = $("#Mycontent").data("data").id;
+     //
+    	//  var url = "advertisement/doDeleteObject.do";
+ 	// 	var param = {"ids":id};
+ 	// 	// console.log(param);
+ 	// 	$.post(url,param,function(result){
+ 	// 		if(result.state === 1){
+ 	// 			alert(result.message);
+ 	// 		}
+ 	// 		$("#Mycontent").load("advertisement/listUI.do");
+ 	// 	});
+     //
+     // }
+       function doCancel(){
+           $("#Mycontent").load("advertisement/listUI.do");
+           $("#Mycontent").removeData("id");
+       }
+
+</script>

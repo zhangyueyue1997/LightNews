@@ -1,0 +1,218 @@
+<meta charset="utf-8">
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">信息维护</h3>
+
+                <div class="box-tools">
+                    <div class="input-group input-group-sm" style="width: 350px;">
+                        <div class="input-group-btn">
+                            <!--
+                                <button type="submit"
+                                    class="btn btn-default pull-right btn-delete ">批量删除</button>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>标题</th>
+                        <th>类型</th>
+                        <th>提交时间</th>
+                        <th>状态</th>
+                        <th>提交人</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    </tbody>
+                </table>
+            </div>
+            <div id="pageId" class="box-footer clearfix">
+                <ul class="pagination pagination-sm no-margin pull-left">
+                    <li><a class="first">首页</a></li>
+                    <li><a class="pre">上一个</a></li>
+                    <li><a class="next">下一个</a></li>
+                    <li><a class="last">尾页</a></li>
+                    <li><a class="rowCount">总记录数(9)</a></li>
+                    <li><a class="pageCount">总页数(3)</a></li>
+                    <li><a class="pageCurrent">当前页数(1)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(function() {
+        doFindObjects();
+        $(".input-group-btn").on("click", ".btn-delete", doDeleteObject);
+        $(".input-group-btn").on("click", ".btn-search", doQueryObject);
+        $(".clearfix").on("click", ".first,.pre,.next,.last", doJumpToPage);
+    });
+
+    function setPagination(pageObject) {
+        $(".rowCount").html("总记录数(" + pageObject.rowCount + ")");
+        $(".pageCount").html("总页数(" + pageObject.pageCount + ")");
+        $(".pageCurrent").html("当前页(" + pageObject.pageCurrent + ")");
+
+        $("#pageId").data("pageCurrent", pageObject.pageCurrent);
+        $("#pageId").data("pageCount", pageObject.pageCount);
+    }
+
+    /**分页页面跳转*/
+    function doJumpToPage() {
+        var pageCurrent = $("#pageId").data("pageCurrent");
+        var pageCount = $("#pageId").data("pageCount");
+        var cls = $(this).prop("class");
+        //console.log(cls);
+        if (cls === "first") {
+            pageCurrent = 1;
+        }
+        if (cls === "pre" && pageCurrent > 1) {
+            pageCurrent--;
+        }
+        if (cls === "next" && pageCurrent < pageCount) {
+            pageCurrent++;
+        }
+        if (cls === "last") {
+            pageCurrent = pageCount;
+        }
+        $("#pageId").data("pageCurrent", pageCurrent);
+        doFindObjects();
+    }
+
+    /**根据用户名查找信息*/
+    function doQueryObject() {
+        $("#pageId").data("pageCurrent", 1);
+        doFindObjects();
+    }
+
+    /**角色的删除操作*/
+    function doDeleteObject(obj) {
+        var checkedIds = $(obj).parent().parent().data("id");
+        //console.log(checkedIds);
+        var url = "publish/doDeleteObject.do";
+        var param = {"ids":checkedIds};
+        console.log(param);
+        $.post(url,param,function(){
+            doFindObjects();
+        });
+
+    }
+    /**获取选中角色列表中的记录*/
+    function getCheckedIds() {
+        console.log("getCheckedIds(),start!");
+        var checkedIds = [];
+        $("tbody input[name='checkedId']").each(function() {
+            if ($(this).prop("checked")) {
+                checkedIds.push($(this).val());
+            }
+        });
+        console.log(checkedIds);
+        return checkedIds;
+    }
+    /**从服务器端获取对象*/
+    function doFindObjects() {
+        var pageCurrent = $("#pageId").data("pageCurrent");
+        if (!pageCurrent)
+            pageCurrent = 1;
+        var params = {
+            "pageCurrent" : pageCurrent
+        };
+        var url = "publish/dofindPageObjects.do";
+        params.name = $("#serchNameId").val();
+        console.log(params);
+        $.getJSON(url, params, function(result) {
+            if (result.state === 1) {
+                //显示数据
+                doSetTableBody(result.data.records);
+                //设置分页
+                console.log(result.data);
+                setPagination(result.data);
+            } else {
+                alert(result.message);
+            }
+        });
+    }
+
+    var html_data = {
+        html : [],
+        index : [],
+    };
+
+    /**将数据添加到动态表格里*/
+    function doSetTableBody(data) {
+        var index = 0;
+        var tbody = $("#tbody");
+        tbody.empty();
+        for ( var i in data) {
+            if(data[i].type == 6){
+                var tr = $("<tr></tr>");
+                // var type = data[i].type === 1 ? "已通过" : "待审核";
+                tr.data("id", data[i].id);
+                //tr.append("<td><input type='checkbox' name='checkedId' value='"+data[i].id+"'></td>");
+                var contentString = data[i].content.substring(0,10);
+                tr.append("<td>" + contentString + "</td>");
+                // tr.append("<td>" + data[i].html + "</td>");
+                var type = "商会"
+
+
+                var status = "";
+                if(data[i].publish_status == 0){
+                    // console.log(data[i].publish_status);
+                    status = "未审核";
+                }else {
+                    status = "已审核";
+                }
+
+                tr.append("<td>" + type + "</td>");
+                tr.append("<td>" + data[i].createdTime + "</td>");
+                tr.append("<td>"+status+"</td>");
+                tr.append("<td>" + data[i].createdUser + "</td>");
+                tr.append("<td>" + "<button class='btn btn-danger' onclick='doDeleteObject(this)'>"
+                    + "删除" + "</button>" + "</td>");
+                html_data.html[i] = data[i].html;
+                tr.append("<td>" + "<button class='btn btn-primary' onclick='showDetail(this)'>"
+                    + "详情" + "</button>" + "</td>");
+                // data_html.html[i] = data[i].html;
+                // data_html.index[i] = i;
+                html_data.index[i] = index++;
+                tbody.append(tr);
+            }else {
+                return;
+            }
+
+        }
+    }
+
+    function showDetail(obj){
+        var id = $(obj).parent().parent().data("id");
+
+        var tr = $(obj).parent("td").parent("tr")[0];
+        console.log(tr);
+        var data = {
+            "id": id,
+            "content" : tr.childNodes[0].textContent,
+            "type": tr.childNodes[1].textContent,
+            "createdTime": tr.childNodes[2].textContent,
+            "createdUser": tr.childNodes[4].textContent,
+            "html": html_data.html[tr.rowIndex - 1],
+        };
+        //  $("#Mycontent").load("publish/detailUI.do",function(){
+        // 	$("#Mycontent").data("id",id);
+        // });
+        $("#Mycontent").load("publish/detailUI.do",function(){
+            $("#Mycontent").data("data",data);
+        });
+
+    }
+
+
+</script>

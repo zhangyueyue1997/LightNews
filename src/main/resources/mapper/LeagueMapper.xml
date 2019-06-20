@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pb.dao.LeagueDao">
+
+    <update id="saveFile" parameterType="League">
+        update league set html = #{html}
+    </update>
+
+    <!--<insert id="saveFile" parameterType="League">-->
+        <!--insert into league value (#{html})-->
+    <!--</insert>-->
+
+    <select id="selectHtml" resultType="League" parameterType="int">
+        select html from league
+
+    </select>
+</mapper>
