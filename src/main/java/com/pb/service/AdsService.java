@@ -5,6 +5,8 @@ import com.pb.common.vo.PageObject;
 import com.pb.pojo.Advertisement;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface AdsService {
     int FILE_EXTENSION_ERROR= 301;
     int FILE_SAVE_SUCCESS = 100;
@@ -27,4 +29,5 @@ public interface AdsService {
     int uploadFiles(MultipartFile file,String link);
     /**删除广告*/
     int deleteAdsById(Advertisement advertisement);
+    List<Advertisement> findObjectsInCount(Integer count);
 }

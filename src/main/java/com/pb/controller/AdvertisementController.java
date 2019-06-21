@@ -2,10 +2,7 @@ package com.pb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.pb.common.vo.JsonResult;
 import com.pb.common.vo.PageObject;
@@ -14,6 +11,7 @@ import com.pb.service.AdsService;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.attribute.PosixFileAttributes;
+import java.util.List;
 
 @Controller
 @RequestMapping("/advertisement")
@@ -33,11 +31,19 @@ public class AdvertisementController {
 		return new JsonResult(1, obj);
 	}
 
+	@RequestMapping("doFindObjectByCount")
+	@ResponseBody
+	public JsonResult doFindObjectsByCount(@RequestParam("count") Integer count) {
+		List<Advertisement> object = service.findObjectsInCount(count);
+		return new JsonResult(1,object);
+
+	}
+
 	@RequestMapping("detailsUI")
 	public String doDetailsUI() {
 		return "sys/advertisement/advertisement_detail";
 	}
-	
+
 	@RequestMapping("doUploadUI")
 	public String doUploadUI(){
 		return "sys/advertisement/advertisement_upload";
@@ -50,7 +56,7 @@ public class AdvertisementController {
 		service.deleteObjects(ids);
 		return new JsonResult(1,"delete OK");
 	}
-	
+
 	@RequestMapping("dofindObjectById")
 	@ResponseBody
 	public JsonResult dofindObjectById(Integer id){

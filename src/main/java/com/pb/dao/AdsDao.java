@@ -27,4 +27,6 @@ public interface AdsDao {
     Advertisement findObjectById(@Param("id")Integer id);
     /**删除广告*/
     int deleteAdsById(Advertisement advertisement);
+    List<Advertisement> findObjectsInCount(@Param("count") Integer count);
+
 }
