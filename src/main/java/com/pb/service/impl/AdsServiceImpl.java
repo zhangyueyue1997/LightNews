@@ -129,4 +129,9 @@ public class AdsServiceImpl implements AdsService {
     public int deleteAdsById(Advertisement advertisement) {
         return dao.deleteAdsById(advertisement);
     }
+
+    @Override
+    public List<Advertisement> findObjectsInCount(Integer count) {
+        return dao.findObjectsInCount(count);
+    }
 }

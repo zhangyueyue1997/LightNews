@@ -12,6 +12,14 @@
 		order by modifiedTime desc
 		limit #{startIndex},#{pageSize}
 	</select>
+	<select id="findObjectsInCount" resultType="advertisement">
+		select
+		id,name,content,createdTime,createdUser,modifiedTime,modifiedUser,link
+		from advertisement
+		<!--<include refid="pageWhereSqlId"/> -->
+		order by modifiedTime desc
+		limit #{count}
+	</select>
 
 	<select id="findObjectById" resultType="advertisement">
 		select
@@ -61,10 +69,10 @@
 			<if test="id != null and id != ''">id = #{id},</if>
 		</trim>
 	</update>
-	
+
 	<delete id="deleteAdsById" parameterType="advertisement">
 		delete  from advertisement where id = #{id}
 	</delete>
-	
+
 
 </mapper>
