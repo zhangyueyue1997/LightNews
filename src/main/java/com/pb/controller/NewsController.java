@@ -185,7 +185,7 @@ public class NewsController {
                         : new JsonResult(2,"设置失败");
     }
 
-    @RequestMapping(value = "getNewsDetail")
+    @RequestMapping(value = "selectNewsById")
     @ResponseBody
     public JsonResult getNewsDetail(@RequestParam("id") Integer id) {
         News news = newsService.selectNewsById(id);
