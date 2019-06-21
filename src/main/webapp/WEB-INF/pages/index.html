@@ -3340,41 +3340,85 @@
 				<div class="col-md-10 col-lg-4">
 					<div class="p-l-10 p-rl-0-sr991 p-b-20">
 						<!-- Video -->
+<!--						<div class="p-b-55">-->
+<!--							<div class="how2 how2-cl4 flex-s-c m-b-35">-->
+<!--								<h3 class="f1-m-2 cl3 tab01-title">-->
+<!--									精选视频-->
+<!--								</h3>-->
+<!--							</div>-->
+
+<!--							<div>-->
+<!--								<div class="wrap-pic-w pos-relative">-->
+<!--									<img src="images/video-01.jpg" alt="IMG">-->
+
+<!--									<button class="s-full ab-t-l flex-c-c fs-32 cl0 hov-cl10 trans-03"-->
+<!--										data-toggle="modal" data-target="#modal-video-01">-->
+<!--										<span class="fab fa-youtube"></span>-->
+<!--									</button>-->
+<!--								</div>-->
+
+<!--								<div class="p-tb-16 p-rl-25 bg3">-->
+<!--									<h5 class="p-b-5">-->
+<!--										<a href="#" class="f1-m-3 cl0 hov-cl10 trans-03">-->
+<!--											Music lorem ipsum dolor sit amet consectetur-->
+<!--										</a>-->
+<!--									</h5>-->
+
+<!--									<span class="cl15">-->
+<!--										<a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">-->
+<!--											by John Alvarado-->
+<!--										</a>-->
+
+<!--										<span class="f1-s-3 m-rl-3">-->
+<!--											- -->
+<!--										</span>-->
+
+<!--										<span class="f1-s-3">-->
+<!--											Feb 18-->
+<!--										</span>-->
+<!--									</span>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+
+						<!-- Video -->
 						<div class="p-b-55">
 							<div class="how2 how2-cl4 flex-s-c m-b-35">
 								<h3 class="f1-m-2 cl3 tab01-title">
-									精选视频
+									广告视频
 								</h3>
 							</div>
 
 							<div>
-								<div class="wrap-pic-w pos-relative">
-									<img src="images/video-01.jpg" alt="IMG">
-
-									<button class="s-full ab-t-l flex-c-c fs-32 cl0 hov-cl10 trans-03"
-										data-toggle="modal" data-target="#modal-video-01">
-										<span class="fab fa-youtube"></span>
-									</button>
-								</div>
+								<div class="wrap-pic-w pos-relative" >
+									<video width="320" height="240" controls="controls"">
+										<source src="../../LightNews/images/video.mp4" type="video/mp4" >
+										<source src="../../LightNews/images/video.ogg" type="video/ogg" >
+<!--
+									</video>
+<!--											<button class="s-full ab-t-l flex-c-c fs-32 cl0 hov-cl10 trans-03" data-toggle="modal" data-target="#modal-video-01">-->
+<!--												<span class="fab fa-youtube"></span>-->
+<!--											</button>-->
+							</div>
 
 								<div class="p-tb-16 p-rl-25 bg3">
 									<h5 class="p-b-5">
-										<a href="#" class="f1-m-3 cl0 hov-cl10 trans-03">
-											Music lorem ipsum dolor sit amet consectetur
-										</a>
+									<a href=" " class="f1-m-3 cl0 hov-cl10 trans-03">
+										香醇体验，随时拥有--麦咖啡
+									</a>
 									</h5>
 
 									<span class="cl15">
 										<a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
-											by John Alvarado
+											2019
 										</a>
 
-										<span class="f1-s-3 m-rl-3">
+									<span class="f1-s-3 m-rl-3">
 											-
 										</span>
 
-										<span class="f1-s-3">
-											Feb 18
+									<span class="f1-s-3">
+											06-18
 										</span>
 									</span>
 								</div>
@@ -3678,13 +3722,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		//大一renderBigOne获取页面
 		function renderBigOne(rNewsList,res) {
 			// console.log(res.data[0]);
-			var bigOne = $("<div></div>");
-			bigOne.attr("class","col-md-6 p-rl-1 p-x b-2");
-			var bigOneFirstChild = $("<div></div>");
-			bigOneFirstChild.attr("class","bg-img1 size-a-3 how1 pos-relative");
+			var bigOne = $("<div class='col-md-6 p-rl-1 p-x b-2'></div>");
+			// bigOne.attr("class","col-md-6 p-rl-1 p-x b-2");
+			var bigOneFirstChild = $("<div class='bg-img1 size-a-3 how1 pos-relative' ></div>");
+			// bigOneFirstChild.attr("class","bg-img1 size-a-3 how1 pos-relative");
 			bigOneFirstChild.css("background-image","url(" + res.data[0].thumbNail + ")");
-			var bigOneElementA = $("<a></a>");
-			bigOneElementA.addClass("dis-block how1-child1 trans-03");
+			var bigOneElementA = $("<a class='dis-block how1-child1 trans-03'></a>");
+			// bigOneElementA.addClass("dis-block how1-child1 trans-03");
 			bigOneElementA.attr("href","/News/showNewsDetail.do?id=" + res.data[0].id);
 			bigOneFirstChild.append(bigOneElementA);
 			console.log("firstChild",bigOneFirstChild);

@@ -608,30 +608,6 @@
         <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
         <!--===============================================================================================-->
         <script src="js/main.js"></script>
-        <script>
-            var id = 0;
-            function getPar(url) {
-
-
-                id  = 12;
-            }
-            $(function () {
-                $.ajax({
-                    url: "/News/selectNewsByid.do",
-                    type: "get",
-                    data: {
-                        id: id,
-                    },
-                    success: function (res) {
-                        if (res.state == 1) {
-                            render()
-                        }
-                    }
-
-
-                })
-            })
-        </script>
 
 
 </body>
