@@ -6,7 +6,7 @@
 <mapper namespace="com.pb.dao.AdsDao">
 	<select id="findPageObjects" resultType="advertisement">
 		select
-		id,name,content,createdTime,createdUser,modifiedTime,modifiedUser,link
+		id,name,content,createdTime,createdUser,modifiedTime,modifiedUser,link,title
 		from advertisement
 		<!--<include refid="pageWhereSqlId"/> -->
 		order by modifiedTime desc
@@ -14,7 +14,7 @@
 	</select>
 	<select id="findObjectsInCount" resultType="advertisement">
 		select
-		id,name,content,createdTime,createdUser,modifiedTime,modifiedUser,link
+		id,name,content,createdTime,createdUser,modifiedTime,modifiedUser,link,title
 		from advertisement
 		<!--<include refid="pageWhereSqlId"/> -->
 		order by modifiedTime desc
@@ -23,7 +23,7 @@
 
 	<select id="findObjectById" resultType="advertisement">
 		select
-		id,name,content,createdTime,createdUser,modifiedTime,modifiedUser,link
+		id,name,content,createdTime,createdUser,modifiedTime,modifiedUser,link,title
 		from advertisement where
 		<trim>
 			<if test="id != null and id != ''">id = #{id}</if>
@@ -46,14 +46,8 @@
 
 	<insert id="saveObjects" parameterType="advertisement">
 		insert into advertisement
-		(id, name, content, createdTime, createdUser,link)
-		<trim suffixOverrides="," prefix="values ( null," suffix=")">
-			<if test="name != null and name != ''">#{name},</if>
-			<if test="content != null and content != ''">#{content},</if>
-			now(),
-			<if test="createdUser != null and createdUser != ''">#{createdUser},</if>
-			<if test="link != null and link != ''">#{link},</if>
-		</trim>
+		(id, name, content, createdTime, createdUser,link,title)
+		values (null,#{name},#{content},now(),#{createdUser},#{link},#{title})
 	</insert>
 
 	<update id="updateObjects" parameterType="advertisement">

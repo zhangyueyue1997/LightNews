@@ -14,7 +14,7 @@ import java.nio.file.attribute.PosixFileAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/advertisement")
+	@RequestMapping("/advertisement")
 public class AdvertisementController {
 	@Autowired
 	private AdsService service = null;
@@ -67,10 +67,11 @@ public class AdvertisementController {
 	@RequestMapping(value = "doUploadObject",method = RequestMethod.POST)
 	@ResponseBody
 	public JsonResult doUploadObject(@RequestParam("uploadedFiles")MultipartFile[] file,
-									 @RequestParam("link")String link) {
+									 @RequestParam("link")String link,
+									 @RequestParam("title") String title) {
 
 		JsonResult result = new JsonResult();
-		int state = service.uploadFiles(file[0],link);
+		int state = service.uploadFiles(file[0],link,title);
 
 		//判断返回结果
 		switch (state) {

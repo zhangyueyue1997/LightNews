@@ -74,7 +74,7 @@ public class AdsServiceImpl implements AdsService {
      * @return 保存结果 100: 成功, 200: 失败
      */
     @Override
-    public int uploadFiles(MultipartFile file,String link) {
+    public int uploadFiles(MultipartFile file,String link,String title) {
         String path = "/zl/";
         if (file.isEmpty()) {
             return AdsService.FILE_IS_EMPTY;
@@ -119,6 +119,7 @@ public class AdsServiceImpl implements AdsService {
         entity.setContent(content);
         entity.setName(fileName);
         entity.setLink(link);
+        entity.setTitle(title);
         //todo:设置创建者
         entity.setCreatedUser("admin");
         //保存实例,返回结果

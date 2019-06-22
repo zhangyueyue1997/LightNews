@@ -26,7 +26,7 @@ public interface AdsService {
     /**根据id查找数据*/
     Advertisement findObjectById(Integer id);
     /**上传文件*/
-    int uploadFiles(MultipartFile file,String link);
+    int uploadFiles(MultipartFile file,String link,String title);
     /**删除广告*/
     int deleteAdsById(Advertisement advertisement);
     List<Advertisement> findObjectsInCount(Integer count);

@@ -12,7 +12,7 @@
 	<typeAliases>
 	  <package name="com.pb.pojo"/>
 	  <package name="com.pb.common.vo"/>
-	</typeAliases>	
+	</typeAliases>
 	<mappers>
 	 	<mapper resource="mapper/UserMapper.xml"/>
 		<mapper resource="mapper/CompanyMapper.xml"/>
@@ -25,6 +25,7 @@
 		<mapper resource="mapper/MessageMapper.xml"/>
 		<mapper resource="mapper/IntegralSettingMapper.xml"/>
 		<mapper resource="mapper/NewsMapper.xml"/>
+		<mapper resource="mapper/ClientMapper.xml"/>
 	</mappers>
 </configuration>
 
