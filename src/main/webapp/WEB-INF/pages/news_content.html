@@ -24,6 +24,21 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../../LightNews/css/main.css">
     <!--===============================================================================================-->
+    <style type="text/css">
+        #pay_btn{
+            font-family: Roboto-Regular;
+            padding: 12px 30px;
+            background: #ff0036;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+            outline: 0;
+        }
+    </style>
+
+
+
 </head>
 <body class="animsition">
 
@@ -2206,13 +2221,13 @@
 
                         <div class="flex-wr-s-s p-b-40">
 								<span class="f1-s-3 cl8 m-r-15">
-									<a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
+									<a href="#" class="f1-s-4 cl8 hov-cl10 trans-03" id="CenterType">
 										by John Alvarado
 									</a>
 
 									<span class="m-rl-3">-</span>
 
-									<span>
+									<span id="CenterTime">
 										Feb 18
 									</span>
 								</span>
@@ -2227,9 +2242,9 @@
                         </div>
 
                         <div class="wrap-pic-max-w p-b-30">
-                            <img src="images/blog-list-01.jpg" alt="IMG">
+                            <img id="CenterImg" alt="IMG">
                         </div>
-
+                        <div id="CenterContent">
                         <p class="f1-s-11 cl6 p-b-25">
                             Curabitur volutpat bibendum molestie. Vestibulum ornare gravida semper. Aliquam a dui suscipit, fringilla metus id, maximus leo. Vivamus sapien arcu, mollis eu pharetra vitae, condimentum in orci. Integer eu sodales dolor. Maecenas elementum arcu eu convallis rhoncus. Donec tortor sapien, euismod a faucibus eget, porttitor quis libero.
                         </p>
@@ -2241,7 +2256,7 @@
                         <p class="f1-s-11 cl6 p-b-25">
                             Praesent vel mi bibendum, finibus leo ac, condimentum arcu. Pellentesque sem ex, tristique sit amet suscipit in, mattis imperdiet enim. Integer tempus justo nec velit fringilla, eget eleifend neque blandit. Sed tempor magna sed congue auctor. Mauris eu turpis eget tortor ultricies elementum. Phasellus vel placerat orci, a venenatis justo. Phasellus faucibus venenatis nisl vitae vestibulum. Praesent id nibh arcu. Vivamus sagittis accumsan felis, quis vulputate
                         </p>
-
+                        </div>
                         <!-- Tag -->
                         <div class="flex-s-s p-t-12 p-b-15">
 								<span class="f1-s-12 cl5 m-r-8">
@@ -2262,31 +2277,37 @@
                         <!-- Share -->
                         <div class="flex-s-s">
 								<span class="f1-s-12 cl5 p-t-1 m-r-15">
-									Share:
+									Buy it:
 								</span>
 
                             <div class="flex-wr-s-s size-w-0">
-                                <a href="#" class="dis-block f1-s-13 cl0 bg-facebook borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
-                                    <i class="fab fa-facebook-f m-r-7"></i>
-                                    Facebook
-                                </a>
+<!--                                <a href="#" class="dis-block f1-s-13 cl0 bg-facebook borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">-->
+<!--                                    <i class="fab fa-facebook-f m-r-7"></i>-->
+<!--                                    购买文章-->
+<!--                                </a>-->
 
-                                <a href="#" class="dis-block f1-s-13 cl0 bg-twitter borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
-                                    <i class="fab fa-twitter m-r-7"></i>
-                                    Twitter
-                                </a>
+<!--                                <a href="#" class="dis-block f1-s-13 cl0 bg-twitter borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">-->
+<!--                                    <i class="fab fa-twitter m-r-7"></i>-->
+<!--                                    Twitter-->
+<!--                                </a>-->
 
-                                <a href="#" class="dis-block f1-s-13 cl0 bg-google borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
-                                    <i class="fab fa-google-plus-g m-r-7"></i>
-                                    Google+
-                                </a>
+<!--                                <a href="#" class="dis-block f1-s-13 cl0 bg-google borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">-->
+<!--                                    <i class="fab fa-google-plus-g m-r-7"></i>-->
+<!--                                    Google+-->
+<!--                                </a>-->
 
-                                <a href="#" class="dis-block f1-s-13 cl0 bg-pinterest borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
+                                <a href="/payTurn.do" class="dis-block f1-s-13 cl0 bg-pinterest borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
                                     <i class="fab fa-pinterest-p m-r-7"></i>
-                                    Pinterest
+                                    购买文章
                                 </a>
                             </div>
                         </div>
+<!--                        <div>-->
+<!--                            <a href="" id="f1-s-12 cl8 hov-link1 m-r-15">-->
+<!--                            <input type="button" value="购买文章" id="pay_btn" />-->
+<!--                        </a>-->
+                    </div>
+
                     </div>
 
 
@@ -2494,17 +2515,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 <script>
-    function GetQueryString(name)
+       function GetQueryString(name)
     {
         var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
         var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
         if(r!=null)return  unescape(r[2]); return null;
     }
 
-    // var id = GetQueryString("id");
-    // if(id!=null) {
-    //     var id_ = decodeURIComponent(id);
-    //     alert(id_);
+
 
 
 
@@ -2525,11 +2543,39 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             }
         })
     })
+       function selType(type) {
+           var bigOneFirstChildOneContent = "";
+           switch (type) {
+               case 1:
+                   bigOneFirstChildOneContent = "娱乐";
+                   break;
+               case 2:
+                   bigOneFirstChildOneContent = "体育";
+                   break;
+               case 3:
+                   bigOneFirstChildOneContent = "新闻";
+                   break;
+           }
+           return bigOneFirstChildOneContent;
+       }
     function renderCenter(NewsDetails,res) {
         console.log(res.data);
         var details = res.data;
         console.log(details.title);
         $("#CenterTitle").text(details.title);
+        $("#CenterTime").text(details.createdTime);
+
+        console.log(details.type);
+        console.log($("#CenterType"));
+        console.log(selType(details.type));
+        $("#CenterType").text(selType(details.type));
+
+        console.log(details.thumbNail);
+        $("#CenterImg").attr("src",details.thumbNail);
+
+        console.log(details.content);
+        console.log($("#CenterContent"));
+        $("#CenterContent").text(details.content);
 
 
 
