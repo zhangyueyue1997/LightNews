@@ -3,6 +3,7 @@ package com.pb.pojo;
 import java.io.Serializable;
 
 public class Client implements Serializable {
+    private static final long serialVersionUID = -1960846993227155085L;
     private int id;
     private String username;
     private String password;
@@ -46,6 +47,10 @@ public class Client implements Serializable {
     }
 
     public Client() {
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     @Override

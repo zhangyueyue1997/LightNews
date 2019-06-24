@@ -59,7 +59,7 @@ public class AdvertisementController {
 
 	@RequestMapping("dofindObjectById")
 	@ResponseBody
-	public JsonResult dofindObjectById(Integer id){
+	public JsonResult dofindObjectById(@RequestParam("id") Integer id){
 		Advertisement data = service.findObjectById(id);
 		return new JsonResult(1,data);
 	}

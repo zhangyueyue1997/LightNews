@@ -3,9 +3,12 @@ package com.pb.pojo;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.pb.common.DataJsonSerializer;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class News {
+public class News implements Serializable {
+
+    private static final long serialVersionUID = -5605843517735032993L;
     private String title;
     private String content;
     private int status;
@@ -97,6 +100,10 @@ public class News {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     @Override
