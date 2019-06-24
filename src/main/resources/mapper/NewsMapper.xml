@@ -11,7 +11,7 @@
     </insert>
 
     <select id="selectNews" resultType="News">
-        select id,title,content,status,createdTime,thumbNail
+        select id,title,content,status,createdTime,thumbNail,type
         from news
         <where>
             <if test="type != null">type = #{type}</if>
@@ -42,7 +42,7 @@
    </delete>
 
     <select id="selectNewsById" resultType="News" parameterType="int">
-        select id,title,content,status,createdTime,thumbNail from news where id = #{id}
+        select id,title,content,status,createdTime,thumbNail,type from news where id = #{id}
     </select>
 
     <update id="updateNewsFlag" parameterType="int">
