@@ -214,4 +214,16 @@ public class UserController {
 	public String userRegister() {
 		return "dengluzhuce/zhuce";
 	}
+
+	@RequestMapping(value = "payA")
+	public String payA() {
+		return "pay";
+	}
+
+	@RequestMapping(value = "payTurn")
+	public String payTurn() {
+		return "payturn";
+	}
+
+
 }
