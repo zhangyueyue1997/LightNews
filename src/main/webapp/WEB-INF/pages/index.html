@@ -74,17 +74,17 @@
 
 
 
-						<a href="#" class="left-topbar-item">
+						<a href="/userLogin.do" class="left-topbar-item">
 							登录
 						</a>
 
-						<a href="#" class="left-topbar-item">
+						<a href="/userRegister.do" class="left-topbar-item">
 							注册
 						</a>
 					</div>
 
 					<div class="right-topbar">
-						<a href="#">
+						<a href="/userCenter.do">
 							<span >个人</span>
 						</a>
 
@@ -4489,7 +4489,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
             for(var i in data){
                 var id = data[i].id;
-                var link = "/advertisement/adsDetail.do?adsid=" + id;
+                var link = "/advertisement/adsDetail.do?id=" + id;
                 var src = data[i].content;
                 var slide = $("<div></div>");
                 slide.attr("class","swiper-slide");
