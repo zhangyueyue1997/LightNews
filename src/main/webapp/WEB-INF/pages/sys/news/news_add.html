@@ -69,8 +69,7 @@
 
                 <label for="toolbar" class="col-sm-2 control-label">新闻内容</label>
                 <div class="col-sm-10">
-                    <div id="toolbar" class="toolbar">
-                    </div>
+                    <div id="toolbar" class="toolbar"></div>
                     <div id="editor" class="text" style="min-height: 600px;"> <!--可使用 min-height 实现编辑区域自动增加高度-->
                         <p></p>
                     </div>
@@ -202,7 +201,9 @@
             input_File.val("");
         }
         var src = window.URL.createObjectURL(file);
-        console.log("src",src);
+
+        // window.URL.createObjectURL可以用于在浏览器上预览本地图片或者视频
+        // console.log("src",src);
         $("img#thumbNailBox").attr({
             src: src,
             width: 100 + '%',

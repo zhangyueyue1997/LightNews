@@ -5,25 +5,25 @@
 			<div class="box-header">
 				<h3 class="box-title">广告维护</h3>
 
-<div class="box-tools">
-	<div class="box-footer">
-		<button type="button" class="btn btn-warning btn-upload">上传</button>
-	</div>
+				<div class="box-tools">
+					<div class="box-footer">
+						<button type="button" class="btn btn-warning btn-upload">上传</button>
+					</div>
 
-</div>
+				</div>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body table-responsive no-padding">
 				<table class="table table-hover">
 					<thead>
-						<tr>						
-							<th>文件名</th>
-							<th>服务器资源路径</th>
-<!--							<th>跳转链接</th>-->
-							<th>上传时间</th>
-							<th>提交人</th>
-							<th>操作</th>
-						</tr>
+					<tr>
+						<th>文件名</th>
+						<th>服务器资源路径</th>
+						<!--							<th>跳转链接</th>-->
+						<th>上传时间</th>
+						<th>提交人</th>
+						<th>操作</th>
+					</tr>
 					</thead>
 					<tbody id="tbody">
 					</tbody>
@@ -41,7 +41,7 @@
 					<li><a class="pageCurrent">当前页数(1)</a></li>
 				</ul>
 			</div>
-			
+
 		</div>
 	</div>
 </div>
@@ -67,10 +67,10 @@
 <script type="text/javascript">
 	$(function() {
 		doFindObjects();
-		$(".box-footer").on("click", ".btn-upload", doUploadUI);		
+		$(".box-footer").on("click", ".btn-upload", doUploadUI);
 		$(".clearfix").on("clic	k", ".first,.pre,.next,.last", doJumpToPage);
 	});
-	
+
 	function doUploadUI(){
 		var trArr = $("#tbody").find("tr").length;
 		console.log(trArr);
@@ -200,7 +200,7 @@
 			tbody.append(tr);
 		}
 	}
-	
+
 	// function showDetail(obj){
 	// 	var id = $(obj).parent().parent().data("id");
 	// 	 $("#Mycontent").load("advertisement/detailsUI.do",function(){

@@ -1,61 +1,85 @@
-    <meta charset="utf-8">
-    <style>
-        .toolbar {
-            border: 1px solid #ccc;
-        }
-        .text {
-            border: 1px solid #ccc;
-            height: 400px;
-        }
-    </style>
+<meta charset="utf-8">
+<style>
+    .toolbar {
+        border: 1px solid #ccc;
+    }
+    .text {
+        border: 1px solid #ccc;
+        height: 400px;
+    }
+</style>
 
 <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">广告上传</h3>
-            </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            <div  id="ff" >
-              <div class="box-body">
-                  <label for="uploadedFiles" class="col-sm-2 control-label">选择文件</label>
-                <div class="col-sm-10">
+    <div class="box-header with-border">
+        <h3 class="box-title">广告上传</h3>
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
 
-                  <input class="form-control" type="file" id="uploadedFiles" name="uploadedFiles">
-                  <p class="help-block">仅支持pdf及jpg,png格式文件上传</p>
+    <div  id="ff" >
+        <div class="box-body">
 
-
-                  <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-                          0%
-                      </div>
-                  </div>
-
-                  </div>
-                  <label  class="col-sm-2 control-label"></label>
-                  <div class="col-sm-10">
-<!--                      <input type="text" id="link" name="link" placeholder="跳转链接" class="form-control"/>-->
-
-                      <div id="toolbar" class="toolbar">
-                      </div>
-                      <div id="editor"  contenteditable="true" class="text" style="min-height:800px;" ></div>
-
-                  </div>
-
-              </div>
-              <!-- /.box-body -->
-
-                <div class="box-footer">
-                <button class="btn btn-primary btn-info" id="uploadFileBtn">上传</button>
-
-                </div>
-
-
+            <label for="newsTitle" class="col-sm-2 control-label">广告标题</label>
+            <div class="col-sm-10">
+                <input  type="text" class="form-control" name="title"  id="newsTitle" style=" margin-bottom: 15px;"  placeholder="广告标题"/>
 
             </div>
+            <label for="inputGroupSelect01" class="col-sm-2 control-label">广告链接</label>
+            <div class="col-sm-10">
+                <input  type="text" class="form-control" name="title"  id="inputGroupSelect01" style=" margin-bottom: 15px;" placeholder="广告链接"/>
+
+            </div>
+
+
+
+            <label for="uploadedFiles" class="col-sm-2 control-label">选择文件</label>
+            <div class="col-sm-10">
+
+                <input class="form-control" type="file" id="uploadedFiles" name="uploadedFiles" onchange="showThumbNail()">
+                <p class="help-block">仅支持pdf及jpg,png格式文件上传</p>
+
+
+<!--                <div class="progress">-->
+<!--                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">-->
+<!--                        0%-->
+<!--                    </div>-->
+<!--                </div>-->
+
+            </div>
+
+            <label for="thumbNailBox" class="col-sm-2 control-label">预览</label>
+            <div class="col-sm-10">
+                <img id="thumbNailBox" class="form-control" style="width: 100px;height: 100px;padding: 0px;"/>
+            </div>
+
+
+
+<!--            <label  class="col-sm-2 control-label"></label>-->
+<!--            <div class="col-sm-10">-->
+<!--                &lt;!&ndash;                      <input type="text" id="link" name="link" placeholder="跳转链接" class="form-control"/>&ndash;&gt;-->
+
+<!--                <div id="toolbar" class="toolbar">-->
+<!--                </div>-->
+<!--                <div id="editor"  contenteditable="true" class="text" style="min-height:800px;" ></div>-->
+
+<!--            </div>-->
+
+
+        </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer">
+            <button class="btn btn-primary btn-info" id="uploadFileBtn">上传</button>
+
+        </div>
+
+
+
+    </div>
 </div>
 <script>
     function getLink() {
-        var link = prompt("请输入图片的链接","http://");
+        var link = prompt("请输入图片的链接","http://");  //prompt() 方法用于显示可提示用户进行输入的对话框。
         return link != "" && link == "null" && link != null ? link : "#";
     }
     $(function () {
@@ -64,8 +88,11 @@
 
     function doSaveFile() {
         // var reg=/(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/;
-        var formData = new FormData();
+        var formData = new FormData(); //用一些键值对来模拟一系列表单控件：即把form中所有表单元素的name与value组装成一个queryString
         let file = $("#uploadedFiles")[0].files[0];
+        let link = $("#inputGroupSelect01").val();
+        let title = $("#newsTitle").val();
+        // console.log(title);
         // let link = $("#editor").txt.html();
         // if (link == null || link === '' || file == null) {
         //     alert("请将待上传广告和跳转链接填写完整");
@@ -74,7 +101,9 @@
 
 
         formData.append("uploadedFiles",file);
-        formData.append("link",editor.txt.html());
+        // console.log(formData.get("uploadedFiles"));
+        formData.append("link",link);
+        formData.append("title",title);
         // console.log("link",link);
         // console.log("file",file);
         $.ajax({
@@ -84,21 +113,21 @@
             contentType: false,
             processData : false,
             cache: false,
-            xhr: function(){
-                let myXhr = $.ajaxSettings.xhr();
-                if(myXhr.upload){ // check if upload property exists
-                    myXhr.upload.addEventListener('progress',function(e){
-                        var loaded = e.loaded;//已经上传大小情况
-                        var tot = e.total;//附件总大小
-                        var per = Math.floor(100*loaded/tot);  //已经上传的百分比
-                        $(".progress-bar").html( per +"%" );
-                        $(".progress-bar").css("width",per +"%" );
-                        // console.log('附件总大小 = ' + loaded);
-                        // console.log('已经上传大小 = ' + tot);
-                    }, false); // for handling the progress of the upload
-                }
-                return myXhr;
-            }
+            // xhr: function(){
+            //     let myXhr = $.ajaxSettings.xhr();
+            //     if(myXhr.upload){ // check if upload property exists
+            //         myXhr.upload.addEventListener('progress',function(e){
+            //             var loaded = e.loaded;//已经上传大小情况
+            //             var tot = e.total;//附件总大小
+            //             var per = Math.floor(100*loaded/tot);  //已经上传的百分比
+            //             $(".progress-bar").html( per +"%" );
+            //             $(".progress-bar").css("width",per +"%" );
+            //             // console.log('附件总大小 = ' + loaded);
+            //             // console.log('已经上传大小 = ' + tot);
+            //         }, false); // for handling the progress of the upload
+            //     }
+            //     return myXhr;
+            // }
         }).done(function(res) { //回调函数
             if (res.state === 1) {
                 dolistUI();
@@ -115,63 +144,83 @@
     }
 
 
-    function showErr() {
-        alert("图片过大");
-    }
-    function showTimeout() {
-        alert("上传图片超时");
-    }
-    var E = window.wangEditor;
-    var editor = new E('#toolbar','#editor');
-    editor.customConfig.menus = [
-        'fontName',  // 字体
-        'foreColor',  // 文字颜色
-        'justify',  // 对齐方式
-        'image',  // 插入图片
-        'table',  // 表格
-        'head',  // 标题
-        'bold',  // 粗体
-        'fontSize',  // 字号
-    ];
-    editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024;
-    editor.customConfig.uploadImgServer = 'wxInformation/doUploadImg.do';  // 上传图片到服务器
-    editor.customConfig.debug = true; //开启DevTools Debug模式
-    editor.customConfig.uploadFileName = 'uploadedFiles'; //上传到服务器 参数名
-    editor.customConfig.showLinkImg = false; //不显示上传网络图片按钮
-    editor.customConfig.zIndex = 1; //设置z-index 放置图片和其他控件不在同一平面
-    editor.customConfig.uploadImgHooks = {
-        success: function (xhr, editor, result) {
-            console.log("times",times);
-            // 图片上传并返回结果，图片插入成功之后触发
+    // function showErr() {
+    //     alert("图片过大");
+    // }
+    // function showTimeout() {
+    //     alert("上传图片超时");
+    // }
+    // var E = window.wangEditor;
+    // var editor = new E('#toolbar','#editor');
+    // editor.customConfig.menus = [
+    //     'fontName',  // 字体
+    //     'foreColor',  // 文字颜色
+    //     'justify',  // 对齐方式
+    //     'image',  // 插入图片
+    //     'table',  // 表格
+    //     'head',  // 标题
+    //     'bold',  // 粗体
+    //     'fontSize',  // 字号
+    // ];
+    // editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024;
+    // editor.customConfig.uploadImgServer = 'wxInformation/doUploadImg.do';  // 上传图片到服务器
+    // editor.customConfig.debug = true; //开启DevTools Debug模式
+    // editor.customConfig.uploadFileName = 'uploadedFiles'; //上传到服务器 参数名
+    // editor.customConfig.showLinkImg = false; //不显示上传网络图片按钮
+    // editor.customConfig.zIndex = 1; //设置z-index 放置图片和其他控件不在同一平面
+    // editor.customConfig.uploadImgHooks = {
+    //     success: function (xhr, editor, result) {
+    //         console.log("times",times);
+    //         // 图片上传并返回结果，图片插入成功之后触发
             // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
-            if (result.errno === 0) {
-                alert("插入成功");
-            }
-            //wrap the img tag into a tag
-            $("img").eq(times).wrap("<a href=" + "\'" + getLink() + "\'" + "></a>");
-            //maybe has others images
-            times++;
-        },
-        fail: function (xhr, editor, result) {
-            // 图片上传并返回结果，但图片插入错误时触发
-            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
-            if (result !== 0) {
-                showErr();
-            }
+        //     if (result.errno === 0) {
+        //         alert("插入成功");
+        //     }
+        //     //wrap the img tag into a tag
+        //     $("img").eq(times).wrap("<a href=" + "\'" + getLink() + "\'" + "></a>");
+        //     //maybe has others images
+        //     times++;
+        // },
+        // fail: function (xhr, editor, result) {
+        //     // 图片上传并返回结果，但图片插入错误时触发
+        //     // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+        //     if (result !== 0) {
+        //         showErr();
+        //     }
+        //
+        // },
+        // error: function (xhr, editor) {
+        //     // 图片上传出错时触发
+        //     // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+        //     showErr();
+    //     },
+    //     timeout: function (xhr, editor) {
+    //         // 图片上传超时时触发
+    //         // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+    //         showTimeout();
+    //     },
+    //
+    // };
+    //
+    // editor.create();
 
-        },
-        error: function (xhr, editor) {
-            // 图片上传出错时触发
-            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
-            showErr();
-        },
-        timeout: function (xhr, editor) {
-            // 图片上传超时时触发
-            // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
-            showTimeout();
-        },
+    // 展示图片
+    function showThumbNail(){
+        let input_File = $("#uploadedFiles");
+        var file = input_File.get(0).files[0];
+        if (file == null) {
+            alert("图片错误,请重新上传图片");
+            input_File.val("");
+        }
+        var src = window.URL.createObjectURL(file);
 
-    };
+        // window.URL.createObjectURL可以用于在浏览器上预览本地图片或者视频
+        // console.log("src",src);
+        $("img#thumbNailBox").attr({
+            src: src,
+            width: 100 + '%',
+            height: 100 + '%',
+        });
 
-    editor.create();
+    }
 </script>

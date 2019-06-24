@@ -24,6 +24,33 @@
 	<!--=========================================../../LightNews/======================================================-->
 	<link rel="stylesheet" type="text/css" href="../../LightNews/css/main.css">
 	<!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../../LightNews/carousel/swiper/dist/css/swiper.css">
+    <style>
+
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body class="animsition">
@@ -3121,66 +3148,86 @@
 
 				<div class="col-md-10 col-lg-4">
 					<div class="p-l-10 p-rl-0-sr991 p-b-20">
-						<!--  -->
-						<div>
+						<!-- 广告推送 -->
+						<div class="AdvFather" style="height: 350px">
 							<div class="how2 how2-cl4 flex-s-c">
-								<h3 class="f1-m-2 cl3 tab01-title">
+								<h3 class="f1-m-2 cl3 tab01-title" style="color: #e71d69">
 									广告推送
 								</h3>
 							</div>
 
-							<ul class="p-t-35">
-								<li class="flex-wr-sb-s p-b-22">
-									<div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-										1
-									</div>
+<!--							<ul class="p-t-35">-->
+<!--								<li class="flex-wr-sb-s p-b-22" id="AdvO" >-->
+<!--									<div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">-->
+<!--										1-->
+<!--									</div>-->
 
-									<a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit
-									</a>
-								</li>
+<!--									<a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03" id="One">-->
+<!--										第一条广告-->
+<!--									</a>-->
+<!--								</li>-->
 
-								<li class="flex-wr-sb-s p-b-22">
-									<div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-										2
-									</div>
+<!--								<li class="flex-wr-sb-s p-b-22" id="AdvT">-->
+<!--									<div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">-->
+<!--										2-->
+<!--									</div>-->
 
-									<a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-										Proin velit consectetur non neque
-									</a>
-								</li>
+<!--									<a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03"  id="Two">-->
+<!--										第二条广告-->
+<!--									</a>-->
+<!--								</li>-->
 
-								<li class="flex-wr-sb-s p-b-22">
-									<div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-										3
-									</div>
+<!--								<li class="flex-wr-sb-s p-b-22">-->
+<!--									<div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">-->
+<!--										3-->
+<!--									</div>-->
 
-									<a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-										Nunc vestibulum, enim vitae condimentum volutpat lobortis ante
-									</a>
-								</li>
+<!--									<a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03" >-->
+<!--										第三条广告-->
+<!--									</a>-->
+<!--								</li>-->
 
-								<li class="flex-wr-sb-s p-b-22">
-									<div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-										4
-									</div>
+<!--								<li class="flex-wr-sb-s p-b-22">-->
+<!--									<div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6" >-->
+<!--										4-->
+<!--									</div>-->
 
-									<a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-										Proin velit justo consectetur non neque elementum
-									</a>
-								</li>
+<!--									<a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03" >-->
+<!--										第四条广告-->
+<!--									</a>-->
+<!--								</li>-->
 
-								<li class="flex-wr-sb-s p-b-22">
-									<div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0">
-										5
-									</div>
+<!--								<li class="flex-wr-sb-s p-b-22">-->
+<!--									<div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0" >-->
+<!--										5-->
+<!--									</div>-->
 
-									<a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-										Proin velit consectetur non neque
-									</a>
-								</li>
-							</ul>
+<!--									<a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03" >-->
+<!--										第五条广告-->
+<!--									</a>-->
+<!--								</li>-->
+<!--							</ul>-->
+
+<!--                            广告轮播图-->
+
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+<!--                                    <div class="swiper-slide"><a href="https://www.baidu.com/" id="ImgA" onclick="JumpAdv()" ></a></div>-->
+<!--                                    <div class="swiper-slide">Slide 2</div>-->
+<!--                                    <div class="swiper-slide">Slide 3</div>-->
+<!--                                    <div class="swiper-slide">Slide 4</div>-->
+                                </div>
+                                <!-- 如果需要分页器 -->
+                                <div class="swiper-pagination"></div>
+
+                            </div>
+
+<!--                          轮播图结束-->
+
+
+
 						</div>
+
 
 						<!--  -->
 						<!--  -->
@@ -3205,7 +3252,7 @@
 			<div class="row justify-content-center">
 				<div class="col-md-10 col-lg-8 p-b-20">
 					<div class="how2 how2-cl4 flex-s-c m-r-10 m-r-0-sr991">
-						<h3 class="f1-m-2 cl3 tab01-title">
+						<h3 class="f1-m-2 cl3 tab01-title" style="color: #e71d69">
 							最热文章
 						</h3>
 					</div>
@@ -3345,22 +3392,23 @@
 						<!-- Video -->
 						<div class="p-b-55">
 							<div class="how2 how2-cl4 flex-s-c m-b-35">
-								<h3 class="f1-m-2 cl3 tab01-title">
+								<h3 class="f1-m-2 cl3 tab01-title" style="color: #e71d69">
 									广告视频
 								</h3>
 							</div>
 
 							<div>
 								<div class="wrap-pic-w pos-relative" >
-									<video width="320" height="240" controls="controls"">
+									<video width="320" height="240" controls="controls">
 									<source src="../../LightNews/images/video.mp4" type="video/mp4" >
 									<source src="../../LightNews/images/video.ogg" type="video/ogg" >
 									<!--
                                                                         </video>
-                                    <!--											<button class="s-full ab-t-l flex-c-c fs-32 cl0 hov-cl10 trans-03" data-toggle="modal" data-target="#modal-video-01">-->
+                                    										<button class="s-full ab-t-l flex-c-c fs-32 cl0 hov-cl10 trans-03" data-toggle="modal" data-target="#modal-video-01">-->
 									<!--												<span class="fab fa-youtube"></span>-->
 									<!--											</button>-->
-								</div>
+                                    </video>
+                                </div>
 
 								<div class="p-tb-16 p-rl-25 bg3">
 									<h5 class="p-b-5">
@@ -3653,11 +3701,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<!--=========../../LightNews/======================================================================================-->
 	<script src="../../LightNews/js/main.js"></script>
 
+<!--    //轮播图引入script-->
+    <script src="../../LightNews/carousel/swiper/dist/js/swiper.min.js"></script>
 
 
     <script>
 		$(function () {
-			//渲染四个推荐新闻
+			// 渲染四个推荐新闻
 			setRecommendedNewsList();
 			//渲染分栏新闻
 			setSeparatedColNews();
@@ -3690,7 +3740,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			// bigOneFirstChild.attr("class","bg-img1 size-a-3 how1 pos-relative");
 			bigOneFirstChild.css("background-image","url(" + res.data[0].thumbNail + ")");
 			var bigOneElementA = $("<a class='dis-block how1-child1 trans-03'></a>");
-			// bigOneElementA.addClass("dis-block how1-child1 trans-03");
 			bigOneElementA.attr("href","/News/showNewsDetail.do?id=" + res.data[0].id);
 			bigOneFirstChild.append(bigOneElementA);
 			console.log("firstChild",bigOneFirstChild);
@@ -4346,7 +4395,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 			柳欞:
 //第四个
-					var bigColThreeFourth = res.data[0];
+			var bigColThreeFourth = res.data[0];
 			console.log(bigColThreeFourth.thumbNail);
 			console.log($("#BigColThreeFourthImg"));
 			$("#BigColThreeFourthImg").attr("src",bigColThreeFourth.thumbNail);
@@ -4394,7 +4443,121 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 		}
 
-	</script>
+		//广告轮播图的script,自带
+
+        // var swiper = new Swiper('.swiper-container', {
+        // pagination: {
+        //         el: '.swiper-pagination',
+        //             },
+        //     height: 300,
+        //     speed:300,
+        //     autoplay: {
+        //         delay:2000,
+        //     },
+        //     // preventClicks : false,//默认true
+        // });
+
+		var mySwiper = new Swiper('.swiper-container', {
+		    direction: 'horizontal', //垂直切换选项
+            autoplay: true,
+            autoHeight: true,
+            loop: true,
+            pagination: {
+		        el: '.swiper-pagination',
+            },
+            init: false,
+        });
+
+        $(function () {
+            //加载轮播图
+            $.ajax({
+                url: "/advertisement/doFindObjectByCount.do",
+                data: {
+                    count: 4
+                },
+                method: "post",
+                dataType: "json",
+            }).done(function (res) {
+                if (res.state === 1){
+                    showCarousel(res.data);
+                }
+            });
+        })
+        function showCarousel(data) {
+            var container = $(".swiper-container");
+            var wrapper = $(".swiper-wrapper");
+
+            for(var i in data){
+                var id = data[i].id;
+                var link = "/advertisement/adsDetail.do?adsid=" + id;
+                var src = data[i].content;
+                var slide = $("<div></div>");
+                slide.attr("class","swiper-slide");
+                var a = $("<a></a>");
+                var img = $("<img/>");
+                img.attr("src",src);
+                img.attr("alt","img");
+                img.css("width","100%");
+                img.css("height","100%");
+
+                a.attr("href",link);
+                a.append(img);
+                slide.append(a);
+                wrapper.append(slide);
+            }
+            container.append(wrapper);
+            mySwiper.init();
+        }
+
+
+
+
+
+        // $(function () {  //当页面加载的时候渲染轮播图
+        //     AskCarousel();
+        // })
+        // var swiper_container = $(".swiper-container");
+        // var swiper_wrapper = $(".swiper-wrapper");
+        //
+        // function AskCarousel(){
+        //     $.ajax({
+        //         url: "//用来接收广告数据的url",
+        //         method: "GET",
+        //         data: FormData,
+        //         dataType: "json",
+        //         success: function(FormData.data[].id){
+        //             // var swiper_container = $(".swiper-container");
+        //             // var swiper_wrapper = $(".swiper-wrapper");
+        //             // JumpAdv (swiper_wrapper,data);
+        //
+        //             for (data in swiper_wrapper){
+        //                 var swiper_slide  = $("<div class='swiper-slide'></div>");
+        //                 var A = $("<a></a>");
+        //                 A.attr("href","需要请求广告的url"); //请求a标签的href
+        //                 var Img = ("<img/>");
+        //                 Img.attr("src","需要请求广告数据.content");//请求图片的url
+        //                 Img.attr("title","需要请求广告数据.title");//请求图片的title
+        //                 swiper_slide.append(A);
+        //                 A.append(Img);
+        //             }
+        //         },
+        //     })
+        // }
+        // swiper_container.inite;
+
+       // function JumpAdv(swiper_wrapper, data){
+       //  var swiper_slide  = $("<div class='swiper-slide'></div>");
+       //  var A = $("<a></a>");
+       //  A.attr("href","需要请求广告的url"); //请求a标签的href
+       //  var Img = ("<img/>")
+       //  Img.attr("src","需要请求广告数据.content");//请求图片的url
+       //  Img.attr("title","需要请求广告数据.title");//请求图片的title
+       //  swiper_slide.append(A);
+       //  A.append(Img);
+       //  }
+       //  swiper_container.inite;
+
+    </script>
 </body>
 
 </html>
