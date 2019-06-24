@@ -7056,8 +7056,8 @@ h5.ui.header {
 
 @font-face {
   font-family: 'Icons';
-  src: url(../fonts/icons.eot);
-  src: url(../fonts/icons.eot?#iefix) format('embedded-opentype'), url(../fonts/icons.woff) format('woff'), url(../fonts/icons.ttf) format('truetype'), url(../fonts/icons.svg#icons) format('svg');
+  src: url(../../fonts/user_center/icons.eot);
+  src: url(../../fonts/user_center/icons.eot?#iefix) format('embedded-opentype'), url(../../fonts/user_center/icons.woff) format('woff'), url(../../fonts/user_center/icons.ttf) format('truetype'), url(../../fonts/user_center/icons.svg#icons) format('svg');
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
