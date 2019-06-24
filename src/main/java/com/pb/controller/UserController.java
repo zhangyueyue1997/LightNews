@@ -117,7 +117,7 @@ public class UserController {
 		return row == 1 ? new JsonResult(1, "更新成功") :
 				          new JsonResult(2, "更新失败");
 	}
-	
+
 	@RequestMapping("findObjectById")
 	@ResponseBody
 	public JsonResult findObjectById(Integer id){
@@ -177,5 +177,41 @@ public class UserController {
 		}
 
 		return null;
+	}
+
+
+	@RequestMapping(value = "newsContent")
+	public String newsContent() {
+		return "news_content";
+	}
+
+	@RequestMapping(value = "userCenter")
+	public String userCenter() {
+		return "user_center";
+	}
+
+	@RequestMapping(value = "userHistory")
+	public String userHistory() {
+		return "user_history";
+	}
+
+	@RequestMapping(value = "userMessage")
+	public String userMessage() {
+		return "user_message";
+	}
+
+	@RequestMapping(value = "userPassword")
+	public String userPassword() {
+		return "user_password";
+	}
+
+	@RequestMapping(value = "userLogin")
+	public String userLogin() {
+		return "dengluzhuce/denglu";
+	}
+
+	@RequestMapping(value = "userRegister")
+	public String userRegister() {
+		return "dengluzhuce/zhuce";
 	}
 }
