@@ -33,10 +33,9 @@ public class AdvertisementController {
 
 	@RequestMapping("doFindObjectByCount")
 	@ResponseBody
-	public JsonResult doFindObjectsByCount(@RequestParam("count") Integer count) {
+	public JsonResult doFindObjectsByCount(@RequestParam("amount") Integer count) {
 		List<Advertisement> object = service.findObjectsInCount(count);
 		return new JsonResult(1,object);
-
 	}
 
 	@RequestMapping("detailsUI")
