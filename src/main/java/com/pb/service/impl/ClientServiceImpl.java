@@ -68,9 +68,10 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Integer updatePassword(String username) {
+    public Integer updatePassword(String username,String password) {
         Client c = new Client();
         c.setUsername(username);
+        c.setPassword(password);
         return dao.updatePassword(c);
     }
 }

@@ -16,5 +16,5 @@ public interface ClientService {
 
     int save (Client entity);
 
-    Integer updatePassword(String username);
+    Integer updatePassword(String username,String password);
 }
