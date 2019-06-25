@@ -6,7 +6,8 @@
 
 <link rel="stylesheet" type="text/css" href="../../LightNews/css/payfor/amazeui.min.css" />
 <link rel="stylesheet" type="text/css" href="../../LightNews/css/payfor/main.css" />
-
+	<script type="text/javascript" src="../../LightNews/js/payfor/payturn.jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../LightNews/css/payfor/money.css"/>
 </head>
 <body>
 <div class="pay">
@@ -53,15 +54,7 @@
 					<input type="number" min="10" max="10000" value="10.00元" class="othbox" data-validation-message="充值金额范围：10-10000元" />
 					<!--<p>充值金额范围：10-10000元</p>-->
 				</div>
-				<div class="tr_rechcho am-form-group">
-					<span>充值方式：</span>
-					<label class="am-radio">
-							<input type="radio" name="radio1" value="" data-am-ucheck required data-validation-message="请选择一种充值方式"><img src="../../LightNews/images/payfor/wechatpay.png">
-						</label>
-					<label class="am-radio" style="margin-right:30px;">
-							<input type="radio" name="radio1" value="" data-am-ucheck data-validation-message="请选择一种充值方式"><img src="../../LightNews/images/payfor/zfbpay.png">
-						</label>
-				</div>
+<!--				-->
 				<div class="tr_rechnum">
 					<span>应付金额：</span>
 					<p class="rechnum">0.00元</p>
@@ -140,6 +133,7 @@
 		});
 	});
 </script>
+
 <div style="text-align:center;">
 </div>
 </body>

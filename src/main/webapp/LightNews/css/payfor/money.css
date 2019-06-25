@@ -79,7 +79,7 @@
 	line-height: 66px;
 	color: #a3a3a3;
 	font-size: 16px;
-	background: url('QR code/img/cy-reward-title-bg.jpg');
+	background: url('../../images/payfor/cy-reward-title-bg.jpg');
 	font-family: 'Microsoft YaHei';
 	margin-top: 7px;
 	margin-right: 2px;
@@ -117,7 +117,7 @@
 .radiobox {
 	width: 16px;
 	height: 16px;
-	background: url('QR code/img/radio2.jpg');
+	background: url('../../images/payfor/radio2.jpg');
 	display: block;
 	float: left;
 	margin-top: 5px;
@@ -125,7 +125,7 @@
 }
 
 .checked .radiobox {
-	background: url('QR code/img/radio1.jpg');
+	background: url('../../images/payfor/radio1.jpg');
 }
 
 .shang_payselect {
