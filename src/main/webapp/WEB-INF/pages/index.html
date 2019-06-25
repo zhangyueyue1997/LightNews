@@ -2363,68 +2363,7 @@
 				<div class="col-md-6 p-rl-1" id="BigMiddle">
 
 					<div class="row m-rl--1" id="Middle">
-						<div class="col-12 p-rl-1 p-b-2">
-<!--							<div class="bg-img1 size-a-4 how1 pos-relative"-->
-<!--								style="background-image: url(images/post-02.jpg);">-->
-<!--								<a href="ads_content.html" class="dis-block how1-child1 trans-03" id="MiddleA"></a>-->
 
-<!--								<div class="flex-col-e-s s-full p-rl-25 p-tb-24">-->
-<!--									<a href="#"-->
-<!--										class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">-->
-<!--										Culture-->
-<!--									</a>-->
-
-<!--									<h3 class="how1-child2 m-t-14">-->
-<!--										<a href="ads_content.html"-->
-<!--											class="how-txt1 size-a-7 f1-l-2 cl0 hov-cl10 trans-03">-->
-<!--											London ipsum dolor sit amet, consectetur adipiscing elit.-->
-<!--										</a>-->
-<!--									</h3>-->
-<!--								</div>-->
-<!--							</div>-->
-						</div>
-
-						<div class="col-sm-6 p-rl-1 p-b-2">
-<!--							<div class="bg-img1 size-a-5 how1 pos-relative"-->
-<!--								style="background-image: url(images/post-03.jpg);">-->
-<!--								<a href="ads_content.html" class="dis-block how1-child1 trans-03"></a>-->
-
-<!--								<div class="flex-col-e-s s-full p-rl-25 p-tb-20">-->
-<!--									<a href="#"-->
-<!--										class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">-->
-<!--										Life Style-->
-<!--									</a>-->
-
-<!--									<h3 class="how1-child2 m-t-14">-->
-<!--										<a href="ads_content.html"-->
-<!--											class="how-txt1 size-h-1 f1-m-1 cl0 hov-cl10 trans-03">-->
-<!--											Pellentesque dui nibh, pellen-tesque ut dapibus ut-->
-<!--										</a>-->
-<!--									</h3>-->
-<!--								</div>-->
-<!--							</div>-->
-						</div>
-
-						<div class="col-sm-6 p-rl-1 p-b-2">
-<!--							<div class="bg-img1 size-a-5 how1 pos-relative"-->
-<!--								style="background-image: url(images/post-04.jpg);">-->
-<!--								<a href="ads_content.html" class="dis-block how1-child1 trans-03"></a>-->
-
-<!--								<div class="flex-col-e-s s-full p-rl-25 p-tb-20">-->
-<!--									<a href="#"-->
-<!--										class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">-->
-<!--										Sport-->
-<!--									</a>-->
-
-<!--									<h3 class="how1-child2 m-t-14">-->
-<!--										<a href="ads_content.html"-->
-<!--											class="how-txt1 size-h-1 f1-m-1 cl0 hov-cl10 trans-03">-->
-<!--											Motobike Vestibulum vene-natis purus nec nibh volutpat-->
-<!--										</a>-->
-<!--									</h3>-->
-<!--								</div>-->
-<!--							</div>-->
-						</div>
 					</div>
 				</div>
 			</div>
@@ -3733,7 +3672,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		}
 		//大一renderBigOne获取页面
 		function renderBigOne(rNewsList,res) {
-			// console.log(res.data[0]);
+			console.log(res.data[0]);
 			var bigOne = $("<div class='col-md-6 p-rl-1 p-x b-2'></div>");
 			// bigOne.attr("class","col-md-6 p-rl-1 p-x b-2");
 			var bigOneFirstChild = $("<div class='bg-img1 size-a-3 how1 pos-relative' ></div>");
@@ -3794,15 +3733,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 			var MiddleTwoImg = $("<div></div>");//中块下的包含图片的框
 			MiddleTwoImg.attr("class","bg-img1 size-a-4 how1 pos-relative");
-			MiddleTwoImg.css("background-image","url(" + res.data[0].thumbNail +	 ")");
-			console.log(res.data[0].thumbNail);
+			MiddleTwoImg.css("background-image","url(" + res.data[1].thumbNail +	 ")");
+			console.log(res.data[1].thumbNail);
 			var MiddleTwoA = $("<a></a>");//图片下的a标签
 			MiddleTwoA.attr("class","dis-block how1-child1 trans-03");
 			// MiddleTwoA.attr("id","MiddleA");
-			MiddleTwoA.attr("href","/News/showNewsDetail?id=" + res.data[0].id);
+			MiddleTwoA.attr("href","/News/showNewsDetail?id=" + res.data[1].id);
 			MiddleTwoImg.append(MiddleTwoA);
 			MiddleTwo.append(MiddleTwoImg);
-			console.log(MiddleTwoImg[0]);
+			console.log(MiddleTwoImg[1]);
 
 
 
@@ -3814,7 +3753,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			var MiddleTwoTypeA = $("<a></a>");//新闻类别下的a标签
 			MiddleTwoTypeA.attr("class","dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2");
 			MiddleTwoTypeA.attr("href","#");
-			var type = res.data[0].type;
+			var type = res.data[1].type;
 			MiddleTwoTypeA.text(selType(type));//使用函数设置备选元素的文本内容
 			MiddleTwoType.append(MiddleTwoTypeA);
 
@@ -3828,14 +3767,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 			var MiddleTwoTypeH3A = $("<a></a>");//新闻类别下的h3标签下的a标签
 			MiddleTwoTypeH3A.attr("class","how-txt1 size-a-7 f1-l-2 cl0 hov-cl10 trans-03");
-			MiddleTwoTypeH3A.attr("href","/News/showNewsDetail.do?id=" + res.data[0].id);
-			var MiddleTitle = res.data[0].title;
+			MiddleTwoTypeH3A.attr("href","/News/showNewsDetail.do?id=" + res.data[1].id);
+			var MiddleTitle = res.data[1].title;
 			MiddleTwoTypeH3A.text(MiddleTitle);
 			MiddleTwoTypeH3.append(MiddleTwoTypeH3A);
 
 			var MiddleTwoTypeSpan = $("<span class='how1-child2'></span>");
 			var MiddleTwoTypeSpanS = $("<span class='f1-s-3 cl11'></span>");
-			var MiddleTime = res.data[0].createdTime;
+			var MiddleTime = res.data[1].createdTime;
 			MiddleTwoTypeSpanS.text(MiddleTime);
 			MiddleTwoTypeSpan.append(MiddleTwoTypeSpanS);
 			MiddleTwoTypeSpan.append(MiddleTwoTypeSpanS);
@@ -3848,56 +3787,56 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 		//小1renderSmallL获取页面
 		function renderSmallL(Middle,res){
-			var renderSmallR = $("<div></div>");//获取中块
-			renderSmallR.attr("class","col-sm-6 p-rl-1 p-b-2");
-			Middle.append(renderSmallR);
+			var renderSmallL = $("<div></div>");//获取中块
+			renderSmallL.attr("class","col-sm-6 p-rl-1 p-b-2");
+			Middle.append(renderSmallL);
 
-			var renderSmallRImg = $("<div></div>");//中块下的包含图片的框
-			renderSmallRImg.attr("class","bg-img1 size-a-5 how1 pos-relative");
-			renderSmallRImg.css("background-image","url(" + res.data[2].thumbNail +	 ")");
-			var renderSmallRA = $("<a></a>");//图片下的a标签
-			renderSmallRA.attr("class","dis-block how1-child1 trans-03");
-			renderSmallRA.attr("href","/News/showNewsDetail?id=" + res.data[2].id);
-			renderSmallRImg.append(renderSmallRA);
-			renderSmallR.append(renderSmallRImg);
-
-
-
-
-			var renderSmallRType = $("<div></div>");//图片下的新闻类别
-			renderSmallRType.attr("class","flex-col-e-s s-full p-rl-25 p-tb-20");
+			var renderSmallLImg = $("<div></div>");//中块下的包含图片的框
+			renderSmallLImg.attr("class","bg-img1 size-a-5 how1 pos-relative");
+			renderSmallLImg.css("background-image","url(" + res.data[2].thumbNail +	 ")");
+			var renderSmallLA = $("<a></a>");//图片下的a标签
+			renderSmallLA.attr("class","dis-block how1-child1 trans-03");
+			renderSmallLA.attr("href","/News/showNewsDetail?id=" + res.data[2].id);
+			renderSmallLImg.append(renderSmallLA);
+			renderSmallL.append(renderSmallLImg);
 
 
 
-			var renderSmallRTypeA = $("<a></a>");//新闻类别下的a标签
-			renderSmallRTypeA.attr("class","dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2");
-			renderSmallRTypeA.attr("href","#");
+
+			var renderSmallLType = $("<div></div>");//图片下的新闻类别
+			renderSmallLType.attr("class","flex-col-e-s s-full p-rl-25 p-tb-20");
+
+
+
+			var renderSmallLTypeA = $("<a></a>");//新闻类别下的a标签
+			renderSmallLTypeA.attr("class","dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2");
+			renderSmallLTypeA.attr("href","#");
 			var type = res.data[2].type;
-			renderSmallRTypeA.text(selType(type));//使用函数设置备选元素的文本内容
-			renderSmallRType.append(renderSmallRTypeA);
+			renderSmallLTypeA.text(selType(type));//使用函数设置备选元素的文本内容
+			renderSmallLType.append(renderSmallLTypeA);
 
-			renderSmallRImg.append(renderSmallRType);
+			renderSmallLImg.append(renderSmallLType);
 
 
 
-			var renderSmallRTypeH3 = $("<h3></h3>");//新闻类别下的h3标签
-			renderSmallRTypeH3.attr("class","how1-child2 m-t-14");
-			renderSmallRType.append(renderSmallRTypeH3);
+			var renderSmallLTypeH3 = $("<h3></h3>");//新闻类别下的h3标签
+			renderSmallLTypeH3.attr("class","how1-child2 m-t-14");
+			renderSmallLType.append(renderSmallLTypeH3);
 
-			var renderSmallRTypeH3A = $("<a></a>");//新闻类别下的h3标签下的a标签
-			renderSmallRTypeH3A.attr("class","how-txt1 size-h-1 f1-m-1 cl0 hov-cl10 trans-03");
-			renderSmallRTypeH3A.attr("href","/News/showNewsDetail.do?id=" + res.data[0].id);
-			var SmallTitleR = res.data[0].title;
-			renderSmallRTypeH3A.text(SmallTitleR);
-			renderSmallRTypeH3.append(renderSmallRTypeH3A);
+			var renderSmallLTypeH3A = $("<a></a>");//新闻类别下的h3标签下的a标签
+			renderSmallLTypeH3A.attr("class","how-txt1 size-h-1 f1-m-1 cl0 hov-cl10 trans-03");
+			renderSmallLTypeH3A.attr("href","/News/showNewsDetail.do?id=" + res.data[2].id);
+			var SmallTitleL = res.data[2].title;
+			renderSmallLTypeH3A.text(SmallTitleL);
+			renderSmallLTypeH3.append(renderSmallLTypeH3A);
 
-			var renderSmallRTypeSpan = $("<span class='how1-child2'></span>");
-			var renderSmallRTypeSpanS = $("<span class='f1-s-3 cl11'></span>");
-			var SmallTimeR = res.data[0].createdTime;
-			renderSmallRTypeSpanS.text(SmallTimeR);
-			renderSmallRTypeSpan.append(renderSmallRTypeSpanS);
-			renderSmallRTypeSpan.append(renderSmallRTypeSpanS);
-			renderSmallRType.append(renderSmallRTypeSpan);
+			var renderSmallLTypeSpan = $("<span class='how1-child2'></span>");
+			var renderSmallLTypeSpanS = $("<span class='f1-s-3 cl11'></span>");
+			var SmallTimeL = res.data[2].createdTime;
+			renderSmallLTypeSpanS.text(SmallTimeL);
+			renderSmallLTypeSpan.append(renderSmallLTypeSpanS);
+			renderSmallLTypeSpan.append(renderSmallLTypeSpanS);
+			renderSmallLType.append(renderSmallLTypeSpan);
 		}
 
 
@@ -3909,31 +3848,24 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 			var renderSmallRImg = $("<div></div>");//中块下的包含图片的框
 			renderSmallRImg.attr("class","bg-img1 size-a-5 how1 pos-relative");
-			renderSmallRImg.css("background-image","url(" + res.data[2].thumbNail +	 ")");
+			renderSmallRImg.css("background-image","url(" + res.data[3].thumbNail +	 ")");
 			var renderSmallRA = $("<a></a>");//图片下的a标签
 			renderSmallRA.attr("class","dis-block how1-child1 trans-03");
-			renderSmallRA.attr("href","/News/showNewsDetail?id=" + res.data[2].id);
+			renderSmallRA.attr("href","/News/showNewsDetail?id=" + res.data[3].id);
 			renderSmallRImg.append(renderSmallRA);
 			renderSmallR.append(renderSmallRImg);
-
-
-
 
 			var renderSmallRType = $("<div></div>");//图片下的新闻类别
 			renderSmallRType.attr("class","flex-col-e-s s-full p-rl-25 p-tb-20");
 
-
-
 			var renderSmallRTypeA = $("<a></a>");//新闻类别下的a标签
 			renderSmallRTypeA.attr("class","dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2");
 			renderSmallRTypeA.attr("href","#");
-			var type = res.data[2].type;
+			var type = res.data[3].type;
 			renderSmallRTypeA.text(selType(type));//使用函数设置备选元素的文本内容
 			renderSmallRType.append(renderSmallRTypeA);
 
 			renderSmallRImg.append(renderSmallRType);
-
-
 
 			var renderSmallRTypeH3 = $("<h3></h3>");//新闻类别下的h3标签
 			renderSmallRTypeH3.attr("class","how1-child2 m-t-14");
@@ -3941,14 +3873,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 			var renderSmallRTypeH3A = $("<a></a>");//新闻类别下的h3标签下的a标签
 			renderSmallRTypeH3A.attr("class","how-txt1 size-h-1 f1-m-1 cl0 hov-cl10 trans-03");
-			renderSmallRTypeH3A.attr("href","/News/showNewsDetail.do?id=" + res.data[0].id);
-			var SmallTitleR = res.data[0].title;
+			renderSmallRTypeH3A.attr("href","/News/showNewsDetail.do?id=" + res.data[3].id);
+			var SmallTitleR = res.data[3].title;
 			renderSmallRTypeH3A.text(SmallTitleR);
 			renderSmallRTypeH3.append(renderSmallRTypeH3A);
 
 			var renderSmallRTypeSpan = $("<span class='how1-child2'></span>");
 			var renderSmallRTypeSpanS = $("<span class='f1-s-3 cl11'></span>");
-			var SmallTimeR = res.data[0].createdTime;
+			var SmallTimeR = res.data[3].createdTime;
 			renderSmallRTypeSpanS.text(SmallTimeR);
 			renderSmallRTypeSpan.append(renderSmallRTypeSpanS);
 			renderSmallRTypeSpan.append(renderSmallRTypeSpanS);
@@ -4456,35 +4388,36 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         //     },
         //     // preventClicks : false,//默认true
         // });
+		//加载轮播图
+		$.ajax({
+			url: "/advertisement/doFindObjectByCount.do",
+			data: {
+				amount: 4
+			},
+			method: "get",
+			dataType: "json",
+		}).done(function (res) {
+			console.log("res",res);
+			if (res.state === 1){
+				console.log("fuck",res);
+				showCarousel(res.data);
+			}
+		});
 
-		var mySwiper = new Swiper('.swiper-container', {
-		    direction: 'horizontal', //垂直切换选项
-            autoplay: true,
-            autoHeight: true,
-            loop: true,
-            pagination: {
-		        el: '.swiper-pagination',
-            },
-            init: false,
-        });
-
-        $(function () {
-            //加载轮播图
-            $.ajax({
-                url: "/advertisement/doFindObjectByCount.do",
-                data: {
-                    count: 4
-                },
-                method: "post",
-                dataType: "json",
-            }).done(function (res) {
-                if (res.state === 1){
-                    showCarousel(res.data);
-                }
-            });
-        })
         function showCarousel(data) {
-            var container = $(".swiper-container");
+        	var mySwiper = new Swiper('.swiper-container', {
+				direction: 'horizontal', //垂直切换选项
+				autoplay: true,
+				autoHeight: true,
+				speed: 100,
+				loop: true,
+				pagination: {
+					el: '.swiper-pagination',
+				},
+				init: false,
+			});
+
+			var container = $(".swiper-container");
             var wrapper = $(".swiper-wrapper");
 
             for(var i in data){
