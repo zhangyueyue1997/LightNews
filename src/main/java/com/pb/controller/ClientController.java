@@ -55,4 +55,13 @@ public class ClientController {
                 new JsonResult(0,"保存失败");
 
     }
+
+    @RequestMapping(value = "doUpdatePassword",method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult doUpdatePassword(@RequestParam("username") String username) {
+        int result = service.updatePassword(username);
+        return result == 1 ? new JsonResult(1,"更新成功"):
+        new JsonResult(0,"更新失败");
+    }
+
 }

@@ -4,6 +4,7 @@ import com.pb.common.vo.PageObject;
 import com.pb.dao.ClientDao;
 import com.pb.pojo.Client;
 import com.pb.service.ClientService;
+import org.apache.ibatis.executor.ReuseExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -64,5 +65,12 @@ public class ClientServiceImpl implements ClientService {
             result = 0;
         }
         return result;
+    }
+
+    @Override
+    public Integer updatePassword(String username) {
+        Client c = new Client();
+        c.setUsername(username);
+        return dao.updatePassword(c);
     }
 }

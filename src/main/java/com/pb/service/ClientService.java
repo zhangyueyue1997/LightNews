@@ -15,4 +15,6 @@ public interface ClientService {
     List<Client> getClientPageByFuzzyName(Client entity);
 
     int save (Client entity);
+
+    Integer updatePassword(String username);
 }

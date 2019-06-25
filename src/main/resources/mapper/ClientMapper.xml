@@ -31,4 +31,10 @@
         insert into client(id, username, password, status)
         values (default,#{username},#{password},default);
     </insert>
+
+    <update id="updatePassword" parameterType="Client">
+        update client
+        set password  =  #{password}
+        where username = #{username};
+    </update>
 </mapper>

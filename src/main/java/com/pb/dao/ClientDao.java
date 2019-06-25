@@ -17,4 +17,6 @@ public interface ClientDao {
     Integer selRowCount();
 
     int insertNewClient(Client entity) throws DataAccessException;
+
+    Integer updatePassword(Client c);
 }
