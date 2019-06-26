@@ -3455,21 +3455,21 @@
 		<div class="bg2 p-t-40 p-b-25">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-4 p-b-20">
+					<div class="col-lg-4 p-b-20" >
 						<div class="size-h-3 flex-s-c">
 							<a href="index.html">
 								实时新闻
 							</a>
 						</div>
 
-						<div>
-							<p class="f1-s-1 cl11 p-b-16">
+						<div id="Content">
+							<p class="f1-s-1 cl11 p-b-16" id="NewsContent">
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempor magna eget
 								elit efficitur, at accumsan sem placerat. Nulla tellus libero, mattis nec molestie at,
 								facilisis ut turpis. Vestibulum dolor metus, tincidunt eget odio
 							</p>
 
-							<p class="f1-s-1 cl11 p-b-16">
+							<p class="f1-s-1 cl11 p-b-16" id="NewsTime">
 								Any questions? Call us on (+1) 96 716 6879
 							</p>
 
@@ -3504,20 +3504,20 @@
 							</h5>
 						</div>
 
-						<ul>
+						<ul id="BigContainer">
 							<li class="flex-wr-sb-s p-b-20">
 								<a href="#" class="size-w-4 wrap-pic-w hov1 trans-03">
-									<img src="images/popular-post-01.jpg" alt="IMG">
+									<img src="images/popular-post-01.jpg" alt="IMG"  id="DownImg">
 								</a>
 
 								<div class="size-w-5">
 									<h6 class="p-b-5">
-										<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03">
+										<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03" id="DownTitle">
 											Donec metus orci, malesuada et lectus vitae
 										</a>
 									</h6>
 
-									<span class="f1-s-3 cl6">
+									<span class="f1-s-3 cl6" id="DownTime">
 										Feb 17
 									</span>
 								</div>
@@ -3525,17 +3525,17 @@
 
 							<li class="flex-wr-sb-s p-b-20">
 								<a href="#" class="size-w-4 wrap-pic-w hov1 trans-03">
-									<img src="images/popular-post-02.jpg" alt="IMG">
+									<img src="images/popular-post-02.jpg" alt="IMG" id="DownImgT">
 								</a>
 
 								<div class="size-w-5">
 									<h6 class="p-b-5">
-										<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03">
+										<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03" id="DownTitleT" >
 											Lorem ipsum dolor sit amet, consectetur
 										</a>
 									</h6>
 
-									<span class="f1-s-3 cl6">
+									<span class="f1-s-3 cl6" id="DownTimeT">
 										Feb 16
 									</span>
 								</div>
@@ -3543,17 +3543,17 @@
 
 							<li class="flex-wr-sb-s p-b-20">
 								<a href="#" class="size-w-4 wrap-pic-w hov1 trans-03">
-									<img src="images/popular-post-03.jpg" alt="IMG">
+									<img src="images/popular-post-03.jpg" alt="IMG" id="DownImgS">
 								</a>
 
 								<div class="size-w-5">
 									<h6 class="p-b-5">
-										<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03">
+										<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03" id="DownTitleS">
 											Suspendisse dictum enim quis imperdiet auctor
 										</a>
 									</h6>
 
-									<span class="f1-s-3 cl6">
+									<span class="f1-s-3 cl6" id="DownTimeS">
 										Feb 15
 									</span>
 								</div>
@@ -3651,8 +3651,63 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			setRecommendedNewsList();
 			//渲染分栏新闻
 			setSeparatedColNews();
+			//渲染底部新闻
+			setDownNews();
+			//渲染底部文章
+			setNewsContent();
 		});
+		function setDownNews() {
+			$.ajax({
+			 url: "/News/selectNewsInCount.do",
+					method: "GET",
+					data: {
+			 			count:4,
+					},
+				dataType: "json",
+				success: function (res){
+			 		var BigContainer = $("#BigContainer");
+					renderDownNews(BigContainer,res);
+				}
+			})
+		}
 
+		function renderDownNews(BigContainer,res){
+			var DownContent = res.data[0];
+
+			$("#DownImg").attr("src",DownContent.thumbNail);
+			$("#DownTitle").text(DownContent.title);
+			$("#DownTime").text(DownContent.createdTime);
+
+			$("#DownImgT").attr("src",DownContent.thumbNail);
+			$("#DownTitleT").text(DownContent.title);
+			$("#DownTimeT").text(DownContent.createdTime);
+
+			$("#DownImgS").attr("src",DownContent.thumbNail);
+			$("#DownTitleS").text(DownContent.title);
+			$("#DownTimeS").text(DownContent.createdTime);
+		}
+
+		function setNewsContent() {
+			$.ajax({
+				url: "/News/selectNewsInCount.do",
+				method: "GET",
+				data: {
+					count:4,
+				},
+				dataType: "json",
+				success: function (res){
+					var content = $("#Content");
+					renderNewsContent(content,res);
+				}
+			})
+		}
+
+		function renderNewsContent(content,res){
+			var DownContent = res.data[3];
+
+			$("#NewsContent").text(DownContent.content);
+			$("#NewsTime").text(DownContent.createdTime);
+		}
 		function setRecommendedNewsList() {
 			$.ajax({
 				url: "/News/selectNewsInCount.do",
@@ -3735,14 +3790,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			var MiddleTwoImg = $("<div></div>");//中块下的包含图片的框
 			MiddleTwoImg.attr("class","bg-img1 size-a-4 how1 pos-relative");
 			MiddleTwoImg.css("background-image","url(" + res.data[1].thumbNail +	 ")");
-			console.log(res.data[1].thumbNail);
 			var MiddleTwoA = $("<a></a>");//图片下的a标签
 			MiddleTwoA.attr("class","dis-block how1-child1 trans-03");
 			// MiddleTwoA.attr("id","MiddleA");
-			MiddleTwoA.attr("href","/News/showNewsDetail?id=" + res.data[1].id);
+			MiddleTwoA.attr("href","/News/showNewsDetail.do?id=" + res.data[1].id);
 			MiddleTwoImg.append(MiddleTwoA);
 			MiddleTwo.append(MiddleTwoImg);
-			console.log(MiddleTwoImg[1]);
+
 
 
 
@@ -3768,7 +3822,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 			var MiddleTwoTypeH3A = $("<a></a>");//新闻类别下的h3标签下的a标签
 			MiddleTwoTypeH3A.attr("class","how-txt1 size-a-7 f1-l-2 cl0 hov-cl10 trans-03");
-			MiddleTwoTypeH3A.attr("href","/News/showNewsDetail.do?id=" + res.data[1].id);
+			MiddleTwoTypeH3A.attr("href","/News/showNewsDetail?id=" + res.data[1].id);
 			var MiddleTitle = res.data[1].title;
 			MiddleTwoTypeH3A.text(MiddleTitle);
 			MiddleTwoTypeH3.append(MiddleTwoTypeH3A);
@@ -3797,7 +3851,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			renderSmallLImg.css("background-image","url(" + res.data[2].thumbNail +	 ")");
 			var renderSmallLA = $("<a></a>");//图片下的a标签
 			renderSmallLA.attr("class","dis-block how1-child1 trans-03");
-			renderSmallLA.attr("href","/News/showNewsDetail?id=" + res.data[2].id);
+			renderSmallLA.attr("href","/News/showNewsDetail.do?id=" + res.data[2].id);
 			renderSmallLImg.append(renderSmallLA);
 			renderSmallL.append(renderSmallLImg);
 
@@ -3852,7 +3906,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			renderSmallRImg.css("background-image","url(" + res.data[3].thumbNail +	 ")");
 			var renderSmallRA = $("<a></a>");//图片下的a标签
 			renderSmallRA.attr("class","dis-block how1-child1 trans-03");
-			renderSmallRA.attr("href","/News/showNewsDetail?id=" + res.data[3].id);
+			renderSmallRA.attr("href","/News/showNewsDetail.do?id=" + res.data[3].id);
 			renderSmallRImg.append(renderSmallRA);
 			renderSmallR.append(renderSmallRImg);
 
@@ -3903,6 +3957,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 					break;
 				case 3:
 					bigOneFirstChildOneContent = "新闻";
+					break;
+				case 4:
+					bigOneFirstChildOneContent = "财经";
+					break;
+				case 5:
+					bigOneFirstChildOneContent = "旅游";
+					break;
+				case 6:
+					bigOneFirstChildOneContent = "时尚";
 					break;
 			}
 			return bigOneFirstChildOneContent;
@@ -4423,7 +4486,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
             for(var i in data){
                 var id = data[i].id;
-                var link = "/advertisement/adsDetail.do?id=" + id;
+                var link = data[i].link;
                 var src = data[i].content;
                 var slide = $("<div></div>");
                 slide.attr("class","swiper-slide");
