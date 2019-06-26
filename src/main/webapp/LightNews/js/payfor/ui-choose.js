@@ -2,6 +2,7 @@
  * ui-choose通用选择插件
  * 基于jQuery
  */
+
 ; + function($) {
     "use strict";
     // 默认实例化配置
