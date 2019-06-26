@@ -225,5 +225,7 @@ public class UserController {
 		return "payturn";
 	}
 
+	@RequestMapping(value = "searchNews")
+	public String searchNews(@RequestParam("title")String title) { return "search_news"; }
 
 }
