@@ -216,14 +216,10 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "payA")
-	public String payA() {
-		return "pay";
-	}
+	public String payA() { return "order"; }
 
 	@RequestMapping(value = "payTurn")
-	public String payTurn() {
-		return "payturn";
-	}
+	public String payTurn() { return "orderCallBack"; }
 
 	@RequestMapping(value = "searchNews")
 	public String searchNews(@RequestParam("title")String title) { return "search_news"; }
