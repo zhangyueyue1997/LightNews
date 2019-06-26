@@ -192,4 +192,13 @@ public class NewsController {
         return new JsonResult(1,"查询成功",news);
     }
 
+
+        @RequestMapping(value = "getNewsListByFuzzyName")
+    @ResponseBody
+    public JsonResult getNewsListByFuzzyName(@RequestParam("title") String title) {
+        News entity = new News();
+        entity.setTitle(title);
+        List<News> resultList = newsService.selectNewsByFuzzyName(entity);
+        return new JsonResult(1,resultList);
+    }
 }
