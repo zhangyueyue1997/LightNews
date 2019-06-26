@@ -45,6 +45,11 @@
         select id,title,content,status,createdTime,thumbNail,type from news where id = #{id}
     </select>
 
+    <select id="selectNewsListByFuzzyName" resultType="News" parameterType="string">
+        select id, title, content, status, createdTime, createdUser, thumbNail, type, modifiedUser, modifiedTime, flag
+        from news
+        where title like concat('%',#{title},'%');
+    </select>
     <update id="updateNewsFlag" parameterType="int">
         update news
         set flag =

@@ -5,6 +5,7 @@ import com.pb.common.vo.PageObject;
 import com.pb.pojo.News;
 import org.apache.ibatis.annotations.Param;
 
+import javax.lang.model.element.NestingKind;
 import java.util.List;
 
 public interface NewsService {
@@ -20,4 +21,5 @@ public interface NewsService {
     int getNewsCount();
     List<News> selectNewsInCount(Integer type,Integer count,Integer flag);
     int updateNewsFlag(Integer id);
+    List<News> selectNewsByFuzzyName(News news);
 }

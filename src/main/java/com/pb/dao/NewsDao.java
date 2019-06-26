@@ -37,4 +37,6 @@ public interface NewsDao {
      * @return 受影响行数
      */
     int updateNewsFlag(@Param("id") Integer id);
+
+    List<News> selectNewsListByFuzzyName(@Param("title") String title);
 }

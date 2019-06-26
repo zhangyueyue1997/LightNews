@@ -74,4 +74,12 @@ public class NewsServiceImpl implements NewsService {
     public int updateNewsFlag(Integer id) {
         return newsDao.updateNewsFlag(id);
     }
+
+    @Override
+    public List<News> selectNewsByFuzzyName(News news) {
+        return newsDao.selectNewsListByFuzzyName(news.getTitle());
+    }
+
+
+
 }
