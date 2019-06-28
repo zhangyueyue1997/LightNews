@@ -1,225 +1,3 @@
-<!--<!doctype html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="utf-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
-<!--    <meta name="description" content="">-->
-<!--    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">-->
-<!--    <meta name="generator" content="Jekyll v3.8.5">-->
-<!--    <title>注册</title>-->
-<!--    <script src="../../../LightNews/js/dengluzhuce/jquery.min.js"></script>-->
-
-<!--    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/">-->
-
-<!--    &lt;!&ndash; Bootstrap core CSS &ndash;&gt;-->
-<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
-
-
-<!--    <style>-->
-<!--        .bd-placeholder-img {-->
-<!--            font-size: 1.125rem;-->
-<!--            text-anchor: middle;-->
-<!--            -webkit-user-select: none;-->
-<!--            -moz-user-select: none;-->
-<!--            -ms-user-select: none;-->
-<!--            user-select: none;-->
-<!--        }-->
-
-<!--        @media (min-width: 768px) {-->
-<!--            .bd-placeholder-img-lg {-->
-<!--                font-size: 3.5rem;-->
-<!--            }-->
-<!--        }-->
-<!--    </style>-->
-<!--    &lt;!&ndash; Custom styles for this template &ndash;&gt;-->
-
-<!--    <link rel="stylesheet" href="../../../LightNews/css/dengluzhuce/signin.css">-->
-
-
-<!--</head>-->
-<!--<body class="text-center">-->
-<!--<form class="form-signin" method="get">-->
-<!--    <img class="mb-4"  src="../../../LightNews/images/dengluzhuce/img/logo.jpg" alt="" width="72" height="72"/>-->
-
-<!--    <h1 class="h3 mb-3 font-weight-normal" >请&emsp;注&emsp;册</h1>-->
-<!--    <label for="inputEmail" class="sr-only" >邮箱</label>-->
-<!--    <input type="email" id="inputEmail" class="form-control"  placeholder="请输入邮箱" required>-->
-
-<!--    <label id="emailWorry"></label>-->
-<!--    <label  class="sr-only" >密码</label>-->
-<!--    <input type="password" id="inputPassword" class="form-control" placeholder="密码" required>-->
-<!--    <div class="checkbox mb-3">-->
-<!--        <label>-->
-<!--            &lt;!&ndash;-->
-<!--            ：<input type="checkbox" value="remember-me"> Remember me-->
-<!--            &ndash;&gt;-->
-<!--            &lt;!&ndash;-->
-<!--                作者：offlinewhi-->
-<!--                时间：2019-06-18-->
-<!--                描述：-->
-<!--           <a href="#" class="r_float">已有账号？登陆</a> &ndash;&gt;-->
-<!--        </label>-->
-<!--    </div>-->
-<!--    <button class="btn btn-lg btn-primary btn-block"  style="width: 200px;height: auto;margin-left: 50px; " type="submit" id="btnRegister" >注册</button>-->
-<!--    <button class="btn btn-lg btn-primary btn-block" style="width: 200px;height: auto;margin-left: 50px;" type="submit" id="btnLogin" >登录</button>-->
-<!--    <p class="mt-5 mb-3 text-muted">&copy; 极速新闻网</p>-->
-<!--</form>-->
-
-<!--</body>-->
-
-<!--<script>-->
-<!--    window.onload = function(){-->
-
-<!--        /*btnCheck.onclick = function(e) {-->
-<!--                /*-->
-<!--                    如果以下表单有一个不符合，则不允许提交表单-->
-
-<!--                e = e || window.event;*/-->
-
-<!--        // 邮箱异步-->
-<!--        $('#inputEmail').on('input',function(){-->
-<!--            var imputEmail = $('#inputEmail').val();-->
-<!--            //console.log(imputEmail)-->
-<!--            //$('#emailWorry').innerHTML("<font color='red'>未找到邮箱</font>")-->
-
-<!--            $.ajax({-->
-<!--                url: "/client/getClientsByFuzzyName.do",-->
-<!--                dataType: "json",-->
-<!--                type: 'POST',-->
-<!--                data: {'imputEmail': imputEmail},-->
-<!--                success: function (data) {-->
-<!--                    if(!data){-->
-<!--                        $('#emailWorry').empty()-->
-<!--                        $('#emailWorry').innerHTML("<font size='2' color='red'>未找到邮箱</font>")-->
-<!--                    }-->
-<!--                }-->
-<!--            })-->
-
-<!--        })-->
-
-
-<!--        // 密码异步-->
-<!--        /*$('#inputPassword').on('input',function(){-->
-<!--            inputPassword = $('#inputPassword').val();-->
-<!--          console.log(inputPassword)-->
-
-<!--          $.ajax({-->
-<!--            url: "",-->
-<!--            dataType: "json",-->
-<!--            type: 'POST',-->
-<!--            data: {'inputPassword': inputPassword},-->
-<!--            success: function (data) {-->
-<!--               if(data){-->
-
-<!--               }-->
-<!--            }-->
-<!--            })-->
-
-<!--        })*/-->
-
-
-<!--        // 注册按钮-->
-<!--        $('#btnRegister').bind('click', function(){-->
-<!--            var imputEmail = $('#inputEmail').val();-->
-<!--            var inputPassword = $('#inputPassword').val();-->
-
-<!--            if(inputPassword == ""){-->
-<!--                alert('密码不能为空');-->
-<!--                return false;-->
-<!--            }else if(inputPassword.matches("^\d{6}$")) {-->
-<!--                alert('密码不能少于6位');-->
-<!--                return false;-->
-<!--            }-->
-
-<!--            if(inputEmail == ""){-->
-<!--                alert('邮箱不能为空');-->
-<!--                return false;-->
-<!--                //0-9a-zA-Z-->
-<!--            }else if(imputEmail.matches("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$")) {-->
-<!--                alert('邮箱格式不合法');-->
-<!--                return false;-->
-<!--            }-->
-
-<!--            $.ajax({-->
-<!--                url: " /client/save.do",-->
-<!--                dataType: "json",-->
-<!--                type: 'POST',-->
-<!--                data: {'imputEmail': imputEmail,-->
-<!--                    'inputPassword': inputPassword},-->
-<!--                success: function (data) {-->
-<!--                    if(data){-->
-<!--                        alrt('注册成功')-->
-<!--                    }else{-->
-<!--                        alert('注册失败')-->
-<!--                    }-->
-<!--                }-->
-<!--            })-->
-<!--        })-->
-
-<!--        // 登陆按钮-->
-<!--        $('#btnLogin').bind('click', function(){-->
-<!--            var imputEmail = $('#inputEmail').val();-->
-<!--            var inputPassword = $('#inputPassword').val();-->
-
-<!--            console.log(inputPassword)-->
-<!--            if(inputPassword == ""){-->
-<!--                alert('密码不能为空');-->
-<!--                return false;-->
-<!--            }-->
-
-<!--            if(inputEmail == ""){-->
-<!--                alert('邮箱不能为空');-->
-<!--                return false;-->
-<!--                //0-9a-zA-Z-->
-<!--            }else if(imputEmail.matches("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$")) {-->
-<!--                alert('邮箱格式不合法');-->
-<!--                return false;-->
-<!--            }-->
-
-<!--            $.ajax({-->
-<!--                url: "/client/verify.do",-->
-<!--                dataType: "json",-->
-<!--                type: 'POST',-->
-<!--                data: {'imputEmail': imputEmail,-->
-<!--                    'inputPassword': inputPassword},-->
-<!--                success: function (data) {-->
-<!--                    if(data){-->
-
-<!--                    }-->
-<!--                }-->
-<!--            })-->
-<!--        })-->
-
-
-
-<!--        /*if(inputEmail == ""){-->
-<!--            alert('邮箱不能为空');-->
-<!--            return false;-->
-<!--            //     0-9a-zA-Z-->
-<!--        }else if(!/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(inputEmail)) {-->
-<!--                alert('邮箱格式不合法');-->
-<!--                return false;-->
-
-<!--        }-->
-
-<!--        var inputPassword = document.getElementById('inputPassword').value;-->
-
-<!--        if(inputPassword == ""){-->
-<!--            alert('密码不能为空');-->
-<!--            return false;-->
-<!--        }else if(!/^\S{6,20}$/.test(inputPassword)) {-->
-<!--            alert('密码不能少于6位');-->
-<!--            return false;-->
-<!--        }*/-->
-
-<!--    }-->
-
-<!--</script>-->
-
-<!--</html>-->
-
-
-<!--//重写-->
 <!doctype html>
 <html lang="en">
 <head>
@@ -260,7 +38,7 @@
 
 </head>
 <body class="text-center">
-<form class="form-signin" method="post">
+<form class="form-signin" method="get">
     <img class="mb-4"  src="../../../LightNews/images/dengluzhuce/img/logo.jpg" alt="" width="72" height="72"/>
 
     <h1 class="h3 mb-3 font-weight-normal" >请&emsp;注&emsp;册</h1>
@@ -289,163 +67,48 @@
 
 </body>
 
-<script>
-
-    $(function () {
-        $("#btnRegister").on("click", signIn);
-    });
-    // window.onload = function(){
-
-    /*btnCheck.onclick = function(e) {
-            /*
-                如果以下表单有一个不符合，则不允许提交表单
-
-            e = e || window.event;*/
-
-    // 邮箱异步
-    // $('#username').on('input',function(){
-    //     var username = $('#username').val();
-    //     //console.log(username)
-    //     //$('#emailWorry').innerHTML("<font color='red'>未找到邮箱</font>")
-    //
-    //     $.ajax({
-    //         url: "/client/getClientsByFuzzyName.do",
-    //         dataType: "json",
-    //         type: 'POST',
-    //         data: {'username': username},
-    //         success: function (data) {
-    //             if(!data){
-    //                 $('#emailWorry').empty()
-    //                 $('#emailWorry').innerHTML("<font size='2' color='red'>未找到邮箱</font>")
-    //             }
-    //         }
-    //     })
-    //
-    // })
-
-
-    // 密码异步
-    /*$('#inputPassword').on('input',function(){
-        inputPassword = $('#inputPassword').val();
-      console.log(inputPassword)
-
-      $.ajax({
-        url: "",
-        dataType: "json",
-        type: 'POST',
-        data: {'inputPassword': inputPassword},
-        success: function (data) {
-           if(data){
-
-           }
-        }
-        })
-
-    })*/
-
-
+<script >
     // 注册按钮
-    // $('#btnRegister').bind('click', function(){
-    //     var username = $('#username').val();
-    //     var password = $('#password').val();
-    //
-    //     if(password == ""){
-    //         alert('密码不能为空');
-    //         return false;
-    //     }else if(password.matches("^\d{6}$")) {
-    //         alert('密码不能少于6位');
-    //         return false;
-    //     }
-    //     if(username == ""){
-    //         alert('邮箱不能为空');
-    //         return false;
-    //         //0-9a-zA-Z
-    //     }else if(username.matches("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$")) {
-    //         alert('邮箱格式不合法');
-    //         return false;
-    //     }
+    $('#btnRegister').bind('click', function() {
+        var username = $('#username').val();
+        var password = $('#password').val();
 
+        // console.log( $("#password").val());
+        if (password == "") {
+            alert('密码不能为空');
+            return false;
+        } else if (password.length < 6) {
+            alert('密码不能少于6位');
+            return false;
+        }
 
-    function signIn() {
+        if (username == "") {
+            alert('邮箱不能为空');
+            return false;
+            //0-9a-zA-Z
+        } else if (!/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(username)) {
+            alert('邮箱格式不合法');
+            return false;
+        }
+
         $.ajax({
             url: "/client/save.do",
             dataType: "json",
             type: 'post',
             data: {
-                'username': $("#username").val(),
-                'password': $("#password").val()
+                'username': username,
+                'password': password
             },
-            success: function (res) {
-                console.log(res);
-                if (res.state === 1) {
-                    alert('注册成功')
-                }
-                error: {
+            success:function (data) {
+                if(data.state)
+                    alert("注册成功")
+            },
+            error:function (data) {
+                if(!data.state)
                     alert("注册失败")
-                }
-            },
+            }
         });
-
-
-        // })
-
-        // 登陆按钮
-        // $('#btnLogin').bind('click', function(){
-        //     var username = $('#username').val();
-        //     var password= $('#password').val();
-        //
-        //     console.log(password)
-        //     if(password == ""){
-        //         alert('密码不能为空');
-        //         return false;
-        //     }
-        //
-        //     if(username == ""){
-        //         alert('邮箱不能为空');
-        //         return false;
-        //         //0-9a-zA-Z
-        //     }else if(username.matches("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$")) {
-        //         alert('邮箱格式不合法');
-        //         return false;
-        //     }
-
-        //     $.ajax({
-        //         url: "/client/verify.do",
-        //         dataType: "json",
-        //         type: 'POST',
-        //         data: {'username': username,
-        //             'password': password},
-        //         success: function (data) {
-        //             if(data){
-        //
-        //             }
-        //         }
-        //     })
-        // })
-        //
-
-
-        /*if(inputEmail == ""){
-            alert('邮箱不能为空');
-            return false;
-            //     0-9a-zA-Z
-        }else if(!/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(inputEmail)) {
-                alert('邮箱格式不合法');
-                return false;
-
-        }
-
-        var inputPassword = document.getElementById('inputPassword').value;
-
-        if(inputPassword == ""){
-            alert('密码不能为空');
-            return false;
-        }else if(!/^\S{6,20}$/.test(inputPassword)) {
-            alert('密码不能少于6位');
-            return false;
-        }*/
-
-    }
+    });
 
 </script>
 
