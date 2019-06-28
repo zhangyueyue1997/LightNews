@@ -453,11 +453,18 @@
             case 3:
                 NewsContentContent = "新闻";
                 break;
+            case 4:
+                NewsContentContent = "财经";
+                break;
+            case 5:
+                NewsContentContent = "旅游";
+                break;
+            case 6:
+                NewsContentContent = "时尚";
+                break;
         }
         return NewsContentContent;
     }
-
-
     function renderNewsList(SearchContainer,res) {
         var details = res.data[0];
 
@@ -505,6 +512,26 @@
     //
     //     SearchContainerBig.append(NewsTitle);
 
+    /**将数据添加到动态列表里*/
+    function renderNewsList(data) {
+        var tbody = $("#tbody");
+        tbody.empty();
+        for ( var i in data) {
+            var tr = $("<tr></tr>");
+            tr.data("id",data[i].id);
+            tr.append("<td><input type='checkbox' name='checkedId' value='"+data[i].id+"'></td>");
+            tr.append("<td>" + data[i].title + "</td>");
+            tr.append("<td>" + data[i].createdTime + "</td>");
+            tr.append("<input type='text' style='display:none' value='"+data[i].content+"'>"  );
+            tr.append("<input type='text' style='display:none' value='"+data[i].thumbNail+"'>"  );
+            tr.append("<td> <button class='btn btn-primary' onclick='showDetail(this)'>"
+                + "详情" + "</button></td>");
+            tr.append("<td> <button class='btn btn-warning'  id='changeColor' onclick=showFlag('" +data[i].id +"')>"
+
+                + "推荐" + "</button></td>");
+            tbody.append(tr);
+        }
+    }
 
 
 </script>

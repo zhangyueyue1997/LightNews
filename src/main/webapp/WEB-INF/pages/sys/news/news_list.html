@@ -146,55 +146,12 @@
         });
     }
 
-    /**根据用户名查找信息*/
-    function doQueryObject() {
-        $("#pageId").data("pageCurrent",1);
-        doFindObjectByNameType();
-    }
-    // function FindTableRow() {
-    // 	// var data = [];
-    // 	//
-    // 	// $("table tbody tr").find(":checkbox:checked").each(function () {
-    // 	// 	var val = $(this).parent("td").parent("tr").children().get();
-    // 	// 	data.push(val);
-    // 	// 	console.log(val);
-    // 	// });
-    // 	return data;
+    // /**根据用户名查找信息*/
+    // function doQueryObject() {
+    //     $("#pageId").data("pageCurrent",1);
+    //     doFindObjectByNameType();
     // }
-    // /**更新操作*/
-    // function doUpdateObject() {
-    //     var title;
-    //     if ($(this).hasClass("btn-update")) {
-    //         title = "修改文件";
-    //         var ids = getCheckedIds();
-    //         if (ids.length === 0 || ids.length > 1) {
-    //             alert("请选择一个进行修改");
-    //             return;
-    //         }
-    //
-    //     }
-    //     var colData = [];
-    //     $("tr>td input[type='checkbox']:checked").each(function () {
-    //         var td_tag = $(this).parent().siblings();
-    //         for (var i = 0; i < td_tag.length; i++) {
-    //             colData[i] = $(this).parent().siblings("td:eq(" + i + ")").text();
-    //         }
-    //     });
-    //
-    //     var data = {
-    //         id: getCheckedIds()[0],
-    //         content: colData[0],
-    //         type: colData[1],
-    //         address: colData[2],
-    //         baiduyun: colData[3],
-    //     };
-    //
-    //     console.log("data",data);
-    //     $("#Mycontent").load("data/updateUI.do", function() {
-    //         $(".box-title").html(title);
-    //         $("#Mycontent").data("data",data);
-    //     });
-    // }
+
     /**注册操作*/
     function doRegisteObject() {
         //alert("doRegisteObject");
@@ -250,7 +207,7 @@
     }
     /**从服务器端获取对象*/
     function doFindObjects() {
-        var pageCurrent = $("#pageId").data("pageCurrent");
+        var pageCurrent = $("#pageId").data("pageCurrent");//给PageId附上属性pageCurrent
         if(!pageCurrent) pageCurrent = 1;
         var params = {
             "currentPage" :pageCurrent
@@ -271,6 +228,8 @@
                     //设置分页
                     console.log(result.data);
                     setPagination(result.data);
+                    // showFlag(result.flag);
+
                 }else{
                     alert(result.message);
                 }
@@ -296,6 +255,11 @@
             tr.append("<input type='text' style='display:none' value='"+data[i].thumbNail+"'>"  );
             tr.append("<td> <button class='btn btn-primary' onclick='showDetail(this)'>"
                 + "详情" + "</button></td>");
+            var flag = data[i].flag;//0
+            console.log("***flag**"+flag+"****TITLE****"+data[i].title);
+            tr.append("<td> <button class='btn btn-warning'  id='changeColor' onclick=showFlag(this)>"
+                                                                                //onclick=showFlag('" +data[i].id +"')>
+                + "推荐" + "</button></td>");
             tbody.append(tr);
         }
     }
@@ -316,4 +280,40 @@
         });
 
     }
+        //目的:点击按钮触发此函数  将flag设为1
+        // 要在拿到对应的url后,用if...else..来执行点击时flag为1 否则为0,
+        // function showFlag(data) {
+        // console.log("changeFlag",data);
+        // if(data.state === 1){
+            //如果状态为1 说明点击后拿到了数据 此时把flag设为1 即代表推送
+            // data.flag = 1;
+            //执行点击后按钮变颜色
+             // $("#changeColor").function(){
+             //      var changeColor = $(#changeColor);
+             //      changeColor.class("btn btn-light");
+            // }
+            //
+        // $("#changeColor").css("class","btn btn-light");
+        //
+        // }
+    function showFlag(res) {
+        console.log("NewsLLLLLLL",res);
+        $.post({
+            url: "/News/setRecommendedNews.do",
+            data: {
+                id: res,
+            },
+            success: function (result){
+                if(result.state === 1) {
+                    alert("此新闻已被设为推荐");
+                    $("#changeColor").css("backgroundcolor","red");
+                    $("#changeColor").css("class", "btn btn-light");
+
+
+                    //
+                }
+             }
+        })
+    }
+
 </script>

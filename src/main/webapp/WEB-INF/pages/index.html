@@ -3571,31 +3571,31 @@
 						<ul class="m-t--12">
 							<li class="how-bor1 p-rl-5 p-tb-10">
 								<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-									时尚 (22)
+									娱乐 (22)
 								</a>
 							</li>
 
 							<li class="how-bor1 p-rl-5 p-tb-10">
 								<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-									技术 (29)
+									体育 (29)
 								</a>
 							</li>
 
 							<li class="how-bor1 p-rl-5 p-tb-10">
 								<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-									街头风格 (15)
+									新闻 (15)
 								</a>
 							</li>
 
 							<li class="how-bor1 p-rl-5 p-tb-10">
 								<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-									生活方式 (28)
+									财经 (28)
 								</a>
 							</li>
 
 							<li class="how-bor1 p-rl-5 p-tb-10">
 								<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-									DIY & 工艺品 (16)
+									时尚 (16)
 								</a>
 							</li>
 						</ul>
@@ -3705,7 +3705,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		function renderNewsContent(content,res){
 			var DownContent = res.data[3];
 
-			$("#NewsContent").text(DownContent.content);
+			$("#NewsContent").html(DownContent.content);
 			$("#NewsTime").text(DownContent.createdTime);
 		}
 		function setRecommendedNewsList() {
