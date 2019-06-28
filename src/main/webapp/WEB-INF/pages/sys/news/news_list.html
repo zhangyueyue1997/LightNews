@@ -296,12 +296,13 @@
         // $("#changeColor").css("class","btn btn-light");
         //
         // }
-    function showFlag(res) {
-        console.log("NewsLLLLLLL",res);
+    function showFlag(btn) {
+        console.log("NewsLLLLLLL",btn);
+        var id = true
         $.post({
             url: "/News/setRecommendedNews.do",
             data: {
-                id: res,
+                id: btn,
             },
             success: function (result){
                 if(result.state === 1) {
