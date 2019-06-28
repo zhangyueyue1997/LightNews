@@ -21,7 +21,7 @@
 				<span class="circular floating ui small red label"> 2 </span>
 			  </a>
 			</div>
-			<div class="ui inline labeled icon top right pointing dropdown">
+			<div class="ui inline labeled icon top right pointing dropdown" id="welcome">
 			<img class="ui avatar image" src="../../LightNews/images/user_center/avatar-default.gif">
 			欢迎，$用户名
 			<i class="dropdown icon"></i>
@@ -130,6 +130,14 @@
 <script type="text/javascript" src="../../LightNews/js/user_center/jquery.min.js"></script>
 <script type="text/javascript" src="../../LightNews/js/user_center/framework.js"></script>
 <script type="text/javascript">
+
+
+	$(function () {
+		var str = window.sessionStorage.getItem("newsObject");
+		console.log(str);
+		$("#welcome").html(str);
+
+	})
 	$('.ui.dropdown')
 	.dropdown();
 	$('.ui.basic.modal')

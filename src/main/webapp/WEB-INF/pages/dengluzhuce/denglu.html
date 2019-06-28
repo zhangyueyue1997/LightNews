@@ -56,18 +56,28 @@
            <a href="#" class="r_float">已有账号？登陆</a> -->
         </label>
     </div>
-    <button class="btn btn-lg btn-primary btn-block" style="width: 200px;height: auto;margin-left: 50px;" type="submit" id="btnRegister" >注册</button>
-    <button class="btn btn-lg btn-primary btn-block" style="width: 200px;height: auto;margin-left: 50px;" type="submit" id="btnLogin" >登录</button>
+    <button class="btn btn-lg btn-primary btn-block" style="width: 200px;height: auto;margin-left: 50px;" type="button" id="btnRegister" >注册</button>
+    <button class="btn btn-lg btn-primary btn-block" style="width: 200px;height: auto;margin-left: 50px;" type="botton" id="btnLogin" >登录</button>
     <p class="mt-5 mb-3 text-muted">&copy; 极速新闻网</p>
 </form>
 
 </body>
+<script src="../../../LightNews/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../../../LightNews/js/user_center/jquery.min.js"></script>
 
 <script>
 
-    $(function () {
-        $("#btnLogin").on("click", signUp);
-    });
+
+
+
+
+
+
+
+
+    // $(function () {
+    //     $("#btnLogin").on("click", signUp);
+    // });
     // window.onload = function(){
 
         /*btnCheck.onclick = function(e) {
@@ -158,52 +168,56 @@
         //         }
         //     })
         // })
-
+        
 
         // 登陆按钮
-         $('#btnLogin').bind('click', function() {
-             var username = $('#username').val();
-             var password = $('#password').val();
+        $(function () {
+            $('#btnLogin').bind('click', function() {
+                var username = $('#username').val();
+                var password = $('#password').val();
 
-             if (password == "") {
-                 alert('密码不能为空');
-                 return false;
-             } else if (password.length < 6) {
-                 alert('密码不能少于6位');
-                 return false;
-             }
+                if (password == "") {
+                    alert('密码不能为空');
+                    return false;
+                } else if (password.length < 6) {
+                    alert('密码不能少于6位');
+                    return false;
+                }
 
-             if (username == "") {
-                 alert('邮箱不能为空');
-                 return false;
-                 //0-9a-zA-Z
-             } else if (!/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(username)) {
-                 alert('邮箱格式不合法');
-                 return false;
-             }
-             $.ajax({
-                 url: "/client/verify.do",
-                 dataType: "json",
-                 type: 'post',
-                 data: {
-                     'username': username,
-                     'password': password
-                 },
-                 success: function (res) {
-                     if(res.state){
-                         alert('登录成功')
-                         window.location.href = "/index.do";
+                if (username == "") {
+                    alert('邮箱不能为空');
+                    return false;
+                    //0-9a-zA-Z
+                } else if (!/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(username)) {
+                    alert('邮箱格式不合法');
+                    return false;
+                }
+                $.ajax({
+                    url: "/client/verify.do",
+                    dataType: "json",
+                    type: 'post',
+                    data: {
+                        'username': $('#username').val(),
+                        'password': $('#password').val(),
+                    },
+                    success: function (res) {
+                        if(res.state == 1){
+                            alert('登录成功')
+                            window.location.href = "/index.do";
+                            //存放对象、数组
+                            window.sessionStorage.setItem("newsObject",$("#username").val());
+                        }
 
-                     }
+                    },
+                    error: function (res) {
+                        if(!res.state)
+                            alert("登录失败")
+                    }
+                });
 
-                 },
-                 error: function (res) {
-                     if(!res.state)
-                        alert("登录失败")
-                 }
-             });
+            });
+        })
 
-         });
 
 
 </script>
