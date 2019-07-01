@@ -3705,7 +3705,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		}
 
 		function renderHeadNews4(HeadNews4,res){
-			var HeadContent = res.data[7];
+			var HeadContent = res.data[2];
 
 			$("#HeadImg4").attr("src",HeadContent.thumbNail);
 			$("#HeadTitle4").text(HeadContent.title);
@@ -4065,7 +4065,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		}
 
 		function renderSeparatedBigCol(bigCol,res) {
-			var bigColContent = res.data[7];
+			var bigColContent = res.data[5];
 			// var bigColContainer = $("<div class='m-b-30'></div>");
 			//
 			// var imgA = $("<a class='wrap-pic-w hov1 trans-03'></a>");
@@ -4087,51 +4087,26 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			// var newsProfileContainer = $("<span class='cl8'></span>");
 			//
 
-			console.log(bigColContent.thumbNail);
-			console.log($("#SeparatedBigColImg"));
 			$("#SeparatedBigColImg").attr("src",bigColContent.thumbNail);
-			console.log($("#SeparatedBigColImg"));
 			//标题
-
-			console.log(bigColContent.title);
-			console.log($("#SeparatedBigColTitle"));
 			$("#SeparatedBigColTitle").text(bigColContent.title);
-			console.log($("#SeparatedBigColTitle"));
 			//时间
-			console.log(bigColContent.createdTime);
-			console.log($("#SeparatedBigColTime"));
 			$("#SeparatedBigColTime").text(bigColContent.createdTime);
-			console.log($("#SeparatedBigColTime"));
 
 			//再写一个类别,Type
-			console.log(bigColContent.type);
-			console.log($("#SeparatedBigColType"));
 			$("#SeparatedBigColType").text(selType(bigColContent.type));
-			console.log($("#SeparatedBigColType"));
 
 			//celebrity左
 
-			console.log(bigColContent.thumbNail);
-			console.log($("#BigColMusicImg"));
 			$("#BigColMusicImg").attr("src",bigColContent.thumbNail);
-			console.log($("#BigColMusicImg"));
 			//标题
 
-			console.log(bigColContent.title);
-			console.log($("#BigColMusicTitle"));
 			$("#BigColMusicTitle").text(bigColContent.title);
-			console.log($("#BigColMusicTitle"));
 			//时间
-			console.log(bigColContent.createdTime);
-			console.log($("#BigColMusicTime"));
 			$("#BigColMusicTime").text(bigColContent.createdTime);
-			console.log($("#BigColMusicTime"));
 
 			//type
-			console.log(bigColContent.type);
-			console.log($("#BigColMusicType"));
 			$("#BigColMusicType").text(selType(bigColContent.type));
-			console.log($("#BigColMusicType"));
 
 
 

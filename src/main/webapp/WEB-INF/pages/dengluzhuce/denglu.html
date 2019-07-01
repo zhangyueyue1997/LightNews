@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="../../../LightNews/css/dengluzhuce/signin.css">
 </head>
 <body class="text-center">
-<form class="form-signin" method="post">
+<div class="form-signin">
     <img class="mb-4" src="../../../LightNews/images/dengluzhuce/img/logo.jpg" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">请&emsp;登&emsp;录</h1>
     <label  class="sr-only" >邮箱</label>
@@ -57,9 +57,9 @@
         </label>
     </div>
     <button onclick="window.location.href='http://localhost:8080/userRegister.do'" class="btn btn-lg btn-primary btn-block" style="width: 200px;height: auto;margin-left: 50px;" type="button" id="btnRegister" >注册</button>
-    <button class="btn btn-lg btn-primary btn-block" style="width: 200px;height: auto;margin-left: 50px;" type="botton" id="btnLogin" >登录</button>
+    <button class="btn btn-lg btn-primary btn-block" style="width: 200px;height: auto;margin-left: 50px;" type="button" id="btnLogin" >登录</button>
     <p class="mt-5 mb-3 text-muted">&copy; 极速新闻网</p>
-</form>
+</div>
 
 </body>
 <script src="../../../LightNews/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -80,151 +80,154 @@
     // });
     // window.onload = function(){
 
-        /*btnCheck.onclick = function(e) {
-                /*
-                    如果以下表单有一个不符合，则不允许提交表单
+    /*btnCheck.onclick = function(e) {
+            /*
+                如果以下表单有一个不符合，则不允许提交表单
 
-                e = e || window.event;*/
+            e = e || window.event;*/
 
-        // 邮箱异步
-        // $('#username').on('input',function(){
-        //     var username = $('#username').val();
-        //     //console.log(username)
-        //     //$('#emailWorry').innerHTML("<font color='red'>未找到邮箱</font>")
-        //
-        //     $.ajax({
-        //         url: "/client/getClientsByFuzzyName.do",
-        //         dataType: "json",
-        //         type: 'POST',
-        //         data: {'username': username},
-        //         success: function (data) {
-        //             if(!data){
-        //                 $('#emailWorry').empty()
-        //                 $('#emailWorry').innerHTML("<font size='2' color='red'>未找到邮箱</font>")
-        //             }
-        //         }
-        //     })
-        //
-        // })
-
-
-        // 密码异步
-        /*$('#inputPassword').on('input',function(){
-            inputPassword = $('#inputPassword').val();
-          console.log(inputPassword)
-
-          $.ajax({
-            url: "",
-            dataType: "json",
-            type: 'POST',
-            data: {'inputPassword': inputPassword},
-            success: function (data) {
-               if(data){
-
-               }
-            }
-            })
-
-        })*/
+    // 邮箱异步
+    // $('#username').on('input',function(){
+    //     var username = $('#username').val();
+    //     //console.log(username)
+    //     //$('#emailWorry').innerHTML("<font color='red'>未找到邮箱</font>")
+    //
+    //     $.ajax({
+    //         url: "/client/getClientsByFuzzyName.do",
+    //         dataType: "json",
+    //         type: 'POST',
+    //         data: {'username': username},
+    //         success: function (data) {
+    //             if(!data){
+    //                 $('#emailWorry').empty()
+    //                 $('#emailWorry').innerHTML("<font size='2' color='red'>未找到邮箱</font>")
+    //             }
+    //         }
+    //     })
+    //
+    // })
 
 
-        // 注册按钮
-        // $('#btnRegister').bind('click', function(){
-        //     var username = $('#username').val();
-        //     var password = $('#password').val();
-        //
-        //     if(password == ""){
-        //         alert('密码不能为空');
-        //         return false;
-        //     }else if(password.matches("^\d{6}$")) {
-        //         alert('密码不能少于6位');
-        //         return false;
-        //     }
-        //
-        //     if(username == ""){
-        //         alert('邮箱不能为空');
-        //         return false;
-        //         //0-9a-zA-Z
-        //     }else if(username.matches("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$")) {
-        //         alert('邮箱格式不合法');
-        //         return false;
-        //     }
-        //
-        //
-        //     $.ajax({
-        //         url: "/client/save.do",
-        //         dataType: "json",
-        //         type: 'POST',
-        //         data: {
-        //             'username': username,
-        //             'password': password
-        //                },
-        //         success: function (data) {
-        //             if(data){
-        //                 alert('注册成功');
-        //             }else{
-        //                 alert('注册失败');
-        //             }
-        //         }
-        //     })
-        // })
-        
+    // 密码异步
+    /*$('#inputPassword').on('input',function(){
+        inputPassword = $('#inputPassword').val();
+      console.log(inputPassword)
 
-        // 登陆按钮
-        $(function () {
-            $('#btnLogin').bind('click', function() {
-                var username = $('#username').val();
-                var password = $('#password').val();
+      $.ajax({
+        url: "",
+        dataType: "json",
+        type: 'POST',
+        data: {'inputPassword': inputPassword},
+        success: function (data) {
+           if(data){
 
-                if (password == "") {
-                    alert('密码不能为空');
-                    return false;
-                } else if (password.length < 6) {
-                    alert('密码不能少于6位');
-                    return false;
-                }
-
-                if (username == "") {
-                    alert('邮箱不能为空');
-                    return false;
-                    //0-9a-zA-Z
-                } else if (!/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(username)) {
-                    alert('邮箱格式不合法');
-                    return false;
-                }
-                $.ajax({
-                    url: "/client/verify.do",
-                    dataType: "json",
-                    type: 'post',
-                    data: {
-                        'username': $('#username').val(),
-                        'password': $('#password').val(),
-                    },
-
-                    success: function (res) {
-
-                        if(res.state == 1){
-                            alert('登录成功')
-                            window.location.href = "http://localhost:8080/index.do";
-
-                            //存放对象、数组
-                            window.sessionStorage.setItem("newsObject",$("#username").val());
-                        }
-
-                    },
-                    error: function (res) {
-                        //console.log(res.state );
-                        if(!res.state)
-                            alert("登录失败")
-                    }
-                });
-
-            });
+           }
+        }
         })
+
+    })*/
+
+
+    // 注册按钮
+    // $('#btnRegister').bind('click', function(){
+    //     var username = $('#username').val();
+    //     var password = $('#password').val();
+    //
+    //     if(password == ""){
+    //         alert('密码不能为空');
+    //         return false;
+    //     }else if(password.matches("^\d{6}$")) {
+    //         alert('密码不能少于6位');
+    //         return false;
+    //     }
+    //
+    //     if(username == ""){
+    //         alert('邮箱不能为空');
+    //         return false;
+    //         //0-9a-zA-Z
+    //     }else if(username.matches("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$")) {
+    //         alert('邮箱格式不合法');
+    //         return false;
+    //     }
+    //
+    //
+    //     $.ajax({
+    //         url: "/client/save.do",
+    //         dataType: "json",
+    //         type: 'POST',
+    //         data: {
+    //             'username': username,
+    //             'password': password
+    //                },
+    //         success: function (data) {
+    //             if(data){
+    //                 alert('注册成功');
+    //             }else{
+    //                 alert('注册失败');
+    //             }
+    //         }
+    //     })
+    // })
+
+
+    // 登陆按钮
+    $(function () {
+        $('#btnLogin').bind('click', function() {
+            var username = $('#username').val();
+            var password = $('#password').val();
+
+            if (password == "") {
+                alert('密码不能为空');
+                return false;
+            } else if (password.length < 6) {
+                alert('密码不能少于6位');
+                return false;
+            }
+
+            if (username == "") {
+                alert('邮箱不能为空');
+                return false;
+                //0-9a-zA-Z
+            } else if (!/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(username)) {
+                alert('邮箱格式不合法');
+                return false;
+            }
+            $.ajax({
+                url: "/client/verify.do",
+                dataType: "json",
+                type: 'post',
+                data: {
+                    'username': $('#username').val(),
+                    'password': $('#password').val(),
+                },
+
+                success: function (res) {
+                    if(res.state == 1){
+                        alert('登录成功')
+                        window.location.href = "http://localhost:8080/index.do";
+
+                        //存放对象、数组
+                        window.sessionStorage.setItem("newsObject",$("#username").val());
+                    } else {
+                        alert("用户名或密码输入错误");
+                    }
+
+                },
+                error: function (res) {
+                    //console.log(res.state );
+                    if(!res.state)
+                        alert("登录失败")
+                }
+            });
+
+        });
+    })
 
 
 
 </script>
 
 </html>
+
+
 

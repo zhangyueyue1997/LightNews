@@ -38,11 +38,11 @@
 
 </head>
 <body class="text-center">
-<form class="form-signin" method="get">
+<div class="form-signin">
     <img class="mb-4"  src="../../../LightNews/images/dengluzhuce/img/logo.jpg" alt="" width="72" height="72"/>
 
     <h1 class="h3 mb-3 font-weight-normal" >请&emsp;注&emsp;册</h1>
-    <label for="inputEmail" class="sr-only" >邮箱</label>
+    <label for="username" class="sr-only" >邮箱</label>
     <input type="email" id="username" class="form-control"  placeholder="请输入邮箱" required>
 
     <label id="emailWorry"></label>
@@ -60,16 +60,16 @@
            <a href="#" class="r_float">已有账号？登陆</a> -->
         </label>
     </div>
-    <button class="btn btn-lg btn-primary btn-block"  style="width: 200px;height: auto;margin-left: 50px; " type="submit" id="btnRegister" >注册</button>
+    <button class="btn btn-lg btn-primary btn-block"  style="width: 200px;height: auto;margin-left: 50px; " id="btnRegister" >注册</button>
     <button onclick="window.location.href='http://localhost:8080/userLogin.do'" class="btn btn-lg btn-primary btn-block" style="width: 200px;height: auto;margin-left: 50px;" type="submit" id="btnLogin" >登录</button>
     <p class="mt-5 mb-3 text-muted" style="color: white">&copy; 极速新闻网</p>
-</form>
+</div>
 
 </body>
 
 <script >
     // 注册按钮
-    $('#btnRegister').bind('click', function() {
+    $('#btnRegister').on('click', function() {
         var username = $('#username').val();
         var password = $('#password').val();
 
@@ -94,25 +94,25 @@
         $.ajax({
             url: "/client/save.do",
             dataType: "json",
-            type: 'post',
+            method: 'post',
             data: {
                 'username': username,
                 'password': password
             },
-            success:function (data) {
-                if (data.state == 1) {
-                    console.log(data);
+            success:function (res) {
+                if (res.state == 1) {
+                    console.log(res);
                     alert("注册成功");
                     // window.location.href = "http://localhost:8080/index.do";
 
                 }
 
             },
-                error: function (data) {
-                    //console.log(res.state );
-                    if(!data.state)
-                        alert("注册失败")
-                }
+            error: function (data) {
+                //console.log(res.state );
+                if(!data.state)
+                    alert("注册失败")
+            }
 
         });
     });
