@@ -100,13 +100,20 @@
                 'password': password
             },
             success:function (data) {
-                if(data.state)
-                    alert("注册成功")
+                if (data.state == 1) {
+                    console.log(data);
+                    alert("注册成功");
+                    // window.location.href = "http://localhost:8080/index.do";
+
+                }
+
             },
-            error:function (data) {
-                if(!data.state)
-                    alert("注册失败")
-            }
+                error: function (data) {
+                    //console.log(res.state );
+                    if(!data.state)
+                        alert("注册失败")
+                }
+
         });
     });
 
