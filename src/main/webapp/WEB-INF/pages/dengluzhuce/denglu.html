@@ -200,16 +200,20 @@
                         'username': $('#username').val(),
                         'password': $('#password').val(),
                     },
+
                     success: function (res) {
+
                         if(res.state == 1){
                             alert('登录成功')
-                            window.location.href = "/index.do";
+                            window.location.href = "http://localhost:8080/index.do";
+
                             //存放对象、数组
                             window.sessionStorage.setItem("newsObject",$("#username").val());
                         }
 
                     },
                     error: function (res) {
+                        //console.log(res.state );
                         if(!res.state)
                             alert("登录失败")
                     }
