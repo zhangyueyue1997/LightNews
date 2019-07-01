@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <title>Blog List Sidebar v1</title>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="../../LightNews/images/icons/favicon.png"/>
@@ -116,7 +116,7 @@
                     <div class="m-t--40 p-b-40" id="SearchContainerBig">
                         <!-- Item post -->
                         <div class="flex-wr-sb-s p-t-40 p-b-15 how-bor2" id="SearchContainer">
-                            <a href="blog-detail-02.html" class="size-w-8 wrap-pic-w hov1 trans-03 w-full-sr575 m-b-25">
+                            <a href="/News/showNewsDetail.do?id=" + res.data[3].id  class="size-w-8 wrap-pic-w hov1 trans-03 w-full-sr575 m-b-25">
                                 <img src="images/post-43.jpg" alt="IMG" id="NewsImg">
                             </a>
 
@@ -417,19 +417,22 @@
 
 
 <script>
-    function GetQueryString(name)
-    {
-        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);//search,查询？后面的参数，并匹配正则
-        if(r!=null)return  unescape(r[2]); return null;
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)
+            return decodeURIComponent(r[2]);
+        return null;
     }
 
+    var title = getQueryString("title");
+    console.log("title",title);
     $(function () {
         $.ajax({
             url:"/News/getNewsListByFuzzyName.do", //请求新闻列表页
             type:"get",
             data: {
-                title:GetQueryString("title"),
+                title:title,
             },
             success:function (res) {
                 if (res.state == 1) {

@@ -7,11 +7,11 @@
 
                 <div class="box-tools">
                     <div class="input-group input-group-sm" style="width: 350px;">
-                        <input type="text" name="table_search" id="serchNameId"
-                               class="form-control pull-right" placeholder="客户名称查询">
+                        <!--                        <input type="text" name="table_search" id="serchNameId"-->
+                        <!--                               class="form-control pull-right" placeholder="客户名称查询">-->
                         <div class="input-group-btn">
-                            <button type="button" class="btn btn-default btn-search">
-                                <i class="fa fa-search"></i>
+                            <!--                            <button type="button" class="btn btn-default btn-search" id="btn">-->
+                            <!--                                <i class="fa fa-search"></i>-->
                             </button>
                         </div>
                     </div>
@@ -22,12 +22,12 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-<!--                        <th>选择</th>-->
+                        <th>序号</th>
                         <th>客户名称</th>
-                        <th>积分</th>
-                        <th>推荐人</th>
-<!--                        <th>创建人</th>-->
-                        <th>创建时间</th>
+                        <th>密码</th>
+                        <!--                        <th>推荐人</th>-->
+                        <!--                        <th>创建人</th>-->
+                        <!--                        <th>创建时间</th>-->
                     </tr>
                     </thead>
                     <tbody id="tbody">
@@ -49,9 +49,11 @@
     </div>
 </div>
 
+<script>
 
 
-<script type="text/javascript">
+    //下面是tfoot先不管
+
     $(function() {
         doFindObjects();
         $(".input-group-btn").on("click", ".btn-delete", doDeleteObject);
@@ -95,9 +97,9 @@
         $("#pageId").data("pageCurrent",1);
         doFindObjects();
     }
-    
 
-    
+
+
 
     /**角色的删除操作*/
     function doDeleteObject() {
@@ -132,7 +134,7 @@
         });
 
         return checkedIds;
-    }
+    };
     //
     // function getCheckedRow() {
     //     var rows = [];
@@ -145,48 +147,110 @@
     //     return rows;
     // }
 
+    // /**从服务器端获取对象*/
+    // function doFindObjects() {
+    //     var pageCurrent = $("#pageId").data("pageCurrent");
+    //     if(!pageCurrent) pageCurrent = 1;
+    //     var params = {
+    //         "pageCurrent" :pageCurrent
+    //     };
+    //     params.nickName = $("#tbody").val();
+    //     var url = "/client/getClientByPages.do";
+    //     params.name = $("#tbody").val();
+    //     console.log(params);
+    //     $.get(url, params, function(result) {
+    //         if(result.state === 1){
+    //             //显示数据
+    //             doSetTableBody(result.data.records);
+    //             //设置分页
+    //             setPagination(result.data);
+    //         }else{
+    //             alert(result.message);
+    //         }
+    //     },json);
+    // }
+
     /**从服务器端获取对象*/
     function doFindObjects() {
         var pageCurrent = $("#pageId").data("pageCurrent");
         if(!pageCurrent) pageCurrent = 1;
         var params = {
             "pageCurrent" :pageCurrent
-        };
-        params.nickName = $("#serchNameId").val();
-        var url = "showWxUser.do";
-        // params.name = $("#serchNameId").val();
-        console.log(params);
-        $.getJSON(url, params, function(result) {
-            if(result.state === 1){
-                //显示数据
-                doSetTableBody(result.data.records);
-                //设置分页
-                setPagination(result.data);
-            }else{
-                alert(result.message);
+        }
+
+        params.username = $("#tbody").val();
+        // params.name = $("#tbody").val();
+        console.log( params);
+        $.ajax({
+            url: "/client/getClientsByPages.do",
+            // params:"",
+            method: "GET",
+            data: {
+                pageCurrent:1,
+            },
+            dataType: "json",
+            success: function (result){
+                if(result.state === 1){
+                    //显示数据
+                    doSetTableBody(result.data.records);
+                    //设置分页
+                    setPagination(result.data);
+                }else{
+                    alert(result.message);
+                }
             }
         });
     }
 
+
+    // $(function () {
+    //     $.ajax({
+    //         url: "/client/getClientByPages.do",
+    //         method: "GET",
+    //         data: {
+    //             pageCount:1,
+    //         },
+    //         dataType: "json",
+    //         success: function (res) {
+    //             console.log(res);
+    //             //拿到父元素
+    //             // var data = $("#tbody")
+    //             //传入父元素和res json数据结果集
+    //             doSetTableBody(data);
+    //             console.log(res.data[0]);
+    //
+    //
+    //
+    //         }
+    // })
+    //
+    // })
+    //
+    //
     /**将数据添加到动态表格里*/
     function doSetTableBody(data) {
         var tbody = $("#tbody");
         tbody.empty();
+        console.log(data);
         for ( var i in data) {
             var tr = $("<tr></tr>");
+            tr.append("<td>" + data[i].id + "</td>");
             // tr.append("<td><input type='checkbox' name='checkedId' value='"+data[i].openid+"'></td>");
-            tr.append("<td>" + data[i].nickName + "</td>");
-            tr.append("<td>" + data[i].integral + "</td>");
+            tr.append("<td>" + data[i].username + "</td>");
+            tr.append("<td>" + data[i].password + "</td>");
             console.log(data[i].referrer);
-            if(data[i].referrer === "null" || data[i].referrer === null || data[i].referrer === ""){
-                tr.append("<td>暂无</td>");
-            }else {
-                tr.append("<td>" + data[i].referrer + "</td>");
-
-            }
-            // tr.append("<td>" + data[i].createdUser + "</td>");
-            tr.append("<td>" + data[i].createdTime + "</td>");
+            // if(data[i].referrer === "null" || data[i].referrer === null || data[i].referrer === ""){
+            //     tr.append("<td>暂无</td>");
+            // }else {
+            //     tr.append("<td>" + data[i].referrer + "</td>");
+            //
+            // }
+            //
+            // // tr.append("<td>" + data[i].createdUser + "</td>");
+            // // tr.append("<td>" + data[i].createdTime + "</td>");
             tbody.append(tr);
         }
     }
+
+
 </script>

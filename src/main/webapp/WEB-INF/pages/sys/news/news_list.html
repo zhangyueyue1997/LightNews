@@ -255,10 +255,10 @@
             tr.append("<input type='text' style='display:none' value='"+data[i].thumbNail+"'>"  );
             tr.append("<td> <button class='btn btn-primary' onclick='showDetail(this)'>"
                 + "详情" + "</button></td>");
-            var flag = data[i].flag;//0
-            console.log("***flag**"+flag+"****TITLE****"+data[i].title);
-            tr.append("<td> <button class='btn btn-warning'  id='changeColor' onclick=showFlag(this)>"
-                                                                                //onclick=showFlag('" +data[i].id +"')>
+            // var flag = data[i].flag;//0
+            // console.log("***flag**"+flag+"****TITLE****"+data[i].title);
+            tr.append("<td> <button class='btn btn-warning' onclick=showFlag(this)>"
+                                                                //onclick=showFlag('" +data[i].id +"')>
                 + "推荐" + "</button></td>");
             tbody.append(tr);
         }
@@ -280,41 +280,44 @@
         });
 
     }
-        //目的:点击按钮触发此函数  将flag设为1
-        // 要在拿到对应的url后,用if...else..来执行点击时flag为1 否则为0,
-        // function showFlag(data) {
-        // console.log("changeFlag",data);
-        // if(data.state === 1){
-            //如果状态为1 说明点击后拿到了数据 此时把flag设为1 即代表推送
-            // data.flag = 1;
-            //执行点击后按钮变颜色
-             // $("#changeColor").function(){
-             //      var changeColor = $(#changeColor);
-             //      changeColor.class("btn btn-light");
-            // }
-            //
-        // $("#changeColor").css("class","btn btn-light");
-        //
-        // }
+
     function showFlag(btn) {
-        console.log("NewsLLLLLLL",btn);
-        var id = true
+        var id = $(btn).parent().parent().data("id");
+        var tr = $(btn).parent("td").parent("tr")[0];
+        console.log("trtrr",tr); //可以打印出来数据
         $.post({
             url: "/News/setRecommendedNews.do",
             data: {
-                id: btn,
+                id: id,
             },
             success: function (result){
                 if(result.state === 1) {
                     alert("此新闻已被设为推荐");
-                    $("#changeColor").css("backgroundcolor","red");
-                    $("#changeColor").css("class", "btn btn-light");
-
-
-                    //
+                    // $("#changeColor").css("backgroundcolor","red");
+                    // $("#changeColor").css("class", "btn btn-light");
+                    // this.css("class","btn btn-danger");
+                     $(btn).addClass("btn btn-danger");
+                     console.log("button",$(btn));
                 }
              }
         })
     }
+
+    //目的:点击按钮触发此函数  将flag设为1
+    // 要在拿到对应的url后,用if...else..来执行点击时flag为1 否则为0,
+    // function showFlag(data) {
+    // console.log("changeFlag",data);
+    // if(data.state === 1){
+    //如果状态为1 说明点击后拿到了数据 此时把flag设为1 即代表推送
+    // data.flag = 1;
+    //执行点击后按钮变颜色
+    // $("#changeColor").function(){
+    //      var changeColor = $(#changeColor);
+    //      changeColor.class("btn btn-light");
+    // }
+    //
+    // $("#changeColor").css("class","btn btn-light");
+    //
+    // }
 
 </script>

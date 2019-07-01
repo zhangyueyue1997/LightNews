@@ -222,6 +222,8 @@ public class UserController {
 	public String payTurn() { return "orderCallBack"; }
 
 	@RequestMapping(value = "searchNews")
-	public String searchNews(@RequestParam("title")String title) { return "search_news"; }
+	public String searchNews(@RequestParam("title")String title) {
+		return "search_news";
+	}
 
 }
