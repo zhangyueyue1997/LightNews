@@ -264,7 +264,7 @@
                 tr.append("<td> <button class='btn btn-danger' onclick=showFlag(this)>"
                     + "取消推荐" + "</button></td>");
             } else {
-                tr.append("<td> <button class='btn btn-warning' onclick=showFlag(this)>"
+                tr.append("<td> <button class='btn btn-success' onclick=showFlag(this)>"
                     + "设为推荐" + "</button></td>");
             }
             tbody.append(tr);
@@ -310,7 +310,7 @@
                      //如果当前按钮是danger
                      if (btnClass === "btn btn-danger") {
                          //将新class作为warning
-                         newClass = "btn btn-warning";
+                         newClass = "btn btn-success";
                          //将按钮的显示文本改成设为推荐
                          $(btn).text("设为推荐");
                          //将当前推荐新闻计数加一
