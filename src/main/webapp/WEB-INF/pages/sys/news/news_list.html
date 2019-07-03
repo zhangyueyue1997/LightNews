@@ -76,13 +76,14 @@
 </div>
 
 <script type="text/javascript">
+    var recommendedNewsCount = 0;
     $(function() {
         doFindObjects();
         $(".input-group-btn").on("click", ".btn-delete", doDeleteObject);
         $(".input-group-btn").on("click", ".btn-register",doRegisteObject);
         // $(".input-group-btn").on("click", ".btn-update",doUpdateObject);
-        $(".input-group-btn").on("click", ".btn-search", doQueryObject);
         $(".clearfix").on("click", ".first,.pre,.next,.last", doJumpToPage);
+        getRecommendedNewsCount();
     });
 
     function setPagination(pageObject) {
@@ -93,7 +94,11 @@
         $("#pageId").data("pageCurrent", pageObject.pageCurrent);
         $("#pageId").data("pageCount", pageObject.pageCount);
     }
-
+    function getRecommendedNewsCount() {
+        $.get("/News/getRecommendedNewsCount.do",function (res) {
+            recommendedNewsCount = res.data;
+        })
+    }
     /**分页页面跳转*/
     function doJumpToPage() {
         var pageCurrent = $("#pageId").data("pageCurrent");
@@ -255,11 +260,13 @@
             tr.append("<input type='text' style='display:none' value='"+data[i].thumbNail+"'>"  );
             tr.append("<td> <button class='btn btn-primary' onclick='showDetail(this)'>"
                 + "详情" + "</button></td>");
-            // var flag = data[i].flag;//0
-            // console.log("***flag**"+flag+"****TITLE****"+data[i].title);
-            tr.append("<td> <button class='btn btn-warning' onclick=showFlag(this)>"
-                                                                //onclick=showFlag('" +data[i].id +"')>
-                + "推荐" + "</button></td>");
+            if (data[i].flag === 1) {
+                tr.append("<td> <button class='btn btn-danger' onclick=showFlag(this)>"
+                    + "取消推荐" + "</button></td>");
+            } else {
+                tr.append("<td> <button class='btn btn-warning' onclick=showFlag(this)>"
+                    + "设为推荐" + "</button></td>");
+            }
             tbody.append(tr);
         }
     }
@@ -282,22 +289,43 @@
     }
 
     function showFlag(btn) {
+        console.log("fuck",recommendedNewsCount);
+        //如果推荐新闻已经为4条,并且判断用户即将要将一天新的新闻设为推荐的时候
+        if (recommendedNewsCount === 4 && $(btn).text() === "设为推荐")  {
+            alert("推荐新闻不能大于4条");
+            return;
+        }
         var id = $(btn).parent().parent().data("id");
-        var tr = $(btn).parent("td").parent("tr")[0];
-        console.log("trtrr",tr); //可以打印出来数据
         $.post({
             url: "/News/setRecommendedNews.do",
             data: {
-                id: id,
+                id: id
             },
             success: function (result){
                 if(result.state === 1) {
-                    alert("此新闻已被设为推荐");
-                    // $("#changeColor").css("backgroundcolor","red");
-                    // $("#changeColor").css("class", "btn btn-light");
-                    // this.css("class","btn btn-danger");
-                     $(btn).addClass("btn btn-danger");
-                     console.log("button",$(btn));
+                    //取得当前按钮的class
+                     var btnClass = $(btn).attr("class");
+                    //声明一个暂时用于根据btn当前类所替换的新class
+                     var newClass;
+                     //如果当前按钮是danger
+                     if (btnClass === "btn btn-danger") {
+                         //将新class作为warning
+                         newClass = "btn btn-warning";
+                         //将按钮的显示文本改成设为推荐
+                         $(btn).text("设为推荐");
+                         //将当前推荐新闻计数加一
+                         recommendedNewsCount++;
+                     }  else {
+                         //否则,相反
+                         newClass = "btn btn-danger";
+                         $(btn).text("取消推荐");
+                         //将当前推荐新闻计数加一
+                         if (recommendedNewsCount > 0) {
+                             recommendedNewsCount--;
+                         }
+                     }
+                     //最后,经过if处理,将新class作为btn的class
+                     $(btn).attr("class",newClass);
                 }
              }
         })

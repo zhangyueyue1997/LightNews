@@ -193,12 +193,18 @@ public class NewsController {
     }
 
 
-        @RequestMapping(value = "getNewsListByFuzzyName")
+    @RequestMapping(value = "getNewsListByFuzzyName")
     @ResponseBody
     public JsonResult getNewsListByFuzzyName(@RequestParam("title") String title) {
         News entity = new News();
         entity.setTitle(title);
         List<News> resultList = newsService.selectNewsByFuzzyName(entity);
         return new JsonResult(1,resultList);
+    }
+
+    @RequestMapping("getRecommendedNewsCount")
+    @ResponseBody
+    public JsonResult getRecommendedNewsCount() {
+        return new JsonResult(1,newsService.getRecommendedNewsCount());
     }
 }

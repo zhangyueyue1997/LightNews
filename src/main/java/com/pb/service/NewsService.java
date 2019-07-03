@@ -22,4 +22,5 @@ public interface NewsService {
     List<News> selectNewsInCount(Integer type,Integer count,Integer flag);
     int updateNewsFlag(Integer id);
     List<News> selectNewsByFuzzyName(News news);
+    int getRecommendedNewsCount();
 }

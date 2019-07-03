@@ -80,6 +80,8 @@ public class NewsServiceImpl implements NewsService {
         return newsDao.selectNewsListByFuzzyName(news.getTitle());
     }
 
-
-
+    @Override
+    public int getRecommendedNewsCount() {
+        return newsDao.getRecommendedNewsCount();
+    }
 }

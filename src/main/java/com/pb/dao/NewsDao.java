@@ -20,6 +20,9 @@ public interface NewsDao {
     /**根据id查询新闻详情*/
     News selectNewsById(@Param("id") int id);
 
+    /** 查询推荐新闻条数 */
+    int getRecommendedNewsCount();
+
     /***
      * 根据新闻类型/标记为首页推荐新闻查询指定条数的结果集
      * @param type 新闻类型
