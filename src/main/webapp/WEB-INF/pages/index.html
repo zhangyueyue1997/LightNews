@@ -2252,15 +2252,15 @@
 								<!-- Nav tabs -->
 								<ul class="nav nav-tabs" role="tablist">
 									<li class="nav-item">
-										<a class="nav-link active" data-toggle="tab" href="#tab1-1" role="tab">音乐</a>
+										<a class="nav-link active" data-toggle="tab" href="#tab1-1" role="tab">八卦</a>
 									</li>
 
 									<li class="nav-item">
-										<a class="nav-link" data-toggle="tab" href="#tab1-2" role="tab">游戏</a>
+										<a class="nav-link" data-toggle="tab" href="#tab1-2" role="tab">影视</a>
 									</li>
 
 									<li class="nav-item">
-										<a class="nav-link" data-toggle="tab" href="#tab1-3" role="tab">影视</a>
+										<a class="nav-link" data-toggle="tab" href="#tab1-3" role="tab">休闲</a>
 									</li>
 
 <!--									<li class="nav-item">-->
@@ -3594,7 +3594,7 @@
 			 url: "/News/selectNewsInCount.do",
 					method: "GET",
 					data: {
-			 			count:50,
+			 			count:10,
 					},
 				dataType: "json",
 				success: function (res){
@@ -3605,7 +3605,7 @@
 		}
 
 		function renderDownNews(BigContainer,res){
-			var DownContent = res.data[26];
+			var DownContent = res.data[6];
 
 			$("#DownImg").attr("src",DownContent.thumbNail);
 			console.log(DownContent.thumbNail);
@@ -3614,14 +3614,14 @@
 			var linkd1 = $("#HeadLinkd1");
 			linkd1.attr('href',"/News/showNewsDetail.do?id=" + DownContent.id);
 
-			var DownContentt = res.data[27];
+			var DownContentt = res.data[7];
 			$("#DownImgT").attr("src",DownContentt.thumbNail);
 			$("#DownTitleT").text(DownContentt.title);
 			$("#DownTimeT").text(DownContentt.createdTime);
 			var linkd2 = $("#HeadLinkd2");
 			linkd2.attr('href',"/News/showNewsDetail.do?id=" + DownContentt.id);
 
-			var DownContenttt = res.data[28];
+			var DownContenttt = res.data[2];
 			$("#DownImgS").attr("src",DownContenttt.thumbNail);
 			$("#DownTitleS").text(DownContenttt.title);
 			$("#DownTimeS").text(DownContenttt.createdTime);
